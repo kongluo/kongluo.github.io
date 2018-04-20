@@ -4,14 +4,28 @@
   <url>
     <loc>http://yoursite.com/2018/04/20/first-one/</loc>
     
-    <lastmod>2018-04-20T16:58:23.364Z</lastmod>
+    <lastmod>2018-04-20T19:07:28.071Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
+    
+    <lastmod>2018-04-20T19:03:24.611Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/21/myFirstPageForTag/</loc>
+    
+    <lastmod>2018-04-20T18:57:10.775Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2018/04/20/scala/</loc>
     
-    <lastmod>2018-04-20T14:59:46.093Z</lastmod>
+    <lastmod>2018-04-20T18:56:53.931Z</lastmod>
     
   </url>
   
@@ -19,13 +33,6 @@
     <loc>http://yoursite.com/link/index.html</loc>
     
     <lastmod>2018-04-20T09:43:51.638Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
-    
-    <lastmod>2018-04-20T08:25:32.896Z</lastmod>
     
   </url>
   

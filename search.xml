@@ -3,11 +3,38 @@
   
     
     <entry>
+      <title>myFirstPageForTag</title>
+      <link href="/2018/04/21/myFirstPageForTag/"/>
+      <url>/2018/04/21/myFirstPageForTag/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> Scala </tag>
+            
+            <tag> HDFS </tag>
+            
+            <tag> Spark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>scala编程详解</title>
       <link href="/2018/04/20/scala/"/>
       <url>/2018/04/20/scala/</url>
       <content type="html"><![CDATA[]]></content>
       
+      
+        <tags>
+            
+            <tag> scala </tag>
+            
+        </tags>
       
     </entry>
     
@@ -15,7 +42,7 @@
       <title>我的第一篇博客</title>
       <link href="/2018/04/20/first-one/"/>
       <url>/2018/04/20/first-one/</url>
-      <content type="html"><![CDATA[<pre><code>&lt;font color=gray size=10&gt;感想&lt;/font&gt;    </code></pre><p><i class="icon-file"></i>  <strong>第一点:</strong><br>我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。这个社会或者说是职场遍地充满着谎言，我尊重并且珍惜善意的谎言，反感所有虚伪的丑脸。走出校园后，经过这两年的社会的所见所闻，我已然能轻易的分清楚所有的善与恶，好与坏。<br><a id="more"></a><br><kbd> <strong>第二点:</strong> </kbd><br>这辈子很短，<strong>真诚</strong>，比什么都重要。</p><p><kbd> 第三点: </kbd><br>实力才是硬道理，凡是都得靠自己。</p><p><kbd> <strong>第四点:</strong> </kbd><br>不要给那些让你觉得恶心的人任何有机可乘的机会，因为时间很宝贵，要把时间给那些带给你温暖的人。</p>]]></content>
+      <content type="html"><![CDATA[<pre><code>感想 </code></pre><p><i class="icon-file"></i>  <strong>第一点:</strong><br>我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。这个社会或者说是职场遍地充满着谎言，我尊重并且珍惜善意的谎言，反感所有虚伪的丑脸。走出校园后，经过这两年的社会的所见所闻，我已然能轻易的分清楚所有的善与恶，好与坏。<br><a id="more"></a><br><i class="icon-file"></i>  <strong>第二点:</strong><br>这辈子很短，<strong>真诚</strong>，比什么都重要。</p><p><i class="icon-file"></i>  <strong>第三点:</strong><br>实力才是硬道理，凡是都得靠自己。</p><p><i class="icon-file"></i>  <strong>第四点:</strong><br>不要给那些让你觉得恶心的人任何有机可乘的机会，因为时间很宝贵，要把时间给那些带给你温暖的人。</p>]]></content>
       
       
     </entry>
