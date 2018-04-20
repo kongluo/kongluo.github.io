@@ -3,10 +3,19 @@
   
     
     <entry>
+      <title>scala编程详解</title>
+      <link href="/2018/04/20/scala/"/>
+      <url>/2018/04/20/scala/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
       <title>我的第一篇博客</title>
       <link href="/2018/04/20/first-one/"/>
       <url>/2018/04/20/first-one/</url>
-      <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3>]]></content>
+      <content type="html"><![CDATA[<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 第一点</span><br></pre></td></tr></table></figure><p>我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。这个社会或者说是职场遍地充满着谎言，我尊重并且珍惜善意的谎言，反感所有虚伪的丑脸。走出校园后，经过这两年的社会的所见所闻，我已然能轻易的分清楚所有的善与恶，好与坏。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 第二点</span><br></pre></td></tr></table></figure></p><p>这辈子很短，真诚，比什么都重要。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 第二点</span><br></pre></td></tr></table></figure></p><p>实力才是硬道理，凡是都得靠自己。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 第三点</span><br></pre></td></tr></table></figure></p><p>不要给那些让你觉得恶心的人任何有机可乘的机会，因为时间很宝贵，要把时间给那些带给你温暖的人。</p>]]></content>
       
       
     </entry>
