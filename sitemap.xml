@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/04/22/Machine-Learning-Decision-Tree/</loc>
+    
+    <lastmod>2018-04-22T15:48:28.167Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
-    <lastmod>2018-04-22T14:23:26.829Z</lastmod>
+    <lastmod>2018-04-22T15:35:29.389Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/21/myFirstPageForTag/</loc>
+    
+    <lastmod>2018-04-22T15:17:01.996Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2018-04-22T15:15:05.792Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/20/first-one/</loc>
+    
+    <lastmod>2018-04-22T15:13:03.046Z</lastmod>
     
   </url>
   
@@ -16,30 +44,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/04/20/first-one/</loc>
-    
-    <lastmod>2018-04-20T19:07:28.071Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2018-04-20T19:03:24.611Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/21/myFirstPageForTag/</loc>
-    
-    <lastmod>2018-04-20T18:57:10.775Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/20/scala/</loc>
-    
-    <lastmod>2018-04-20T18:56:53.931Z</lastmod>
     
   </url>
   

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-20T18:57:10.775Z</updated>
+  <updated>2018-04-22T15:48:28.167Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,15 +17,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>机器学习理论与应用(一)   决策树</title>
+    <link href="http://yoursite.com/2018/04/22/Machine-Learning-Decision-Tree/"/>
+    <id>http://yoursite.com/2018/04/22/Machine-Learning-Decision-Tree/</id>
+    <published>2018-04-22T15:46:00.000Z</published>
+    <updated>2018-04-22T15:48:28.167Z</updated>
+    
+    <content type="html"><![CDATA[<p>#算法理论</p><p>#python代码实现</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;#算法理论&lt;/p&gt;
+&lt;p&gt;#python代码实现&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>myFirstPageForTag</title>
     <link href="http://yoursite.com/2018/04/21/myFirstPageForTag/"/>
     <id>http://yoursite.com/2018/04/21/myFirstPageForTag/</id>
     <published>2018-04-20T18:54:35.000Z</published>
-    <updated>2018-04-20T18:57:10.775Z</updated>
+    <updated>2018-04-22T15:17:01.996Z</updated>
     
     <summary type="html">
     
     </summary>
+    
+      <category term="thoughts" scheme="http://yoursite.com/categories/thoughts/"/>
     
     
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
@@ -39,34 +64,18 @@
   </entry>
   
   <entry>
-    <title>scala编程详解</title>
-    <link href="http://yoursite.com/2018/04/20/scala/"/>
-    <id>http://yoursite.com/2018/04/20/scala/</id>
-    <published>2018-04-20T14:59:30.500Z</published>
-    <updated>2018-04-20T18:56:53.931Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="scala" scheme="http://yoursite.com/tags/scala/"/>
-    
-  </entry>
-  
-  <entry>
     <title>我的第一篇博客</title>
     <link href="http://yoursite.com/2018/04/20/first-one/"/>
     <id>http://yoursite.com/2018/04/20/first-one/</id>
     <published>2018-04-20T14:45:24.271Z</published>
-    <updated>2018-04-20T19:07:28.071Z</updated>
+    <updated>2018-04-22T15:13:03.046Z</updated>
     
-    <content type="html"><![CDATA[<pre><code>感想 </code></pre><p><i class="icon-file"></i>  <strong>第一点:</strong><br>我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。这个社会或者说是职场遍地充满着谎言，我尊重并且珍惜善意的谎言，反感所有虚伪的丑脸。走出校园后，经过这两年的社会的所见所闻，我已然能轻易的分清楚所有的善与恶，好与坏。<br><a id="more"></a><br><i class="icon-file"></i>  <strong>第二点:</strong><br>这辈子很短，<strong>真诚</strong>，比什么都重要。</p><p><i class="icon-file"></i>  <strong>第三点:</strong><br>实力才是硬道理，凡是都得靠自己。</p><p><i class="icon-file"></i>  <strong>第四点:</strong><br>不要给那些让你觉得恶心的人任何有机可乘的机会，因为时间很宝贵，要把时间给那些带给你温暖的人。</p>]]></content>
+    <content type="html"><![CDATA[<p><i class="icon-pencil"></i> <strong>个人感想</strong></p><h4 id="第一点"><a href="#第一点" class="headerlink" title="  第一点"></a><i class="icon-file"></i>  <strong>第一点</strong></h4><p>我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。走出校园后，经过这两年的社会的洗礼，我已然能轻易的分清楚所有的善与恶，好与坏，真与假。<br><a id="more"></a></p><h4 id="第二点"><a href="#第二点" class="headerlink" title="  第二点"></a><i class="icon-file"></i>  <strong>第二点</strong></h4><p>这辈子很短，<strong>真诚</strong>，比什么都重要。</p><h4 id="第三点"><a href="#第三点" class="headerlink" title="  第三点"></a><i class="icon-file"></i>  <strong>第三点</strong></h4><p><strong>实力</strong> 才是硬道理，永远不要做语言的巨人。</p><h4 id="第四点"><a href="#第四点" class="headerlink" title="  第四点"></a><i class="icon-file"></i>  <strong>第四点</strong></h4><p>不要给那些让你觉得恶心的人任何有机可乘的机会，因为时间很宝贵，要把时间给那些带给你温暖的人。</p>]]></content>
     
     <summary type="html">
     
-      &lt;pre&gt;&lt;code&gt;感想 
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;i class=&quot;icon-file&quot;&gt;&lt;/i&gt;  &lt;strong&gt;第一点:&lt;/strong&gt;&lt;br&gt;我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。这个社会或者说是职场遍地充满着谎言，我尊重并且珍惜善意的谎言，反感所有虚伪的丑脸。走出校园后，经过这两年的社会的所见所闻，我已然能轻易的分清楚所有的善与恶，好与坏。&lt;br&gt;
+      &lt;p&gt;&lt;i class=&quot;icon-pencil&quot;&gt;&lt;/i&gt; &lt;strong&gt;个人感想&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&quot;第一点&quot;&gt;&lt;a href=&quot;#第一点&quot; class=&quot;headerlink&quot; title=&quot;  第一点&quot;&gt;&lt;/a&gt;&lt;i class=&quot;icon-file&quot;&gt;&lt;/i&gt;  &lt;strong&gt;第一点&lt;/strong&gt;&lt;/h4&gt;&lt;p&gt;我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。走出校园后，经过这两年的社会的洗礼，我已然能轻易的分清楚所有的善与恶，好与坏，真与假。&lt;br&gt;
     
     </summary>
     

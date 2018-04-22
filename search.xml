@@ -3,10 +3,25 @@
   
     
     <entry>
+      <title>机器学习理论与应用(一)   决策树</title>
+      <link href="/2018/04/22/Machine-Learning-Decision-Tree/"/>
+      <url>/2018/04/22/Machine-Learning-Decision-Tree/</url>
+      <content type="html"><![CDATA[<p>#算法理论</p><p>#python代码实现</p>]]></content>
+      
+      
+    </entry>
+    
+    <entry>
       <title>myFirstPageForTag</title>
       <link href="/2018/04/21/myFirstPageForTag/"/>
       <url>/2018/04/21/myFirstPageForTag/</url>
       <content type="html"><![CDATA[]]></content>
+      
+      <categories>
+          
+          <category> thoughts </category>
+          
+      </categories>
       
       
         <tags>
@@ -24,25 +39,10 @@
     </entry>
     
     <entry>
-      <title>scala编程详解</title>
-      <link href="/2018/04/20/scala/"/>
-      <url>/2018/04/20/scala/</url>
-      <content type="html"><![CDATA[]]></content>
-      
-      
-        <tags>
-            
-            <tag> scala </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>我的第一篇博客</title>
       <link href="/2018/04/20/first-one/"/>
       <url>/2018/04/20/first-one/</url>
-      <content type="html"><![CDATA[<pre><code>感想 </code></pre><p><i class="icon-file"></i>  <strong>第一点:</strong><br>我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。这个社会或者说是职场遍地充满着谎言，我尊重并且珍惜善意的谎言，反感所有虚伪的丑脸。走出校园后，经过这两年的社会的所见所闻，我已然能轻易的分清楚所有的善与恶，好与坏。<br><a id="more"></a><br><i class="icon-file"></i>  <strong>第二点:</strong><br>这辈子很短，<strong>真诚</strong>，比什么都重要。</p><p><i class="icon-file"></i>  <strong>第三点:</strong><br>实力才是硬道理，凡是都得靠自己。</p><p><i class="icon-file"></i>  <strong>第四点:</strong><br>不要给那些让你觉得恶心的人任何有机可乘的机会，因为时间很宝贵，要把时间给那些带给你温暖的人。</p>]]></content>
+      <content type="html"><![CDATA[<p><i class="icon-pencil"></i> <strong>个人感想</strong></p><h4 id="第一点"><a href="#第一点" class="headerlink" title="  第一点"></a><i class="icon-file"></i>  <strong>第一点</strong></h4><p>我很庆幸在2016毕业的那一年去了北京，我更庆幸在2018年离开了北京。走出校园后，经过这两年的社会的洗礼，我已然能轻易的分清楚所有的善与恶，好与坏，真与假。<br><a id="more"></a></p><h4 id="第二点"><a href="#第二点" class="headerlink" title="  第二点"></a><i class="icon-file"></i>  <strong>第二点</strong></h4><p>这辈子很短，<strong>真诚</strong>，比什么都重要。</p><h4 id="第三点"><a href="#第三点" class="headerlink" title="  第三点"></a><i class="icon-file"></i>  <strong>第三点</strong></h4><p><strong>实力</strong> 才是硬道理，永远不要做语言的巨人。</p><h4 id="第四点"><a href="#第四点" class="headerlink" title="  第四点"></a><i class="icon-file"></i>  <strong>第四点</strong></h4><p>不要给那些让你觉得恶心的人任何有机可乘的机会，因为时间很宝贵，要把时间给那些带给你温暖的人。</p>]]></content>
       
       
     </entry>
