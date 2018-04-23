@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/04/20/first-one/</loc>
+    
+    <lastmod>2018-04-23T05:50:59.226Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/21/myFirstPageForTag/</loc>
+    
+    <lastmod>2018-04-23T05:49:33.662Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/04/23/BigData-Flume/</loc>
     
-    <lastmod>2018-04-23T05:40:59.725Z</lastmod>
+    <lastmod>2018-04-23T05:49:16.705Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2018/04/23/BigData-Kafka/</loc>
     
-    <lastmod>2018-04-23T02:33:54.709Z</lastmod>
+    <lastmod>2018-04-23T05:49:12.985Z</lastmod>
     
   </url>
   
@@ -23,23 +37,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/04/21/myFirstPageForTag/</loc>
-    
-    <lastmod>2018-04-22T15:17:01.996Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2018-04-22T15:15:05.792Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/20/first-one/</loc>
-    
-    <lastmod>2018-04-22T15:13:03.046Z</lastmod>
     
   </url>
   
