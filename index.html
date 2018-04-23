@@ -363,7 +363,14 @@
       
         
           
-            <p><img src="/2018/04/23/BigData-Flume/agent.jpg" alt="这是一个测试"></p>
+            <h3 id="Flume在集群中扮演的角色"><a href="#Flume在集群中扮演的角色" class="headerlink" title="Flume在集群中扮演的角色"></a>Flume在集群中扮演的角色</h3><h4 id="Flume框架简介"><a href="#Flume框架简介" class="headerlink" title="Flume框架简介"></a>Flume框架简介</h4><p>  ① Flume提供一个分布式的，可靠的，对大数据量的日志进行高效收集、聚集、移动的服务，Flume<br>  只能在Unix环境下运行。<br>  ②Flume可以采集文件，socket数据包等各种形式源数据，又可以将采集到的数据输出到HDFS、<br>  HBase、hive、kafka等众多外部存储系统中<br>  ③一般的采集需求，通过对flume的简单配置即可实现<br>  ④Flume针对特殊场景也具备良好的自定义扩展能力，因此，flume可以适用于大部分的日常数据采集场景</p>
+<h4 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h4><p>  1、Flume分布式系统中最核心的角色是agent，Flume采集系统就是由一个个agent所连接起来形成<br>  2、每一个agent相当于一个数据传递员，内部有三个组件:<br>    a) Source:采集源，用于跟数据源对接，以获取数据<br>    b) Sink:下沉地，采集数据的传送目的，用于往下一级agent传递数据或者往最终存储系统传递数据<br>    c) Channel:angent内部的数据传输通道，用于从source将数据传递到sink<br>    <strong>Source 到 Channel 到 Sink之间传递数据的形式是Event事件；Event事件是一个数据流单元。</strong></p>
+<ul>
+<li><p>简单结构<br><img src="/2018/04/23/BigData-Flume/agent1.jpg" alt="单个Agent采集数据"></p>
+</li>
+<li><p>复杂结构<br><img src="/2018/04/23/BigData-Flume/agent2.jpg" alt="多个Agent采集数据"></p>
+</li>
+</ul>
 
           
         
