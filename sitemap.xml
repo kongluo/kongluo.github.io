@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/04/23/BigData-Kafka/</loc>
+    
+    <lastmod>2018-04-23T08:33:03.706Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/04/23/BigData-Flume/</loc>
     
     <lastmod>2018-04-23T06:00:17.077Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://yoursite.com/2018/04/21/myFirstPageForTag/</loc>
     
     <lastmod>2018-04-23T05:49:33.662Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/23/BigData-Kafka/</loc>
-    
-    <lastmod>2018-04-23T05:49:12.985Z</lastmod>
     
   </url>
   
