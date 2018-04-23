@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-23T04:16:42.306Z</updated>
+  <updated>2018-04-23T04:32:16.247Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,19 +17,19 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>BigData-Flume</title>
+    <title>Hadoop生态圈(一) ----- Flume的使用</title>
     <link href="http://yoursite.com/2018/04/23/BigData-Flume/"/>
     <id>http://yoursite.com/2018/04/23/BigData-Flume/</id>
     <published>2018-04-23T03:55:39.000Z</published>
-    <updated>2018-04-23T04:16:42.306Z</updated>
+    <updated>2018-04-23T04:32:16.247Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2018/04/23/BigData-Flume/agent.jpg" alt="logo"></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="/2018/04/23/BigData-Flume/ageng.jpg" alt="这是一个测试"></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;&lt;img src=&quot;/2018/04/23/BigData-Flume/agent.jpg&quot; alt=&quot;logo&quot;&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;img src=&quot;/2018/04/23/BigData-Flume/ageng.jpg&quot; alt=&quot;这是一个测试&quot;&gt;&lt;/p&gt;
 
       
     
