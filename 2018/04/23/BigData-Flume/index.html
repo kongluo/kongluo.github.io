@@ -67,7 +67,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java,Flume," />
 
 
 
@@ -78,17 +78,20 @@
 
 
 
-<meta name="description" content="天生的面孔已经不见，真诚的心灵已经久违了！">
+<meta name="description" content="Flume在集群中扮演的角色Flume框架简介① Flume提供一个分布式的，可靠的，对大数据量的日志进行高效收集、聚集、移动的服务，Flume只能在Unix环境下运行② Flume可以采集文件，socket数据包等各种形式源数据，又可以将采集到的数据输出到HDFS、HBase、Hive、Kafka等众多外部存储系统中③ 一般的采集需求，通过对Flume的简单配置即可实现④ Flume针对特殊场景">
+<meta name="keywords" content="java,Flume">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop生态圈(一) ----- Flume的使用">
 <meta property="og:url" content="http://yoursite.com/2018/04/23/BigData-Flume/index.html">
 <meta property="og:site_name" content="空落单行雨">
-<meta property="og:description" content="天生的面孔已经不见，真诚的心灵已经久违了！">
+<meta property="og:description" content="Flume在集群中扮演的角色Flume框架简介① Flume提供一个分布式的，可靠的，对大数据量的日志进行高效收集、聚集、移动的服务，Flume只能在Unix环境下运行② Flume可以采集文件，socket数据包等各种形式源数据，又可以将采集到的数据输出到HDFS、HBase、Hive、Kafka等众多外部存储系统中③ 一般的采集需求，通过对Flume的简单配置即可实现④ Flume针对特殊场景">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-23T02:33:56.586Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/image/agent.jpg">
+<meta property="og:updated_time" content="2018-04-23T03:48:48.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop生态圈(一) ----- Flume的使用">
-<meta name="twitter:description" content="天生的面孔已经不见，真诚的心灵已经久违了！">
+<meta name="twitter:description" content="Flume在集群中扮演的角色Flume框架简介① Flume提供一个分布式的，可靠的，对大数据量的日志进行高效收集、聚集、移动的服务，Flume只能在Unix环境下运行② Flume可以采集文件，socket数据包等各种形式源数据，又可以将采集到的数据输出到HDFS、HBase、Hive、Kafka等众多外部存储系统中③ 一般的采集需求，通过对Flume的简单配置即可实现④ Flume针对特殊场景">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/image/agent.jpg">
 
 
 
@@ -359,7 +362,14 @@
       
 
       
-        
+        <h3 id="Flume在集群中扮演的角色"><a href="#Flume在集群中扮演的角色" class="headerlink" title="Flume在集群中扮演的角色"></a>Flume在集群中扮演的角色</h3><h4 id="Flume框架简介"><a href="#Flume框架简介" class="headerlink" title="Flume框架简介"></a>Flume框架简介</h4><p>① Flume提供一个分布式的，可靠的，对大数据量的日志进行高效收集、聚集、移动的服务，Flume只能在Unix环境下运行<br>② Flume可以采集文件，socket数据包等各种形式源数据，又可以将采集到的数据输出到HDFS、HBase、Hive、Kafka等众<br>多外部存储系统中<br>③ 一般的采集需求，通过对Flume的简单配置即可实现<br>④ Flume针对特殊场景也具备良好的自定义扩展能力，因此，Flume可以适用于大部分的日常数据采集场景</p>
+<h4 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h4><p>1、Flume分布式系统中最核心的角色是agent，Flume采集系统就是由一个个agent所连接起来形成<br>2、每一个agent相当于一个数据传递员，内部有三个组件:<br>    a) Source: 采集源，用于跟数据源对接，以获取数据<br>    b) Sink: 下沉地，采集数据的传送目的，用于往下一级agent传递数据或者往最终存储系统传递数据<br>    c) channel: agent内部的数据传输通道，用于从Source将数据传递到Sink</p>
+<p>  <strong>Source到Channel到Sink之间传递数据的形式是Event事件:Event事件是一个数据流单元。</strong></p>
+<ul>
+<li>1、单个agent采集数据</li>
+</ul>
+<p><img src="/2018/04/23/BigData-Flume/../../image/agent.jpg" alt="BigData-Flume"></p>
+
       
     </div>
     
@@ -385,6 +395,14 @@
 	</div>
 	
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/Flume/" rel="tag"># Flume</a>
+          
+        </div>
       
 
       
@@ -455,8 +473,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -497,7 +524,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -536,6 +563,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flume在集群中扮演的角色"><span class="nav-number">1.</span> <span class="nav-text">Flume在集群中扮演的角色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flume框架简介"><span class="nav-number">1.1.</span> <span class="nav-text">Flume框架简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行机制"><span class="nav-number">1.2.</span> <span class="nav-text">运行机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
