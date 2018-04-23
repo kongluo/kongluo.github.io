@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-22T15:56:44.648Z</updated>
+  <updated>2018-04-23T02:33:56.586Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,18 +17,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>机器学习理论与应用(一)   决策树</title>
-    <link href="http://yoursite.com/2018/04/22/Machine-Learning-Decision-Tree/"/>
-    <id>http://yoursite.com/2018/04/22/Machine-Learning-Decision-Tree/</id>
-    <published>2018-04-22T15:46:00.000Z</published>
-    <updated>2018-04-22T15:56:44.648Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="算法理论"><a href="#算法理论" class="headerlink" title="算法理论:"></a>算法理论:</h3><hr><h3 id="应用-python"><a href="#应用-python" class="headerlink" title="应用(python):"></a>应用(python):</h3><a id="more"></a>]]></content>
+    <title>Hadoop生态圈(一) ----- Flume的使用</title>
+    <link href="http://yoursite.com/2018/04/23/BigData-Flume/"/>
+    <id>http://yoursite.com/2018/04/23/BigData-Flume/</id>
+    <published>2018-04-23T02:16:34.000Z</published>
+    <updated>2018-04-23T02:33:56.586Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;算法理论&quot;&gt;&lt;a href=&quot;#算法理论&quot; class=&quot;headerlink&quot; title=&quot;算法理论:&quot;&gt;&lt;/a&gt;算法理论:&lt;/h3&gt;&lt;hr&gt;
-&lt;h3 id=&quot;应用-python&quot;&gt;&lt;a href=&quot;#应用-python&quot; class=&quot;headerlink&quot; title=&quot;应用(python):&quot;&gt;&lt;/a&gt;应用(python):&lt;/h3&gt;
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hadoop生态圈(二) ----- Kafka的使用</title>
+    <link href="http://yoursite.com/2018/04/23/BigData-Kafka/"/>
+    <id>http://yoursite.com/2018/04/23/BigData-Kafka/</id>
+    <published>2018-04-23T02:15:51.000Z</published>
+    <updated>2018-04-23T02:33:54.709Z</updated>
+    
+    <summary type="html">
     
     </summary>
     

@@ -3,10 +3,19 @@
   
     
     <entry>
-      <title>机器学习理论与应用(一)   决策树</title>
-      <link href="/2018/04/22/Machine-Learning-Decision-Tree/"/>
-      <url>/2018/04/22/Machine-Learning-Decision-Tree/</url>
-      <content type="html"><![CDATA[<h3 id="算法理论"><a href="#算法理论" class="headerlink" title="算法理论:"></a>算法理论:</h3><hr><h3 id="应用-python"><a href="#应用-python" class="headerlink" title="应用(python):"></a>应用(python):</h3><a id="more"></a>]]></content>
+      <title>Hadoop生态圈(一) ----- Flume的使用</title>
+      <link href="/2018/04/23/BigData-Flume/"/>
+      <url>/2018/04/23/BigData-Flume/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>Hadoop生态圈(二) ----- Kafka的使用</title>
+      <link href="/2018/04/23/BigData-Kafka/"/>
+      <url>/2018/04/23/BigData-Kafka/</url>
+      <content type="html"><![CDATA[]]></content>
       
       
     </entry>
