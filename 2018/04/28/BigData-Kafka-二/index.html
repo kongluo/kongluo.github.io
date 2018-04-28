@@ -80,17 +80,20 @@
 
 <meta name="keywords" content="Kafka Java Hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop生态圈(二) ----- Kafka的使用(一)">
-<meta property="og:url" content="http://yoursite.com/2018/04/23/BigData-Kafka/index.html">
+<meta property="og:title" content="Hadoop生态圈(二) ----- Kafka的使用(二)">
+<meta property="og:url" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/index.html">
 <meta property="og:site_name" content="空落单行雨">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/04/23/BigData-Kafka/kafka.png">
-<meta property="og:image" content="http://yoursite.com/2018/04/23/BigData-Kafka/kafka.png">
-<meta property="og:image" content="http://yoursite.com/2018/04/23/BigData-Kafka/kafka1.png">
-<meta property="og:updated_time" content="2018-04-28T02:21:10.126Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/kafka1.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/kafka2.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/kafka3.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/kafka4.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/zookeeper.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/kafka5.png">
+<meta property="og:updated_time" content="2018-04-28T02:20:57.369Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop生态圈(二) ----- Kafka的使用(一)">
-<meta name="twitter:image" content="http://yoursite.com/2018/04/23/BigData-Kafka/kafka.png">
+<meta name="twitter:title" content="Hadoop生态圈(二) ----- Kafka的使用(二)">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/28/BigData-Kafka-二/kafka1.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/23/BigData-Kafka/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/28/BigData-Kafka-二/"/>
 
 
 
 
 
-  <title>Hadoop生态圈(二) ----- Kafka的使用(一) | 空落单行雨</title>
+  <title>Hadoop生态圈(二) ----- Kafka的使用(二) | 空落单行雨</title>
   
 
 
@@ -263,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/23/BigData-Kafka/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/28/BigData-Kafka-二/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kongluo">
@@ -280,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop生态圈(二) ----- Kafka的使用(一)</h1>
+          <h1 class="post-title" itemprop="name headline">Hadoop生态圈(二) ----- Kafka的使用(二)</h1>
         
 
         <div class="post-meta">
@@ -292,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T10:15:51+08:00">
-                2018-04-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-28T08:40:48+08:00">
+                2018-04-28
               </time>
             
 
@@ -383,37 +386,27 @@
       
 
       
-        <p><img src="/2018/04/23/BigData-Kafka/kafka.png" alt="Kafka内部实现原理"><br><a id="more"></a></p>
-<h3 id="Kafka概述"><a href="#Kafka概述" class="headerlink" title="Kafka概述"></a>Kafka概述</h3><hr>
-<h4 id="Kafka是什么"><a href="#Kafka是什么" class="headerlink" title="Kafka是什么"></a>Kafka是什么</h4><p>  在流式计算中，Kafka一般用来缓存数据，Storm通过消费Kafka的数据进行计算。<br>  1）Apache Kafka是一个开源消息系统，由Scala写成。是由Apache软件基金会开发的一个开源消息系统项目。<br>  2）Kafka最初是由LinkedIn开发，并于2011年初开源。2012年10月从Apache Incubator毕业。该项目的目标是为处理实时数据提供一个统一、高通量、低等待的平台。<br>  3）Kafka是一个分布式消息队列:生产者，消费者的功能。Kafka对消息保存时根据Topic进行归类，发送消息者称为Producer，消息接受者称为Consumer，此外kafka集群有多个kafka实例组成，每个实例(server)成为broker。<br>  4）无论是kafka集群，还是producer和consumer都依赖于zookeeper集群保存一些meta信息，来保证系统可用性。</p>
-<h4 id="Kafka内部实现原理"><a href="#Kafka内部实现原理" class="headerlink" title="Kafka内部实现原理"></a>Kafka内部实现原理</h4><p>  <img src="/2018/04/23/BigData-Kafka/kafka.png" alt="Kafka内部实现原理"><br>  （1）点对点模式（一对一，消费者主动拉取数据，消息收到后消息清除）<br>  点对点模型通常是一个基于拉取或者轮询的消息传送模型，这种模型从队列中请求信息，而不是将消息推送到,l客户端。这个模型的特点是发送到队列的消息被一个且只有一个接收者接收处理，即使有多个消息监听者也是如此。<br>  （2）发布/订阅模式（一对多，数据生产后，推送给所有订阅者）<br>  发布订阅模型则是一个基于推送的消息传送模型。发布订阅模型可以有多种不同的订阅者，临时订阅者只在主动监听主题时才接收消息，而持久订阅者则监听主题的所有消息，即使当前订阅者不可用，处于离线状态。</p>
-<h4 id="为什么需要消息队列"><a href="#为什么需要消息队列" class="headerlink" title="为什么需要消息队列"></a>为什么需要消息队列</h4><p>  1）解耦：<br>  　　允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。<br>  2）冗余：<br>  消息队列把数据进行持久化直到它们已经被完全处理，通过这一方式规避了数据丢失风险。许多消息队列所采用的”插入-获取-删除”范式中，在把一个消息从队列中删除之前，需要你的处理系统明确的指出该消息已经被处理完毕，从而确保你的数据被安全的保存直到你使用完毕。<br>  3）扩展性：<br>  因为消息队列解耦了你的处理过程，所以增大消息入队和处理的频率是很容易的，只要另外增加处理过程即可。<br>  4）灵活性 &amp; 峰值处理能力：<br>  在访问量剧增的情况下，应用仍然需要继续发挥作用，但是这样的突发流量并不常见。如果为以能处理这类峰值访问为标准来投入资源随时待命无疑是巨大的浪费。使用消息队列能够使关键组件顶住突发的访问压力，而不会因为突发的超负荷的请求而完全崩溃。<br>  5）可恢复性：<br>  系统的一部分组件失效时，不会影响到整个系统。消息队列降低了进程间的耦合度，所以即使一个处理消息的进程挂掉，加入队列中的消息仍然可以在系统恢复后被处理。<br>  6）顺序保证：<br>  在大多使用场景下，数据处理的顺序都很重要。大部分消息队列本来就是排序的，并且能保证数据会按照特定的顺序来处理。（Kafka保证一个Partition内的消息的有序性）<br>  7）缓冲：<br>  有助于控制和优化数据流经过系统的速度，解决生产消息和消费消息的处理速度不一致的情况。<br>  8）异步通信：<br>  很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要的时候再去处理它们。</p>
-<h4 id="Kafka架构"><a href="#Kafka架构" class="headerlink" title="Kafka架构"></a>Kafka架构</h4><p>  <img src="/2018/04/23/BigData-Kafka/kafka1.png" alt="Kafka架构"></p>
-<p>  1）Producer ：消息生产者，就是向kafka broker发消息的客户端。<br>  2）Consumer ：消息消费者，向kafka broker取消息的客户端<br>  3）Topic ：可以理解为一个队列。<br>  4） Consumer Group （CG）：这是kafka用来实现一个topic消息的广播（发给所有的consumer）和单播（发给任意一个consumer）的手段。一个topic可以有多个CG。topic的消息会复制（不是真的复制，是概念上的）到所有的CG，但每个partion只会把消息发给该CG中的一个consumer。如果需要实现广播，只要每个consumer有一个独立的CG就可以了。要实现单播只要所有的consumer在同一个CG。用CG还可以将consumer进行自由的分组而不需要多次发送消息到不同的topic。<br>  5）Broker ：一台kafka服务器就是一个broker。一个集群由多个broker组成。一个broker可以容纳多个topic。<br>  6）Partition：为了实现扩展性，一个非常大的topic可以分布到多个broker（即服务器）上，一个topic可以分为多个partition，每个partition是一个有序的队列。partition中的每条消息都会被分配一个有序的id（offset）。kafka只保证按一个partition中的顺序将消息发给consumer，不保证一个topic的整体（多个partition间）的顺序。<br>  7）Offset：kafka的存储文件都是按照offset.kafka来命名，用offset做名字的好处是方便查找。例如你想找位于2049的位置，只要找到2048.kafka的文件即可。当然the first offset就是00000000000.kafka</p>
-<h4 id="kafka命令行操作"><a href="#kafka命令行操作" class="headerlink" title="kafka命令行操作"></a>kafka命令行操作</h4><p>  1) 查看当前服务器中的所有topic</p>
-<blockquote>
-<p><strong>$</strong> bin/kafka-topics.sh --list --zookeeper hadoop102:2181</p>
-</blockquote>
-<p>  2) 创建topic</p>
-<blockquote>
-<p><strong>$</strong> bin/kafka-topics.sh --create --zookeeper hadoop102:2181 –replication-factor 3 –partitions 1 –topic first<br>    选项说明:<br>    --topic 定义topic名<br>    --replication-factor 定义副本数<br>    --partitions 定义分区数</p>
-</blockquote>
-<p>  3)  删除topic</p>
-<blockquote>
-<p><strong>$</strong> bin/kafka-topics.sh --delete --zookeeper hadoop102:2181 --topic first<br>  需要server.properties中设置delete.topic.enable=true否则只会标记删除或者直接重启</p>
-</blockquote>
-<p>  4) 发送消息</p>
-<blockquote>
-<p><strong>$</strong> bin/kafka-console-producer.sh --broker-list hadoop102:9092 --topic first<br>    $&gt;hello world<br>    $&gt;kongluo kongluo</p>
-</blockquote>
-<p>  5) 消费消息</p>
-<blockquote>
-<p><strong>$</strong> bin/kafka-console-consumer.sh --zookeeper hadoop102:2181 --from-beginning --topic first</p>
-</blockquote>
-<p>  6) 查看某个Topic的详情</p>
-<blockquote>
-<p><strong>$</strong> bin/kafka-topics.sh --topic first --describe --zookeeper hadoop102:2181</p>
-</blockquote>
+        <p><img src="/2018/04/28/BigData-Kafka-二/kafka1.png" alt="Kafka内部实现原理"><br><a id="more"></a></p>
+<h3 id="Kafka工作流程分析"><a href="#Kafka工作流程分析" class="headerlink" title="Kafka工作流程分析"></a>Kafka工作流程分析</h3><hr>
+<h4 id="Kafka生产过程分析"><a href="#Kafka生产过程分析" class="headerlink" title="Kafka生产过程分析"></a>Kafka生产过程分析</h4><p>  1) 写入方式<br>  producer采用推（push）模式将消息发布到broker，每条消息都被追加（append）到分区（patition）中，属于顺序写磁盘（顺序写磁盘效率比随机写内存要高，保障kafka吞吐率）。</p>
+<p>  2) 分区<br>  消息发送时都被发送到一个topic，其本质就是一个目录，而topic是由一些Partition Logs(分区日志)组成，其组织结构如下图所示：<br>  <img src="/2018/04/28/BigData-Kafka-二/kafka2.png" alt="分区"></p>
+<p>  <img src="/2018/04/28/BigData-Kafka-二/kafka3.png" alt="分区"><br>  我们可以看到，每个Partition中的消息都是有序的，生产的消息被不断追加到Partition log上，其中的每一个消息都被赋予了一个唯一的offset值。</p>
+<p>  ① 分区的原因<br>  （1）方便在集群中扩展，每个Partition可以通过调整以适应它所在的机器，而一个topic又可以有多个Partition组成，因此整个集群就可以适应任意大小的数据了；<br>  （2）可以提高并发，因为可以以Partition为单位读写了。</p>
+<p>  ② 分区的原则<br>  （1）指定了patition，则直接使用；<br>  （2）未指定patition但指定key，通过对key的value进行hash出一个patition</p>
+<p>  ③ patition和key都未指定，使用轮询选出一个patition。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">DefaultPartitioner类</span><br><span class="line">public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster)</span><br><span class="line">&#123;</span><br><span class="line">      List&lt;PartitionInfo&gt; partitions = cluster.partitionsForTopic(topic);</span><br><span class="line">      int numPartitions = partitions.size();</span><br><span class="line">      if (keyBytes == null) &#123;</span><br><span class="line">          int nextValue = nextValue(topic);</span><br><span class="line">          List&lt;PartitionInfo&gt; availablePartitions = cluster.availablePartitionsForTopic(topic);</span><br><span class="line">          if (availablePartitions.size() &gt; 0) &#123;</span><br><span class="line">              int part = Utils.toPositive(nextValue) % availablePartitions.size();</span><br><span class="line">              return availablePartitions.get(part).partition();</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">              // no partitions are available, give a non-available partition</span><br><span class="line">              return Utils.toPositive(nextValue) % numPartitions;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">          // hash the keyBytes to choose a partition</span><br><span class="line">          return Utils.toPositive(Utils.murmur2(keyBytes)) % numPartitions;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>  3) 副本<br>  同一个partition可能会有多个replication（对应 server.properties 配置中的 default.replication.factor=N）。没有replication的情况下，一旦broker 宕机，其上所有 patition 的数据都不可被消费，同时producer也不能再将数据存于其上的patition。引入replication之后，同一个partition可能会有多个replication，而这时需要在这些replication之间选出一个leader，producer和consumer只与这个leader交互，其它replication作为follower从leader 中复制数据。</p>
+<p>  4) 写入流程<br>   producer写入消息流程如下：</p>
+<p>  <img src="/2018/04/28/BigData-Kafka-二/kafka4.png" alt="写入流程"></p>
+<p>  ① producer先从zookeeper的 “/brokers/…/state”节点找到该partition的leader<br>  ② producer将消息发送给该leader<br>  ③ leader将消息写入本地log<br>  ④ followers从leader pull消息，写入本地log后向leader发送ACK<br>  ⑤ leader收到所有ISR中的replication的ACK后，增加HW（high watermark，最后commit 的offset）并向producer发送ACK</p>
+<h4 id="broker保存消息"><a href="#broker保存消息" class="headerlink" title="broker保存消息"></a>broker保存消息</h4><p>  1)存储方式<br>  物理上把topic分成一个或多个partition（对应 server.properties 中的num.partitions=3配置），每个patition物理上对应一个文件夹（该文件夹存储该patition的所有消息和索引文件)</p>
+<p>  2)存储策略<br>  无论消息是否被消费，kafka都会保留所有消息。有两种策略可以删除旧数据：<br>  1）基于时间：log.retention.hours=168<br>  2）基于大小：log.retention.bytes=1073741824<br>  需要注意的是，因为Kafka读取特定消息的时间复杂度为O(1)，即与文件大小无关，所以这里删除过期文件与提高 Kafka 性能无关。</p>
+<p>  3)Zookeeper存储结构<br><img src="/2018/04/28/BigData-Kafka-二/zookeeper.png" alt="写入流程"><br>注意：producer不在zk中注册，消费者在zk中注册。</p>
+<h4 id="Kafka消费过程分析"><a href="#Kafka消费过程分析" class="headerlink" title="Kafka消费过程分析"></a>Kafka消费过程分析</h4><p>kafka提供了两套consumer API：高级Consumer API和低级API。<br>1) 高级API<br>  (1)高级API优点<br>  高级API 写起来简单不需要去自行去管理offset，系统通过zookeeper自行管理不需要管理分区，副本等情况，系统自动管理消费者断线会自动根据上一次记录在zookeeper中的offset去接着获取数据（默认设置1分钟更新一下zookeeper中存的的offset）可以使用group来区分对同一个topic 的不同程序访问分离开来（不同的group记录不同的offset，这样不同程序读取同一个topic才不会因为offset互相影响）<br>  (2)高级API缺点<br>  不能自行控制offset（对于某些特殊需求来说）<br>  不能细化控制如分区、副本、zk等</p>
+<p>2) 低级API<br>  (1)低级API优点<br>  能够开发者自己控制offset，想从哪里读取就从哪里读取。自行控制连接分区，对分区自定义进行负载均衡对zookeeper的依赖性降低（如：offset不一定非要靠zk存储，自行存储offset即可，比如存在文件或者内存中）<br>  (2)低级API缺点<br>  太过复杂，需要自行控制offset，连接哪个分区，找到分区leader 等。</p>
+<p>3) 消费者组<br><img src="/2018/04/28/BigData-Kafka-二/kafka5.png" alt="消费者组"><br>  消费者是以consumer group消费者组的方式工作，由一个或者多个消费者组成一个组，共同消费一个topic。每个分区在同一时间只能由group中的一个消费者读取，但是多个group可以同时消费这个partition。在图中，有一个由三个消费者组成的grouop，有一个消费者读取主题中的两个分区，另外两个分别读取一个分区。某个消费者读取某个分区，也可以叫做某个消费者是某个分区的拥有者。在这种情况下，消费者可以通过水平扩展的方式同时读取大量的消息。另外，如果一个消费者失败了，那么其他的group成员会自动负载均衡读取之前失败的消费者读取的分区。</p>
+<p>4) 消费方式<br><strong>consumer采用pull（拉）模式从broker中读取数据。</strong><br>push（推）模式很难适应消费速率不同的消费者，因为消息发送速率是由broker决定的。它的目标是尽可能以最快速度传递消息，但是这样很容易造成consumer来不及处理消息，典型的表现就是拒绝服务以及网络拥塞。而pull模式则可以根据consumer的消费能力以适当的速率消费消息。<br>对于Kafka而言，pull模式更合适，它可简化broker的设计，consumer可自主控制消费消息的速率，同时consumer可以自己控制消费方式——即可批量消费也可逐条消费，同时还能选择不同的提交方式从而实现不同的传输语义。</p>
+<p>5) 消费者组案例<br>(1)需求：测试同一个消费者组中的消费者，同一时刻只能有一个消费者消费。<br>(2)案例实操<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">① 在hadoop102、hadoop103上修改/opt/module/kafka/config/consumer.properties配置文件中的group.id属性为任意组名。</span><br><span class="line">[atguigu@hadoop103 config]$ vi consumer.properties group.id=atguigu</span><br><span class="line">② 在hadoop102、hadoop103上分别启动消费者</span><br><span class="line">[atguigu@hadoop102 kafka]$ bin/kafka-console-consumer.sh --zookeeper hadoop102:2181 --topic first --consumer.config config/consumer.properties</span><br><span class="line">[atguigu@hadoop103 kafka]$ bin/kafka-console-consumer.sh --zookeeper hadoop102:2181 --topic first --consumer.config config/consumer.properties</span><br><span class="line">③ 在hadoop104上启动生产者</span><br><span class="line">[atguigu@hadoop104 kafka]$ bin/kafka-console-producer.sh --broker-list hadoop102:9092 --topic first</span><br><span class="line">hello world</span><br><span class="line">④ 查看hadoop102和hadoop103的接收者。同一时刻只有一个消费者接收到消息。</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -456,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/21/myFirstPageForTag/" rel="next" title="myFirstPageForTag">
-                <i class="fa fa-chevron-left"></i> myFirstPageForTag
+              <a href="/2018/04/23/BigData-Flume/" rel="next" title="Hadoop生态圈(一) ----- Flume的使用">
+                <i class="fa fa-chevron-left"></i> Hadoop生态圈(一) ----- Flume的使用
               </a>
             
           </div>
@@ -466,8 +459,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/23/BigData-Flume/" rel="prev" title="Hadoop生态圈(一) ----- Flume的使用">
-                Hadoop生态圈(一) ----- Flume的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/28/BigData-Kafka-三/" rel="prev" title="Hadoop生态圈(二) ----- Kafka的使用(三)">
+                Hadoop生态圈(二) ----- Kafka的使用(三) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -620,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka概述"><span class="nav-number">1.</span> <span class="nav-text">Kafka概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Kafka是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka内部实现原理"><span class="nav-number">1.2.</span> <span class="nav-text">Kafka内部实现原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么需要消息队列"><span class="nav-number">1.3.</span> <span class="nav-text">为什么需要消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka架构"><span class="nav-number">1.4.</span> <span class="nav-text">Kafka架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kafka命令行操作"><span class="nav-number">1.5.</span> <span class="nav-text">kafka命令行操作</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka工作流程分析"><span class="nav-number">1.</span> <span class="nav-text">Kafka工作流程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka生产过程分析"><span class="nav-number">1.1.</span> <span class="nav-text">Kafka生产过程分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#broker保存消息"><span class="nav-number">1.2.</span> <span class="nav-text">broker保存消息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka消费过程分析"><span class="nav-number">1.3.</span> <span class="nav-text">Kafka消费过程分析</span></a></li></ol></li></ol></div>
             
 
           </div>
