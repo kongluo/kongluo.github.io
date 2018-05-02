@@ -2,9 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/05/02/jottings-%E4%B8%80/</loc>
+    
+    <lastmod>2018-05-02T00:53:10.623Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/23/BigData-Kafka/</loc>
+    
+    <lastmod>2018-05-02T00:49:18.922Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/28/BigData-Kafka-%E5%9B%9B/</loc>
+    
+    <lastmod>2018-05-02T00:49:17.070Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/28/BigData-Kafka-%E4%BA%8C/</loc>
+    
+    <lastmod>2018-05-02T00:49:14.870Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/28/BigData-Kafka-%E4%B8%89/</loc>
+    
+    <lastmod>2018-05-02T00:49:13.314Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/04/28/BigData-HBase-%E4%B8%80/</loc>
     
-    <lastmod>2018-04-28T02:29:20.855Z</lastmod>
+    <lastmod>2018-05-02T00:49:11.847Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/23/BigData-Flume/</loc>
+    
+    <lastmod>2018-05-02T00:49:10.497Z</lastmod>
     
   </url>
   
@@ -26,41 +68,6 @@
     <loc>http://yoursite.com/2018/04/20/article-title/</loc>
     
     <lastmod>2018-04-28T02:21:18.271Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/23/BigData-Kafka/</loc>
-    
-    <lastmod>2018-04-28T02:21:10.126Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/28/BigData-Kafka-%E5%9B%9B/</loc>
-    
-    <lastmod>2018-04-28T02:21:03.776Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/28/BigData-Kafka-%E4%BA%8C/</loc>
-    
-    <lastmod>2018-04-28T02:20:57.369Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/28/BigData-Kafka-%E4%B8%89/</loc>
-    
-    <lastmod>2018-04-28T02:20:42.576Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/23/BigData-Flume/</loc>
-    
-    <lastmod>2018-04-28T02:20:32.836Z</lastmod>
     
   </url>
   

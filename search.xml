@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title>随笔(一)</title>
+      <link href="/2018/05/02/jottings-%E4%B8%80/"/>
+      <url>/2018/05/02/jottings-%E4%B8%80/</url>
+      <content type="html"><![CDATA[<p><img src="/2018/05/02/jottings-一/jottings-1.jpg" alt="jottings"><br><a id="more"></a></p><p><strong>或许世界不是你预期的模样<br>柴米油盐包裹着大胆的梦想<br>学会了成熟，一直保持善良<br>勇敢哭、用力笑、别逞强<br>不勉强追寻飞到多高的地方<br>只要你快乐才是唯一的真相<br>当你扮大人，扮到疲惫了<br>有个家让你做回孩子。</strong></p>]]></content>
+      
+      <categories>
+          
+          <category> thoughts </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> jottings </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Hadoop生态圈(三) ----- HBase的使用(一)</title>
       <link href="/2018/04/28/BigData-HBase-%E4%B8%80/"/>
       <url>/2018/04/28/BigData-HBase-%E4%B8%80/</url>
@@ -17,7 +38,7 @@
       
         <tags>
             
-            <tag> HBase Java Hadoop </tag>
+            <tag> HBase </tag>
             
         </tags>
       
@@ -38,7 +59,7 @@
       
         <tags>
             
-            <tag> Kafka Java Hadoop </tag>
+            <tag> Kafka </tag>
             
         </tags>
       
@@ -59,7 +80,7 @@
       
         <tags>
             
-            <tag> Kafka Java Hadoop </tag>
+            <tag> Kafka </tag>
             
         </tags>
       
@@ -80,7 +101,7 @@
       
         <tags>
             
-            <tag> Kafka Java Hadoop </tag>
+            <tag> Kafka </tag>
             
         </tags>
       
@@ -101,7 +122,7 @@
       
         <tags>
             
-            <tag> Flume Java Hadoop </tag>
+            <tag> Flume </tag>
             
         </tags>
       
@@ -122,7 +143,7 @@
       
         <tags>
             
-            <tag> Kafka Java Hadoop </tag>
+            <tag> Kafka </tag>
             
         </tags>
       
