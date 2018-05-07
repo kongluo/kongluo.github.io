@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/05/07/BigData-Scala1-2/</loc>
+    
+    <lastmod>2018-05-07T10:03:09.679Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/07/BigData-Scala1-1/</loc>
+    
+    <lastmod>2018-05-07T10:00:59.244Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/05/02/jottings-%E4%B8%80/</loc>
     
-    <lastmod>2018-05-02T01:07:12.607Z</lastmod>
+    <lastmod>2018-05-02T01:10:18.786Z</lastmod>
     
   </url>
   
@@ -33,13 +47,6 @@
     <loc>http://yoursite.com/2018/04/28/BigData-Kafka-%E4%B8%89/</loc>
     
     <lastmod>2018-05-02T00:49:13.314Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/28/BigData-HBase-%E4%B8%80/</loc>
-    
-    <lastmod>2018-05-02T00:49:11.847Z</lastmod>
     
   </url>
   

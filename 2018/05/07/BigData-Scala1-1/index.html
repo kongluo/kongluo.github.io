@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <meta name="keywords" content="Scala," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Scala中的函数Scala定义函数在Scala中定义函数时，需要定义函数的函数名、参数、函数体1234567891011def sayHello(name:String,age:Int):Int =&amp;#123;  if(age&amp;gt;18)  &amp;#123;    printf(&amp;quot;Hi,%s,you are a big boy!!!&amp;quot;,name)  &amp;#125;  else&amp;#">
+<meta name="keywords" content="Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark生态圈之Scala(一) ----- Scala中的函数">
+<meta property="og:url" content="http://yoursite.com/2018/05/07/BigData-Scala1-1/index.html">
+<meta property="og:site_name" content="空落单行雨">
+<meta property="og:description" content="Scala中的函数Scala定义函数在Scala中定义函数时，需要定义函数的函数名、参数、函数体1234567891011def sayHello(name:String,age:Int):Int =&amp;#123;  if(age&amp;gt;18)  &amp;#123;    printf(&amp;quot;Hi,%s,you are a big boy!!!&amp;quot;,name)  &amp;#125;  else&amp;#">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-07T10:00:59.244Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark生态圈之Scala(一) ----- Scala中的函数">
+<meta name="twitter:description" content="Scala中的函数Scala定义函数在Scala中定义函数时，需要定义函数的函数名、参数、函数体1234567891011def sayHello(name:String,age:Int):Int =&amp;#123;  if(age&amp;gt;18)  &amp;#123;    printf(&amp;quot;Hi,%s,you are a big boy!!!&amp;quot;,name)  &amp;#125;  else&amp;#">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/07/BigData-Scala1-1/"/>
+
+
+
+
+
+  <title>Spark生态圈之Scala(一) ----- Scala中的函数 | 空落单行雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/kongluo"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">空落单行雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/BigData-Scala1-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kongluo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/upload/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="空落单行雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spark生态圈之Scala(一) ----- Scala中的函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T15:39:13+08:00">
+                2018-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Scala中的函数"><a href="#Scala中的函数" class="headerlink" title="Scala中的函数"></a>Scala中的函数</h3><h4 id="Scala定义函数"><a href="#Scala定义函数" class="headerlink" title="Scala定义函数"></a>Scala定义函数</h4><p>在Scala中定义函数时，需要定义函数的函数名、参数、函数体<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String,age:Int):Int =</span><br><span class="line">&#123;</span><br><span class="line">  if(age&gt;18)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;Hi,%s,you are a big boy!!!&quot;,name)</span><br><span class="line">  &#125;</span><br><span class="line">  else&#123;</span><br><span class="line">    prinf(&quot;Hi,%s,you are a children&quot;,name)</span><br><span class="line">    age</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>Scala要求必须给出所有参数的类型，但是不一定给出函数返回值的类型，只要右侧的函数体中不包含递归的语句，Scala就可以自己根据右侧的表达式推断出返回类型。</p>
+<p>单行函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String):Unit = println(&quot;Hello&quot;+name)</span><br></pre></td></tr></table></figure></p>
+<p>sum函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def sum(n:Int):Int=</span><br><span class="line">&#123;</span><br><span class="line">  var result = 0</span><br><span class="line">  for(i&lt;- 1 to n)</span><br><span class="line">  &#123;</span><br><span class="line">    result +=i</span><br><span class="line">  &#125;</span><br><span class="line">  result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>递归函数(斐波那契数列)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def fab(n:Int):Int =</span><br><span class="line">&#123;</span><br><span class="line">  if(n&lt;=0) 1</span><br><span class="line">  else fab(n-1)+fab(n-2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Scala函数中的默认参数"><a href="#Scala函数中的默认参数" class="headerlink" title="Scala函数中的默认参数"></a>Scala函数中的默认参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(FirstName:String,MiddleName:String=&quot;&quot;,LastName:String=&quot;&quot;):Unit =</span><br><span class="line">print(FirstName+&quot; &quot;+MiddleName+&quot; &quot;+LastName)</span><br></pre></td></tr></table></figure>
+<p>Java与Scala实现默认参数的区别:</p>
+<p>Java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public void sayHello(String name,int age)        </span><br><span class="line">&#123;                                                </span><br><span class="line">    if(name = null)                                </span><br><span class="line">   &#123;                                           </span><br><span class="line">      name = &quot;defaultName&quot;                        </span><br><span class="line">   &#125;</span><br><span class="line">   if(age ==0)</span><br><span class="line">    &#123;</span><br><span class="line">      age = 18</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Scala:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String,age:Int=20)</span><br><span class="line">&#123;</span><br><span class="line">    print(&quot;Hello,&quot;+name+&quot;, your age is &quot;+age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Scala函数中的带名参数"><a href="#Scala函数中的带名参数" class="headerlink" title="Scala函数中的带名参数"></a>Scala函数中的带名参数</h4><p>在调用函数时，也可以不按照函数定义的参数顺序来传递参数，而是使用带名参数的方式来传递<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sayHello(FirstName=&quot;Mick&quot;,LastName=&quot;Nina&quot;,MiddleName=&quot;jack&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>还可以混合使用未命名参数和带名参数，但是未命名参数必须排在带名参数前面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sayHello(&quot;Mick&quot;,LastName=&quot;Nina&quot;,MiddleName=&quot;Jack&quot;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Scala函数中的变长参数"><a href="#Scala函数中的变长参数" class="headerlink" title="Scala函数中的变长参数"></a>Scala函数中的变长参数</h4><p>在Scala中，有时我们需要将函数定义为参数个数可变的形式，则此时可以使用变长参数定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def sum(nums : Int*)</span><br><span class="line">&#123;</span><br><span class="line">    var res = 0</span><br><span class="line">    for(num &lt;- nums)</span><br><span class="line">       res += num</span><br><span class="line">    res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用序列调用变长参数：</p>
+<p>在如果想要将一个已有的序列直接调用变长参数函数，是不对的。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val s = sum(1 to 5)</span><br></pre></td></tr></table></figure></p>
+<p>此时需要使用Scala特殊的语法将参数定义为序列，让Scala解释器能够识别。这种语法非常有用！一定要好好注意，在Spark的源码中大量地使用到了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val s = sum(1 to 5:_*)</span><br></pre></td></tr></table></figure></p>
+<p>案例：使用递归函数实现累加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def sum2(nums:Int*):Int=</span><br><span class="line">&#123;</span><br><span class="line">    if(nums.length == 0) 0</span><br><span class="line">     else nums.head+sum2(nums.tail : _*)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Scala函数的过程、lazy值和异常"><a href="#Scala函数的过程、lazy值和异常" class="headerlink" title="Scala函数的过程、lazy值和异常"></a>Scala函数的过程、lazy值和异常</h4><p>1、过程:<br>  在Scala中，定义函数时，如果函数体直接包裹在了花括号里面，而没有使用=连接，则函数的返回值类型就是Unit。这样的函数就被称之为过程。过程通常用于不需要返回值的函数</p>
+<p>  过程还有一种写法，就是将函数的返回值类型定义为Unit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String) = &quot;Hello,&quot;+name</span><br><span class="line">def sayHello(name:String) &#123;print(&quot;Hello,&quot;+name);&quot;Hello,&quot;+name&#125;</span><br><span class="line">def sayHello(name:String):Unit = &quot;Hello,&quot;+name</span><br></pre></td></tr></table></figure></p>
+<p>2、lazy值：<br>  在Scala中，提供了lazy值的特性，也就是说，如果将一个变量声明为lazy，则只有在第一次使用该变量时，变量对应的表达式才会发生计算。这种特性对于特别耗时的计算操作特别有用，比如打开文件进行IO，进行网络IO等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import scala.io.Source._</span><br><span class="line">lazy val lines = fromFile(&quot;C://Users//Administrator//Desktop//test.txt&quot;).mkString</span><br></pre></td></tr></table></figure>
+<p>即使文件不存在，也不会报错，只有第一个使用变量时会报错，证明了表达式计算的lazy特性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val lines = fromFile(&quot;C://Users//Administrator//Desktop//test.txt&quot;).mkString</span><br><span class="line">lazy val lines = fromFile(&quot;C://Users//Administractor//Desktop//test.txt&quot;).mkString</span><br><span class="line">def lines = fromFile(&quot;C://Users//Administrator//Desktop//test.txt&quot;).mkString</span><br></pre></td></tr></table></figure></p>
+<p>3、异常:<br>  在Scala中，异常处理和捕获机制与Java是非常相似的</p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+    
+
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------This article is ends <i class="fa fa-paw"></i> Thank you for reading-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala/" rel="tag"># Scala</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/02/jottings-一/" rel="next" title="随笔(一)">
+                <i class="fa fa-chevron-left"></i> 随笔(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/07/BigData-Scala1-2/" rel="prev" title="Spark生态圈之Scala(二) ----- Scala中的数组操作">
+                Spark生态圈之Scala(二) ----- Scala中的数组操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/upload/image/avatar.jpg"
+                alt="Kongluo" />
+            
+              <p class="site-author-name" itemprop="name">Kongluo</p>
+              <p class="site-description motion-element" itemprop="description">天生的面孔已经不见，真诚的心灵已经久违了！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kongluo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kongluodanxing@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scala中的函数"><span class="nav-number">1.</span> <span class="nav-text">Scala中的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Scala定义函数"><span class="nav-number">1.1.</span> <span class="nav-text">Scala定义函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scala函数中的默认参数"><span class="nav-number">1.2.</span> <span class="nav-text">Scala函数中的默认参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scala函数中的带名参数"><span class="nav-number">1.3.</span> <span class="nav-text">Scala函数中的带名参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scala函数中的变长参数"><span class="nav-number">1.4.</span> <span class="nav-text">Scala函数中的变长参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scala函数的过程、lazy值和异常"><span class="nav-number">1.5.</span> <span class="nav-text">Scala函数的过程、lazy值和异常</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kongluo</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://github.com/kongluo">kongluo</a> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;  v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

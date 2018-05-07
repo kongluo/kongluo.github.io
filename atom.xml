@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-02T01:07:12.607Z</updated>
+  <updated>2018-05-07T10:03:09.679Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Spark生态圈之Scala(二) ----- Scala中的数组操作</title>
+    <link href="http://yoursite.com/2018/05/07/BigData-Scala1-2/"/>
+    <id>http://yoursite.com/2018/05/07/BigData-Scala1-2/</id>
+    <published>2018-05-07T10:02:33.000Z</published>
+    <updated>2018-05-07T10:03:09.679Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://yoursite.com/categories/Scala/"/>
+    
+    
+      <category term="Scala" scheme="http://yoursite.com/tags/Scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spark生态圈之Scala(一) ----- Scala中的函数</title>
+    <link href="http://yoursite.com/2018/05/07/BigData-Scala1-1/"/>
+    <id>http://yoursite.com/2018/05/07/BigData-Scala1-1/</id>
+    <published>2018-05-07T07:39:13.000Z</published>
+    <updated>2018-05-07T10:00:59.244Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Scala中的函数"><a href="#Scala中的函数" class="headerlink" title="Scala中的函数"></a>Scala中的函数</h3><h4 id="Scala定义函数"><a href="#Scala定义函数" class="headerlink" title="Scala定义函数"></a>Scala定义函数</h4><p>在Scala中定义函数时，需要定义函数的函数名、参数、函数体<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String,age:Int):Int =</span><br><span class="line">&#123;</span><br><span class="line">  if(age&gt;18)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;Hi,%s,you are a big boy!!!&quot;,name)</span><br><span class="line">  &#125;</span><br><span class="line">  else&#123;</span><br><span class="line">    prinf(&quot;Hi,%s,you are a children&quot;,name)</span><br><span class="line">    age</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><a id="more"></a><p>Scala要求必须给出所有参数的类型，但是不一定给出函数返回值的类型，只要右侧的函数体中不包含递归的语句，Scala就可以自己根据右侧的表达式推断出返回类型。</p><p>单行函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String):Unit = println(&quot;Hello&quot;+name)</span><br></pre></td></tr></table></figure></p><p>sum函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def sum(n:Int):Int=</span><br><span class="line">&#123;</span><br><span class="line">  var result = 0</span><br><span class="line">  for(i&lt;- 1 to n)</span><br><span class="line">  &#123;</span><br><span class="line">    result +=i</span><br><span class="line">  &#125;</span><br><span class="line">  result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>递归函数(斐波那契数列)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def fab(n:Int):Int =</span><br><span class="line">&#123;</span><br><span class="line">  if(n&lt;=0) 1</span><br><span class="line">  else fab(n-1)+fab(n-2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h4 id="Scala函数中的默认参数"><a href="#Scala函数中的默认参数" class="headerlink" title="Scala函数中的默认参数"></a>Scala函数中的默认参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(FirstName:String,MiddleName:String=&quot;&quot;,LastName:String=&quot;&quot;):Unit =</span><br><span class="line">print(FirstName+&quot; &quot;+MiddleName+&quot; &quot;+LastName)</span><br></pre></td></tr></table></figure><p>Java与Scala实现默认参数的区别:</p><p>Java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public void sayHello(String name,int age)        </span><br><span class="line">&#123;                                                </span><br><span class="line">    if(name = null)                                </span><br><span class="line">   &#123;                                           </span><br><span class="line">      name = &quot;defaultName&quot;                        </span><br><span class="line">   &#125;</span><br><span class="line">   if(age ==0)</span><br><span class="line">    &#123;</span><br><span class="line">      age = 18</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>Scala:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String,age:Int=20)</span><br><span class="line">&#123;</span><br><span class="line">    print(&quot;Hello,&quot;+name+&quot;, your age is &quot;+age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h4 id="Scala函数中的带名参数"><a href="#Scala函数中的带名参数" class="headerlink" title="Scala函数中的带名参数"></a>Scala函数中的带名参数</h4><p>在调用函数时，也可以不按照函数定义的参数顺序来传递参数，而是使用带名参数的方式来传递<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sayHello(FirstName=&quot;Mick&quot;,LastName=&quot;Nina&quot;,MiddleName=&quot;jack&quot;)</span><br></pre></td></tr></table></figure></p><p>还可以混合使用未命名参数和带名参数，但是未命名参数必须排在带名参数前面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sayHello(&quot;Mick&quot;,LastName=&quot;Nina&quot;,MiddleName=&quot;Jack&quot;)</span><br></pre></td></tr></table></figure></p><h4 id="Scala函数中的变长参数"><a href="#Scala函数中的变长参数" class="headerlink" title="Scala函数中的变长参数"></a>Scala函数中的变长参数</h4><p>在Scala中，有时我们需要将函数定义为参数个数可变的形式，则此时可以使用变长参数定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def sum(nums : Int*)</span><br><span class="line">&#123;</span><br><span class="line">    var res = 0</span><br><span class="line">    for(num &lt;- nums)</span><br><span class="line">       res += num</span><br><span class="line">    res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>使用序列调用变长参数：</p><p>在如果想要将一个已有的序列直接调用变长参数函数，是不对的。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val s = sum(1 to 5)</span><br></pre></td></tr></table></figure></p><p>此时需要使用Scala特殊的语法将参数定义为序列，让Scala解释器能够识别。这种语法非常有用！一定要好好注意，在Spark的源码中大量地使用到了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val s = sum(1 to 5:_*)</span><br></pre></td></tr></table></figure></p><p>案例：使用递归函数实现累加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def sum2(nums:Int*):Int=</span><br><span class="line">&#123;</span><br><span class="line">    if(nums.length == 0) 0</span><br><span class="line">     else nums.head+sum2(nums.tail : _*)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h4 id="Scala函数的过程、lazy值和异常"><a href="#Scala函数的过程、lazy值和异常" class="headerlink" title="Scala函数的过程、lazy值和异常"></a>Scala函数的过程、lazy值和异常</h4><p>1、过程:<br>  在Scala中，定义函数时，如果函数体直接包裹在了花括号里面，而没有使用=连接，则函数的返回值类型就是Unit。这样的函数就被称之为过程。过程通常用于不需要返回值的函数</p><p>  过程还有一种写法，就是将函数的返回值类型定义为Unit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def sayHello(name:String) = &quot;Hello,&quot;+name</span><br><span class="line">def sayHello(name:String) &#123;print(&quot;Hello,&quot;+name);&quot;Hello,&quot;+name&#125;</span><br><span class="line">def sayHello(name:String):Unit = &quot;Hello,&quot;+name</span><br></pre></td></tr></table></figure></p><p>2、lazy值：<br>  在Scala中，提供了lazy值的特性，也就是说，如果将一个变量声明为lazy，则只有在第一次使用该变量时，变量对应的表达式才会发生计算。这种特性对于特别耗时的计算操作特别有用，比如打开文件进行IO，进行网络IO等。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import scala.io.Source._</span><br><span class="line">lazy val lines = fromFile(&quot;C://Users//Administrator//Desktop//test.txt&quot;).mkString</span><br></pre></td></tr></table></figure><p>即使文件不存在，也不会报错，只有第一个使用变量时会报错，证明了表达式计算的lazy特性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val lines = fromFile(&quot;C://Users//Administrator//Desktop//test.txt&quot;).mkString</span><br><span class="line">lazy val lines = fromFile(&quot;C://Users//Administractor//Desktop//test.txt&quot;).mkString</span><br><span class="line">def lines = fromFile(&quot;C://Users//Administrator//Desktop//test.txt&quot;).mkString</span><br></pre></td></tr></table></figure></p><p>3、异常:<br>  在Scala中，异常处理和捕获机制与Java是非常相似的</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Scala中的函数&quot;&gt;&lt;a href=&quot;#Scala中的函数&quot; class=&quot;headerlink&quot; title=&quot;Scala中的函数&quot;&gt;&lt;/a&gt;Scala中的函数&lt;/h3&gt;&lt;h4 id=&quot;Scala定义函数&quot;&gt;&lt;a href=&quot;#Scala定义函数&quot; class=&quot;headerlink&quot; title=&quot;Scala定义函数&quot;&gt;&lt;/a&gt;Scala定义函数&lt;/h4&gt;&lt;p&gt;在Scala中定义函数时，需要定义函数的函数名、参数、函数体&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;def sayHello(name:String,age:Int):Int =&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  if(age&amp;gt;18)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;Hi,%s,you are a big boy!!!&amp;quot;,name)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    prinf(&amp;quot;Hi,%s,you are a children&amp;quot;,name)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    age&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://yoursite.com/categories/Scala/"/>
+    
+    
+      <category term="Scala" scheme="http://yoursite.com/tags/Scala/"/>
+    
+  </entry>
+  
+  <entry>
     <title>随笔(一)</title>
     <link href="http://yoursite.com/2018/05/02/jottings-%E4%B8%80/"/>
     <id>http://yoursite.com/2018/05/02/jottings-一/</id>
     <published>2018-05-02T00:36:33.000Z</published>
-    <updated>2018-05-02T01:07:12.607Z</updated>
+    <updated>2018-05-02T01:10:18.786Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2018/05/02/jottings-一/jottings-1.jpg" alt="jottings"><br><a id="more"></a><br><strong>或许世界不是你预期的模样<br>柴米油盐包裹着大胆的梦想<br>学会了成熟，一直保持善良<br>勇敢哭、用力笑、别逞强<br>不勉强追寻飞到多高的地方<br>只要你快乐才是唯一的真相<br>当你扮大人，扮到疲惫了<br>有个家让你做回孩子。</strong></p>]]></content>
     
@@ -35,28 +75,6 @@
     
     
       <category term="jottings" scheme="http://yoursite.com/tags/jottings/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hadoop生态圈(三) ----- HBase的使用(一)</title>
-    <link href="http://yoursite.com/2018/04/28/BigData-HBase-%E4%B8%80/"/>
-    <id>http://yoursite.com/2018/04/28/BigData-HBase-一/</id>
-    <published>2018-04-28T02:04:48.000Z</published>
-    <updated>2018-05-02T00:49:11.847Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>五一后更新！！！</strong><br><a id="more"></a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;五一后更新！！！&lt;/strong&gt;&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="HBase" scheme="http://yoursite.com/categories/HBase/"/>
-    
-    
-      <category term="HBase" scheme="http://yoursite.com/tags/HBase/"/>
     
   </entry>
   
@@ -190,9 +208,9 @@
     </summary>
     
     
-      <category term="java" scheme="http://yoursite.com/tags/java/"/>
-    
       <category term="Scala" scheme="http://yoursite.com/tags/Scala/"/>
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
       <category term="HDFS" scheme="http://yoursite.com/tags/HDFS/"/>
     
