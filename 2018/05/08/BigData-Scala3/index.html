@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="空落单行雨">
 <meta property="og:description" content="创建Map创建一个不可变的Map12val ages = Map(&amp;quot;Leo&amp;quot;-&amp;gt;30,&amp;quot;Jen&amp;quot;-&amp;gt;25,&amp;quot;Jack&amp;quot;-&amp;gt;23)ages(&amp;quot;Leo&amp;quot;)=31 创建一个可变的Map12val ages = scala.collection.mutable.Map(&amp;quot;Leo&amp;quot;-&amp;gt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-08T02:00:18.277Z">
+<meta property="og:updated_time" content="2018-05-08T02:31:51.314Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark生态圈之Scala(三) ----- Scala中的Map和Tuple">
 <meta name="twitter:description" content="创建Map创建一个不可变的Map12val ages = Map(&amp;quot;Leo&amp;quot;-&amp;gt;30,&amp;quot;Jen&amp;quot;-&amp;gt;25,&amp;quot;Jack&amp;quot;-&amp;gt;23)ages(&amp;quot;Leo&amp;quot;)=31 创建一个可变的Map12val ages = scala.collection.mutable.Map(&amp;quot;Leo&amp;quot;-&amp;gt;">
@@ -385,6 +385,7 @@
         <h3 id="创建Map"><a href="#创建Map" class="headerlink" title="创建Map"></a>创建Map</h3><p>创建一个不可变的Map<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val ages = Map(&quot;Leo&quot;-&gt;30,&quot;Jen&quot;-&gt;25,&quot;Jack&quot;-&gt;23)</span><br><span class="line">ages(&quot;Leo&quot;)=31</span><br></pre></td></tr></table></figure></p>
 <p>创建一个可变的Map<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val ages = scala.collection.mutable.Map(&quot;Leo&quot;-&gt;30,&quot;Jen&quot;-&gt;25,&quot;Jack&quot;-&gt;23)</span><br><span class="line">ages(&quot;Leo&quot;)=31</span><br></pre></td></tr></table></figure></p>
 <p>使用另外一种方式定义Map元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val ages = Map((&quot;Leo&quot;,30),(&quot;Jen&quot;,25),(&quot;Jack&quot;,23))</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>创建一个空的HashMap<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val ages = new scala.collection.mutable.HashMap[String,Int]</span><br></pre></td></tr></table></figure></p>
 <h3 id="访问Map的元素"><a href="#访问Map的元素" class="headerlink" title="访问Map的元素"></a>访问Map的元素</h3><p>获取指定key对应的value，如果key不存在，会报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val leoAge = ages(&quot;leo&quot;)</span><br><span class="line">val leoAge = ages(&quot;leo&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>使用contains函数检查key是否存在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val leoAge = if(ages.contains(&quot;leo&quot;)) ages(&quot;leo&quot;) else 0</span><br></pre></td></tr></table></figure></p>

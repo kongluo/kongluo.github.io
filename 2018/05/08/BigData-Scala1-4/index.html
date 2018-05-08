@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="空落单行雨">
 <meta property="og:description" content="数组转换使用yield和函数式编程转换数组 对Array进行转换，获取的还是Array12val a = Array(1,2,3,4,5)val a2 = for(ele &amp;lt;- a) yield ele*ele 对ArrayBuffer进行转换，获取的还是ArrayBuffer123val b = ArrayBuffer[Int]()b += (1,2,3,4,5)val b2 = for(">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-08T01:51:39.472Z">
+<meta property="og:updated_time" content="2018-05-08T02:31:47.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark生态圈之Scala(二) ----- Scala中的数组操作(三)">
 <meta name="twitter:description" content="数组转换使用yield和函数式编程转换数组 对Array进行转换，获取的还是Array12val a = Array(1,2,3,4,5)val a2 = for(ele &amp;lt;- a) yield ele*ele 对ArrayBuffer进行转换，获取的还是ArrayBuffer123val b = ArrayBuffer[Int]()b += (1,2,3,4,5)val b2 = for(">
@@ -385,6 +385,7 @@
         <h3 id="数组转换"><a href="#数组转换" class="headerlink" title="数组转换"></a>数组转换</h3><p>使用yield和函数式编程转换数组</p>
 <p>对Array进行转换，获取的还是Array<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val a = Array(1,2,3,4,5)</span><br><span class="line">val a2 = for(ele &lt;- a) yield ele*ele</span><br></pre></td></tr></table></figure></p>
 <p>对ArrayBuffer进行转换，获取的还是ArrayBuffer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val b = ArrayBuffer[Int]()</span><br><span class="line">b += (1,2,3,4,5)</span><br><span class="line">val b2 = for(ele &lt;-b ) yield ele*ele</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>结合if守卫，仅转换需要的元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val a3 = for(ele &lt;- if ele %2 ==0) yield ele*ele</span><br></pre></td></tr></table></figure></p>
 <p>使用函数式编程转换数组(通常使用第一种方式)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.filter( _%2 ==0).map(2*_)</span><br><span class="line">a.filter&#123;_%2==0&#125;map(2*_)</span><br></pre></td></tr></table></figure></p>
 <h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>算法案例：移出第一个负数之后的所有依赖</p>
