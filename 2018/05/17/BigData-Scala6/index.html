@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="空落单行雨">
 <meta property="og:description" content="模式匹配scala是没有Java中的switch case语法的，相对应的，Scala提供了更加强大的match case语法，即模式匹配，类代替switch case，match case也被称为模式匹配Scala的match case与Java的switch case最大的不同点在于，Java的switch case仅能匹配变量的值，比如1、2、3等；而Scala的match case可以匹配">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-17T08:44:18.089Z">
+<meta property="og:updated_time" content="2018-05-17T09:03:41.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark生态圈之Scala(十二) ----- Scala中的函数式编程之模式匹配">
 <meta name="twitter:description" content="模式匹配scala是没有Java中的switch case语法的，相对应的，Scala提供了更加强大的match case语法，即模式匹配，类代替switch case，match case也被称为模式匹配Scala的match case与Java的switch case最大的不同点在于，Java的switch case仅能匹配变量的值，比如1、2、3等；而Scala的match case可以匹配">
@@ -384,6 +384,7 @@
       
         <h3 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h3><p>scala是没有Java中的switch case语法的，相对应的，Scala提供了更加强大的match case语法，即模式匹配，类代替switch case，match case也被称为模式匹配<br>Scala的match case与Java的switch case最大的不同点在于，Java的switch case仅能匹配变量的值，比如1、2、3等；而Scala的match case可以匹配各种情况，比如变量的类型、集合的元素、有值或无值<br>match case的语法如下 : 变量match{case 值=&gt; 语法}。如果值为下划线，则代表了不满足以上所有情况下的默认情况如何处理。此外，match case中，主要一个case分支满足并处理了，就不会继续判断下一个case分支了。（与Java不同，java的switch case需要用break阻止）<br>match case语法最基本的应用，就是对变量的值进行模式匹配</p>
 <p>案例：成绩评价<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def judgeGrade(grade:String)&#123;</span><br><span class="line"> grade match&#123;</span><br><span class="line">      case &quot;A&quot; =&gt; println(&quot;Excellent&quot;)</span><br><span class="line">      case &quot;B&quot;=&gt; println(&quot;Good&quot;)</span><br><span class="line">      case &quot;C&quot;=&gt; println(&quot;Just so so&quot;)</span><br><span class="line">      case _ =&gt; println(&quot;you need work harder&quot;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h3 id="在模式匹配中使用if守卫"><a href="#在模式匹配中使用if守卫" class="headerlink" title="在模式匹配中使用if守卫"></a>在模式匹配中使用if守卫</h3><p>Scala的模式匹配语法，有一个特点在于，可以在case后的条件判断中，不仅仅只是提供一个值，而是可以在值后面再加一个if守卫，进行双重过滤</p>
 <p>案例：成绩评价（升级版）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def judgeGrade(name:String,grade:String)&#123;</span><br><span class="line">  grade match&#123;</span><br><span class="line">    case &quot;A&quot;=&gt;println(name+&quot;,you are excellent&quot;)</span><br><span class="line">    case &quot;B&quot;=&gt;println(name+&quot;,you are good&quot;)</span><br><span class="line">    case &quot;C&quot;=&gt;println(name+&quot;,you are just so so&quot;)</span><br><span class="line">    case \_if name==&quot;leo&quot; =&gt;println(name+&quot;,you are a good boy,come on&quot;)</span><br><span class="line">    case \_ =&gt;println(&quot;you need to work harder&quot;)  </span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="在模式匹配中进行变量赋值"><a href="#在模式匹配中进行变量赋值" class="headerlink" title="在模式匹配中进行变量赋值"></a>在模式匹配中进行变量赋值</h3><p>Scala的模式匹配语法，有一个特点在于，可以将模式匹配的默认情况，下划线，替换为一个变量名，此时模式匹配语法就会将要匹配的值赋值给这个变量，从而可以在后面的处理语句中使用要匹配的值</p>
@@ -536,7 +537,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -547,7 +548,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -558,7 +559,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
