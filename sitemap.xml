@@ -2,23 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2018/05/08/BigData-Scala3/</loc>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala8/</loc>
     
-    <lastmod>2018-05-08T02:31:51.314Z</lastmod>
+    <lastmod>2018-05-17T08:44:23.268Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/05/08/BigData-Scala1-4/</loc>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala7/</loc>
     
-    <lastmod>2018-05-08T02:31:47.181Z</lastmod>
+    <lastmod>2018-05-17T08:44:21.777Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala6/</loc>
+    
+    <lastmod>2018-05-17T08:44:18.089Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2018/05/08/BigData-Scala1-3/</loc>
     
-    <lastmod>2018-05-08T01:45:30.523Z</lastmod>
+    <lastmod>2018-05-17T08:40:02.357Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/08/BigData-Scala1-4/</loc>
+    
+    <lastmod>2018-05-17T08:40:00.752Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala4-2/</loc>
+    
+    <lastmod>2018-05-17T08:39:59.063Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/08/BigData-Scala3/</loc>
+    
+    <lastmod>2018-05-17T08:39:20.191Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala4-3/</loc>
+    
+    <lastmod>2018-05-17T08:39:17.363Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala4-1/</loc>
+    
+    <lastmod>2018-05-17T08:39:09.105Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala4-4/</loc>
+    
+    <lastmod>2018-05-17T08:39:02.957Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala5-1/</loc>
+    
+    <lastmod>2018-05-17T08:39:02.131Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/17/BigData-Scala5-2/</loc>
+    
+    <lastmod>2018-05-17T08:39:01.202Z</lastmod>
     
   </url>
   
