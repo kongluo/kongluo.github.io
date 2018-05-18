@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/05/18/jottings-2/</loc>
+    
+    <lastmod>2018-05-18T01:02:59.082Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/02/jottings-%E4%B8%80/</loc>
+    
+    <lastmod>2018-05-18T00:55:29.384Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/08/BigData-Scala1-3/</loc>
+    
+    <lastmod>2018-05-18T00:55:08.949Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/07/BigData-Scala1-2/</loc>
+    
+    <lastmod>2018-05-18T00:55:07.516Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/08/BigData-Scala1-4/</loc>
+    
+    <lastmod>2018-05-18T00:55:05.728Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/07/BigData-Scala1-1/</loc>
+    
+    <lastmod>2018-05-18T00:54:54.676Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/05/17/Python-Numpy/</loc>
     
     <lastmod>2018-05-17T10:02:58.581Z</lastmod>
@@ -40,20 +82,6 @@
     <loc>http://yoursite.com/2018/05/17/BigData-Scala8/</loc>
     
     <lastmod>2018-05-17T08:44:23.268Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/08/BigData-Scala1-3/</loc>
-    
-    <lastmod>2018-05-17T08:40:02.357Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/08/BigData-Scala1-4/</loc>
-    
-    <lastmod>2018-05-17T08:40:00.752Z</lastmod>
     
   </url>
   
@@ -103,27 +131,6 @@
     <loc>http://yoursite.com/2018/05/17/BigData-Scala5-2/</loc>
     
     <lastmod>2018-05-17T08:39:01.202Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/07/BigData-Scala1-2/</loc>
-    
-    <lastmod>2018-05-08T01:40:23.369Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/07/BigData-Scala1-1/</loc>
-    
-    <lastmod>2018-05-07T10:33:13.124Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/02/jottings-%E4%B8%80/</loc>
-    
-    <lastmod>2018-05-02T01:10:18.786Z</lastmod>
     
   </url>
   
