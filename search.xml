@@ -24,48 +24,6 @@
     </entry>
     
     <entry>
-      <title>Python可视化库 ----- Matplotlib</title>
-      <link href="/2018/05/17/Python-Matplotlib/"/>
-      <url>/2018/05/17/Python-Matplotlib/</url>
-      <content type="html"><![CDATA[]]></content>
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Python数据分析处理库 ----- Pandas</title>
-      <link href="/2018/05/17/Python-Pandas/"/>
-      <url>/2018/05/17/Python-Pandas/</url>
-      <content type="html"><![CDATA[]]></content>
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>Python科学计算库 ----- Numpy</title>
       <link href="/2018/05/17/Python-Numpy/"/>
       <url>/2018/05/17/Python-Numpy/</url>
