@@ -3,6 +3,69 @@
   
     
     <entry>
+      <title>Spark生态圈之Spark(三) ----- Spark架构原理</title>
+      <link href="/2018/05/25/BigData-Spark3/"/>
+      <url>/2018/05/25/BigData-Spark3/</url>
+      <content type="html"><![CDATA[<p><img src="/2018/05/25/BigData-Spark3/spark1.png" alt="Spark工作原理"><br><a id="more"></a></p><h3 id="Spark框架原理"><a href="#Spark框架原理" class="headerlink" title="Spark框架原理"></a>Spark框架原理</h3><p>Driver：我们编写的Spark程序就在Driver上</p><p>Master: 其实主要负责资源的调度和分配，还有集群的监控，等等职责</p><p>Worker：主要是负责两个，一个是用自己的内存存储RDD的某个或某些partition；另一个是启动其他进程和线程，对RDD上的partition进行版型的处理和计算</p><p>Executor和Task： Executor和Task，其实就是负责执行对RDD的partition进行并行的计算了，也就是执行我们对RDD定义的，比如map、flatMap、reduce等算子操作</p><p>1、Driver进程启动之后，会做一些初始化的操作；在这个过程中，就会发送请求到Master上，进行Spark应用程序的注册，说白了，就是让Master知道，有一个新的Spark应用程序要运行。</p><p>2、Master，在接收到了Spark应用程序的注册申请之后，会发送请求给Worker，进行资源的调度和分配，ok，说白了，说穿了，资源分配，就是executor的分配。</p><p>3、Worker接收到Master的请求之后，会为Spark应用程序启动Executor</p><p>4、Executor启动之后，会向Driver进行反注册。这样，Driver就知道，哪些Executor是为它进行服务的了。</p><p>5、Driver注册了一些executor之后，就可以开始正式执行我们的spark应用程序了，首先第一步，就是，创建初始RDD，读取数据源</p><p>6、HDFS文件内容被读取到多个worker节点上，形成内存中的分布式数据集，也就是初始RDD</p><p>7、Driver会根据我们对RDD定义的操作，提交一大堆task去executor上，executor接收到task之后，会启动多个线程来执行task</p><p>8、task就会对RDD的partition数据执行指定的算子操作，形成新的RDD的partition</p>]]></content>
+      
+      <categories>
+          
+          <category> Spark </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Spark生态圈之Spark(二) ----- WordCount程序原理</title>
+      <link href="/2018/05/25/BigData-Spark2/"/>
+      <url>/2018/05/25/BigData-Spark2/</url>
+      <content type="html"><![CDATA[<p><img src="/2018/05/25/BigData-Spark2/spark1.png" alt="Spark工作原理"><br><a id="more"></a></p><h3 id="Java开发WordCount"><a href="#Java开发WordCount" class="headerlink" title="Java开发WordCount"></a>Java开发WordCount</h3><p>用Java开发wordcount程序：<br>1、配置Maven环境<br>2、如何进行本地测试<br>3、如何使用spark-submit提交到spark集群进行执行(spark-submit常用参数说明，spark-submit其实就类似于hadoop的hadoop jar命令)</p><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>创建SparkConf对象，设置spark应用的配置信息使用setMaster()可以设置Spark应用程序要连接的spark集群的master节点的url，但是如果设置为local则代表在本地运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = new SparkConf().setAppName(&quot;SparkJava&quot;).setMaster(&quot;local&quot;);</span><br></pre></td></tr></table></figure></p><h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>创建JavaSparkContext对象</p><p>在Spark中，SparkContext是spark所有功能的一个入口，你无论是用java，scala，甚至是python编写<br>都必须要有一个SparkContext，他的主要作用，包括初始化Spark应用程序所需的一些核心组件，包括<br>调度器(DAGSchedule、TaskScheduler),还会去到Spark Master节点上进行注册，等等<br>一句话，SparkContext，是Spark应用中，可以说是最最重要的一个对象<br>但是呢，在spark中，编写不同类型的spark应用程序，使用的SparkContext是不同的，如果使用scala，<br>使用的就是原生的SparkContext对象<br>但是如果使用Java，那么就是JavaSparkContext对象<br>如果是开发Spark SQL程序，那么就是SQLContext、HiveContext<br>如果是开发 Spark Streaming程序，那么就是它独有的SparkContext以此类推<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JavaSparkContext sc = new JavaSparkContext(conf);</span><br></pre></td></tr></table></figure></p><h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>要针对输入源(HDFS、本地文件、等等)，创建一个初始的RDD</p><p>输入源中的数据会打散，分配到RDD的每个partition中，从而形成一个初始的分布式的数据集<br>我们这里呢，因为是本地测试，所以呢，就是针对本地文件<br>SparkContext中，用于根据文件类型的输入源创建RDD的方法，叫做textFile()方法<br>在Java中，创建的普通RDD，都叫做JavaRDD<br>在这里呢，RDD中，有元素这种概念，如果是HDFS或者本地文件呢，创建的RDD，每一个元素就相当于是文件里的一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JavaRDD&lt;String&gt; lines = sc.textFile(&quot;C://MyWork-Study//Spark//课件//第29讲-Spark核心编程：使用Java、Scala和spark-shell开发wordcount程序//文档//spark.txt&quot;);</span><br></pre></td></tr></table></figure></p><h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h4><p>对初始RDD进行transformation操作，也就是一些计算操作</p><p>通常操作会通过创建function，并配合RDD的map、flatMap等算子来执行function<br>通常，如果比较简单，则创建指定Function的匿名内部类<br>但是如果function比较复杂，则会单独创建一个类，作为实现这个function接口的类<br>先将每一行拆分成单个的单词<br>FlatMapFunction，有两个泛型参数，分别代表了输入和输出<br>我们这里呢，输入肯定是String，因为是一行一行的文本，输出，其实也是String，因为是每一行的文本<br>这里先简要介绍flatMap算子的作用，其实就是，将RDD的一个元素，给拆分成一个或多个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">JavaRDD&lt;String&gt; words = lines.flatMap(new FlatMapFunction&lt;String, String&gt;() &#123;</span><br><span class="line"></span><br><span class="line">         private static final long servialVersionUID = 1L;</span><br><span class="line"></span><br><span class="line">           public Iterator&lt;String&gt; call(String line) throws Exception</span><br><span class="line">           &#123;</span><br><span class="line">               return (Iterator&lt;String&gt;) Arrays.asList(line.split(&quot; &quot;));</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></p><h4 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h4><p>接着，需要将每一个单词，映射为(单词，1))的这种格式<br>因为只有这样，后面才能根据单词作为key，来进行每个单词的出现次数的累加<br>mapToPair，其实就是将每个元素，映射为一个(v1,v2)这样的Tuple2类型的元素<br>如果大家还记得Scala里面讲的tuple，那么没错，这里的tuple2就是scala类型，包含了两个值<br>mapToPair这个算子，要求的是与PairFunction配合使用，第一个泛型参数代表了输入类型<br>第二个和第三个泛型参数，代表的输出的Tuple2的第一个值和第二个值的类型<br>JavaPairRDD的两个泛型参数，分别代表了Tuple元素的第一个值和第二个值的类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JavaPairRDD&lt;String, Integer&gt; pairs = words.mapToPair(</span><br><span class="line">        new PairFunction&lt;String, String, Integer&gt;() &#123;</span><br><span class="line">            private static final long serialVersionUDI = 1L;</span><br><span class="line"></span><br><span class="line">    public Tuple2&lt;String, Integer&gt; call(String word) throws Exception &#123;</span><br><span class="line">        return new Tuple2&lt;String, Integer&gt;(word,1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p><h4 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h4><p>接着，需要以单词作为key，统计每个单词出现的次数<br>这里要使用reduceByKey这个算子，对每个key对应的value，都进行reduce操作<br>比如JavaPairRDD中有几个元素，分别为(hello，1) (hello,1) (world,1)<br>比如这里的hello，那么就相当于是，首先是1 + 1 = 2，然后再将2 + 1 = 3<br>最后返回的JavaPairRDD中的元素，也是tuple，但是第一个值就是每个key，第二个值就是key的value<br>reduce之后的结果，相当于就是每个单词出现的次数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wordCounts.foreach(</span><br><span class="line">        new VoidFunction&lt;Tuple2&lt;String, Integer&gt;&gt;() &#123;</span><br><span class="line">    public void call(Tuple2&lt;String, Integer&gt; wordcount) throws Exception &#123;</span><br><span class="line">        System.out.println(wordcount._1+&quot; appeared &quot;+wordcount._2+&quot; times.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">sc.close();</span><br></pre></td></tr></table></figure></p><h3 id="程序提交"><a href="#程序提交" class="headerlink" title="程序提交"></a>程序提交</h3><p>一旦打包好,就可以使用bin/spark-submit脚本启动应用了. 这个脚本负责设置spark使用的classpath和依赖,支持不同类型的集群管理器和发布模式:<br>./bin/spark-submit \<br>  --class <main-class><br>  --master <master-url> \<br>      --deploy-mode <deploy-mode> \<br>  --conf <key>=<value> \<br>  … # other options<br>  <application-jar> \<br>  [application-arguments]<br>一些常用选项:<br>1)    --class: 你的应用的启动类 (如 org.apache.spark.examples.SparkPi)<br>2)    --master: 集群的master URL (如 spark://23.195.26.187:7077)<br>3)    --deploy-mode: 是否发布你的驱动到worker节点(cluster) 或者作为一个本地客户端 (client) (default: client)*<br>4)    --conf: 任意的Spark配置属性， 格式key=value. 如果值包含空格，可以加引号“key=value”. 缺省的Spark配置<br>5)    application-jar: 打包好的应用jar,包含依赖. 这个URL在集群中全局可见。 比如hdfs:// 共享存储系统， 如果是 file:// path， 那么所有的节点的path都包含同样的jar.<br>6)    application-arguments: 传给main()方法的参数</application-jar></value></key></deploy-mode></master-url></main-class></p><p>local    本地以一个worker线程运行(例如非并行的情况).<br>local[K]    本地以K worker 线程 (理想情况下, K设置为你机器的CPU核数).<br>local[*]    本地以本机同样核数的线程运行.<br>spark://HOST:PORT    连接到指定的Spark standalone cluster master. 端口是你的master集群配置的端口，缺省值为7077.<br>mesos://HOST:PORT    连接到指定的Mesos 集群. Port是你配置的mesos端口， 缺省是5050. 或者如果Mesos使用ZOoKeeper,格式为 mesos://zk://….<br>yarn-client    以client模式连接到YARN cluster. 集群的位置基于HADOOP_CONF_DIR 变量找到.<br>yarn-cluster    以cluster模式连接到YARN cluster. 集群的位置基于HADOOP_CONF_DIR 变量找到.</p><p>例如：</p><blockquote><p><strong>$</strong> spark2-submit \<br>--class com.scala.wordcount.WordCount<br>--num-executors 3 \<br>--driver-memory 1G \<br>--executor-memory 1G \<br>--executor-cores 3 \<br>/home/richard/wordcount-jar-with-dependencies.jar \<br>100</p></blockquote><h3 id="WordCount程序原理"><a href="#WordCount程序原理" class="headerlink" title="WordCount程序原理"></a>WordCount程序原理</h3><p><img src="/2018/05/25/BigData-Spark2/spark1.png" alt="Spark工作原理"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">val conf = new SparkConf().setAppName(&quot;WordCount&quot;)</span><br><span class="line"></span><br><span class="line">val sc = new SparkContext(conf)</span><br><span class="line"></span><br><span class="line">val lines = sc.textFile(&quot;&quot;)</span><br><span class="line"></span><br><span class="line">val words = lines.flatMap(line =&gt; line.split(&quot; &quot;))</span><br><span class="line"></span><br><span class="line">val pairs = words.map(word =&gt; (word,1))</span><br><span class="line"></span><br><span class="line">val wordCounts = pairs.reduceByKey(\_+\_)</span><br><span class="line"></span><br><span class="line">wordCount.foreach(wordCount =&gt; println(wordCount._1 + &quot; appears &quot;+wordCount._2 + &quot; times.&quot;))</span><br></pre></td></tr></table></figure><p><img src="/2018/05/25/BigData-Spark2/spark2.png" alt="Spark工作原理"></p><p>这个过程，所有的算子，都是在相同节点内进行的，这里就体现出了分布式、内存、迭代式计算，等几个spark最显著的计算模型和特点。也是Spark叫MapReduce这种计算模型速度更快的原因，MR的话，实现这个过程，必须要跨节点，走磁盘读写，没有内存式、迭代式计算的特点。<br>这就是所谓Spark的分布式、内存式、迭代式的计算模型，也是Spark之所以速度比MapReduce更快的原因。如果是MR，就必须走磁盘读写，速度必然降低。</p>]]></content>
+      
+      <categories>
+          
+          <category> Spark </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Spark生态圈之Spark(一) ----- Spark工作原理与RDD</title>
+      <link href="/2018/05/25/BigData-Spark1/"/>
+      <url>/2018/05/25/BigData-Spark1/</url>
+      <content type="html"><![CDATA[<p><img src="/2018/05/25/BigData-Spark1/spark1.png" alt="Spark工作原理"><br><a id="more"></a></p><h3 id="Spark工作原理"><a href="#Spark工作原理" class="headerlink" title="Spark工作原理"></a>Spark工作原理</h3><p>1、分布式<br>2、主要基于内存(少数情况基于磁盘)<br>3、迭代式运算</p><p>spark与MapReduce最大的不同在于，迭代式计算模型：Mapreduce，分为两个阶段，map和reduce，两个阶段完了，就结束了，所以我们在一个job里能做的处理很有限，spark计算模型，可以分为n个阶段，因为他是内存迭代式的，我们在处理完一个阶段以后，可以继续往下处理很多个阶段，而不只是两个阶段。所以，spark相较于Mapreduce来说，计算模型可以提供更强大的功能。</p><p><img src="/2018/05/25/BigData-Spark1/spark1.png" alt="Spark工作原理"></p><p>Spark的核心编程其实就是：</p><p>第一，定义初始的RDD，就是说，你要定义第一个RDD是从哪里读取数据，HDFS，linux本地文件，程序中的集合。<br>第二，定义对RDD的计算操作，这个在Spark里称之为算子，map，reduce，flatMap，groupByKey，比mapreduce提供的map和reduce强大的太多太多了。<br>第三，其实就是循环往复的过程，第一个计算完了以后，数据可能就会到了新的一批节点上，也就是变成一个新的RDD，然后再次反复，针对新的RDD定义计算操作。。。。<br>第四，最后获得最终的数据，将数据保存起来。</p><h3 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h3><p>1、RDD是spark提供的核心抽象，全称为Resillient Distributed Dataset，即弹性分布式数据集<br>2、RDD在抽象上来说是一种元素集合，包含了数据，它是被分区的，分为多个分区，每个分区分布在集群中的不同节点上，从而让RDD中的数据可以被并行操作(分布式数据集)<br>3、RDD通常通过Hadoop上的文件，即HDFS文件或者Hive表，来进行创建；有时也可以通过应用程序中的集合来创建。<br>4、RDD最重要的特性就是，提供了容错性，可以自动从节点失败中恢复过来。即如果某个节点上的RDD partition，因为节点故障，导致数据丢了，那么RDD会自动通过自己的数据来源重新计算该partition。这一切对使用者是透明的。<br>5、RDD的数据默认情况下存放在内存中的，但是在内存资源不足时，Spark会自动将RDD数据写入磁盘。(弹性)</p><p><img src="/2018/05/25/BigData-Spark1/spark2.png" alt="Spark工作原理"><br>一个RDD，在逻辑上，抽象地代表了一个HDFS文件，但是，它实际上是被分区得，分为多个分区。多个分区散落在Spark集群中，不同的节点上，比如说，RDD有90万数据；分为9个partition，9个分区。</p><p><img src="/2018/05/25/BigData-Spark1/spark3.png" alt="Spark工作原理"><br>现在，节点9出了些故障，导致partition9的数据丢失了，那么此时Spark会脆弱到直接报错，直接挂掉吗？不可能！！<br> RDD是有很强的容错性的，当它发现自己的数据丢失了以后，会自动从自己来源的数据进行重计算，重新获取自己这份数据，这一切对用户，都是完全透明的。</p><p><img src="/2018/05/25/BigData-Spark1/spark4.png" alt="Spark工作原理"><br>RDD的每个partition，在spark节点上存储时，默认都是放在内存中的，但是如果说内存放不下这么多数据时，比如每个节点最多放5万数据，结果你每个partition是10万数据，那么就会把partition中的部分数据写入磁盘上，进行保存。<br>而上述这一切对于用户来说，都是完全透明的。你不用去管RDD的数据存储在哪里，内存还是磁盘，只要关注，你针对RDD来进行计算和处理，等等操作即可。<br>所以说，RDD的这种自动进行内存和磁盘之间权衡和切换的机制，就是RDD的弹性的特点所在。</p><h3 id="Spark开发"><a href="#Spark开发" class="headerlink" title="Spark开发"></a>Spark开发</h3><p>1、核心开发：离线批处理 / 延迟性的交互式数据处理<br>2、SQL查询 ： 底层都是RDD和计算操作<br>3、实时计算 ： 底层都是RDD和计算操作</p>]]></content>
+      
+      <categories>
+          
+          <category> Spark </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>随笔(二)</title>
       <link href="/2018/05/18/jottings-2/"/>
       <url>/2018/05/18/jottings-2/</url>
@@ -475,11 +538,11 @@
             
             <tag> Scala </tag>
             
+            <tag> Spark </tag>
+            
             <tag> java </tag>
             
             <tag> HDFS </tag>
-            
-            <tag> Spark </tag>
             
         </tags>
       

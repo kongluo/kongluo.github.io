@@ -67,7 +67,7 @@
 
 
 
-  <meta name="keywords" content="Scala," />
+  <meta name="keywords" content="Spark," />
 
 
 
@@ -78,18 +78,17 @@
 
 
 
-<meta name="description" content="数组常见操作数组元素求和12val a = Array(1,2,3,4,5)val sum = a.sum 获取数组最大值1val max = a.max 对数组进行排序1scala.util.Sorting.quickSort(a)">
-<meta name="keywords" content="Scala">
+<meta name="keywords" content="Spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark生态圈之Scala(三) ----- Scala中的数组操作(二)">
-<meta property="og:url" content="http://yoursite.com/2018/05/08/BigData-Scala1-3/index.html">
+<meta property="og:title" content="Spark生态圈之Spark(三) ----- Spark架构原理">
+<meta property="og:url" content="http://yoursite.com/2018/05/25/BigData-Spark3/index.html">
 <meta property="og:site_name" content="空落单行雨">
-<meta property="og:description" content="数组常见操作数组元素求和12val a = Array(1,2,3,4,5)val sum = a.sum 获取数组最大值1val max = a.max 对数组进行排序1scala.util.Sorting.quickSort(a)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-18T00:55:08.949Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/BigData-Spark3/spark1.png">
+<meta property="og:updated_time" content="2018-05-24T17:18:21.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark生态圈之Scala(三) ----- Scala中的数组操作(二)">
-<meta name="twitter:description" content="数组常见操作数组元素求和12val a = Array(1,2,3,4,5)val sum = a.sum 获取数组最大值1val max = a.max 对数组进行排序1scala.util.Sorting.quickSort(a)">
+<meta name="twitter:title" content="Spark生态圈之Spark(三) ----- Spark架构原理">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/25/BigData-Spark3/spark1.png">
 
 
 
@@ -119,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/08/BigData-Scala1-3/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/25/BigData-Spark3/"/>
 
 
 
 
 
-  <title>Spark生态圈之Scala(三) ----- Scala中的数组操作(二) | 空落单行雨</title>
+  <title>Spark生态圈之Spark(三) ----- Spark架构原理 | 空落单行雨</title>
   
 
 
@@ -262,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/BigData-Scala1-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/25/BigData-Spark3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kongluo">
@@ -279,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spark生态圈之Scala(三) ----- Scala中的数组操作(二)</h1>
+          <h1 class="post-title" itemprop="name headline">Spark生态圈之Spark(三) ----- Spark架构原理</h1>
         
 
         <div class="post-meta">
@@ -291,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T09:40:54+08:00">
-                2018-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-25T01:07:35+08:00">
+                2018-05-25
               </time>
             
 
@@ -314,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Scala/" itemprop="url" rel="index">
-                    <span itemprop="name">Scala</span>
+                  <a href="/categories/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -382,12 +381,19 @@
       
 
       
-        <h3 id="数组常见操作"><a href="#数组常见操作" class="headerlink" title="数组常见操作"></a>数组常见操作</h3><p>数组元素求和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val a = Array(1,2,3,4,5)</span><br><span class="line">val sum = a.sum</span><br></pre></td></tr></table></figure></p>
-<p>获取数组最大值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val max = a.max</span><br></pre></td></tr></table></figure></p>
-<p>对数组进行排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala.util.Sorting.quickSort(a)</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>获取数组中所有元素内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.mkString</span><br><span class="line">a.mkString(&quot;,&quot;)</span><br><span class="line">a.mkString(&quot;&lt;&quot;,&quot;,&quot;,&quot;&gt;&quot;)</span><br></pre></td></tr></table></figure></p>
-<p>toString函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.toString</span><br><span class="line">b.toString</span><br></pre></td></tr></table></figure></p>
+        <p><img src="/2018/05/25/BigData-Spark3/spark1.png" alt="Spark工作原理"><br><a id="more"></a></p>
+<h3 id="Spark框架原理"><a href="#Spark框架原理" class="headerlink" title="Spark框架原理"></a>Spark框架原理</h3><p>Driver：我们编写的Spark程序就在Driver上</p>
+<p>Master: 其实主要负责资源的调度和分配，还有集群的监控，等等职责</p>
+<p>Worker：主要是负责两个，一个是用自己的内存存储RDD的某个或某些partition；另一个是启动其他进程和线程，对RDD上的partition进行版型的处理和计算</p>
+<p>Executor和Task： Executor和Task，其实就是负责执行对RDD的partition进行并行的计算了，也就是执行我们对RDD定义的，比如map、flatMap、reduce等算子操作</p>
+<p>1、Driver进程启动之后，会做一些初始化的操作；在这个过程中，就会发送请求到Master上，进行Spark应用程序的注册，说白了，就是让Master知道，有一个新的Spark应用程序要运行。</p>
+<p>2、Master，在接收到了Spark应用程序的注册申请之后，会发送请求给Worker，进行资源的调度和分配，ok，说白了，说穿了，资源分配，就是executor的分配。</p>
+<p>3、Worker接收到Master的请求之后，会为Spark应用程序启动Executor</p>
+<p>4、Executor启动之后，会向Driver进行反注册。这样，Driver就知道，哪些Executor是为它进行服务的了。</p>
+<p>5、Driver注册了一些executor之后，就可以开始正式执行我们的spark应用程序了，首先第一步，就是，创建初始RDD，读取数据源</p>
+<p>6、HDFS文件内容被读取到多个worker节点上，形成内存中的分布式数据集，也就是初始RDD</p>
+<p>7、Driver会根据我们对RDD定义的操作，提交一大堆task去executor上，executor接收到task之后，会启动多个线程来执行task</p>
+<p>8、task就会对RDD的partition数据执行指定的算子操作，形成新的RDD的partition</p>
 
       
     </div>
@@ -417,7 +423,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Scala/" rel="tag"># Scala</a>
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
           
         </div>
       
@@ -430,8 +436,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/07/BigData-Scala1-2/" rel="next" title="Spark生态圈之Scala(二) ----- Scala中的数组操作(一)">
-                <i class="fa fa-chevron-left"></i> Spark生态圈之Scala(二) ----- Scala中的数组操作(一)
+              <a href="/2018/05/25/BigData-Spark2/" rel="next" title="Spark生态圈之Spark(二) ----- WordCount程序原理">
+                <i class="fa fa-chevron-left"></i> Spark生态圈之Spark(二) ----- WordCount程序原理
               </a>
             
           </div>
@@ -439,10 +445,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/08/BigData-Scala1-4/" rel="prev" title="Spark生态圈之Scala(四) ----- Scala中的数组操作(三)">
-                Spark生态圈之Scala(四) ----- Scala中的数组操作(三) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -594,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组常见操作"><span class="nav-number">1.</span> <span class="nav-text">数组常见操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark框架原理"><span class="nav-number">1.</span> <span class="nav-text">Spark框架原理</span></a></li></ol></div>
             
 
           </div>
