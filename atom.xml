@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-24T17:18:21.535Z</updated>
+  <updated>2018-06-04T10:34:41.352Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>随笔(三)</title>
+    <link href="http://yoursite.com/2018/06/04/jottings-3/"/>
+    <id>http://yoursite.com/2018/06/04/jottings-3/</id>
+    <published>2018-06-04T10:25:23.000Z</published>
+    <updated>2018-06-04T10:34:41.352Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2018/06/04/jottings-3/jottings-3.jpg" alt="jottings"><br><a id="more"></a></p><center>害怕岁月静好无人来扰</center><br><center>害怕诗人渐老穷困潦倒</center><br><center>害怕绿惹芭蕉晚风潇潇</center><br><center>害怕路途陡峭空水几瓢</center><br><center>害怕流年尽抛知音难找</center><br><center>害怕夜半轻悄同为寂寥</center><br><center>害怕共度一朝无人说道</center><br><center>害怕时光渐消不成玩笑</center><br><center>害怕孤独高傲酿成毒药</center><br><center>害怕青春走掉再无吵闹</center><br><center>害怕深夜嚎叫影过石桥</center><br><center>害怕自持年少过往焚烧</center><br><center>害怕无人依靠苦涩情调</center><br><center>害怕所有的以梦为马都没必要</center><br><center>终了</center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2018/06/04/jottings-3/jottings-3.jpg&quot; alt=&quot;jottings&quot;&gt;&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="thoughts" scheme="http://yoursite.com/categories/thoughts/"/>
+    
+    
+      <category term="jottings" scheme="http://yoursite.com/tags/jottings/"/>
+    
+  </entry>
   
   <entry>
     <title>Spark生态圈之Spark(三) ----- Spark架构原理</title>
@@ -427,28 +449,6 @@
     
     
       <category term="Scala" scheme="http://yoursite.com/tags/Scala/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>随笔(一)</title>
-    <link href="http://yoursite.com/2018/05/02/jottings-%E4%B8%80/"/>
-    <id>http://yoursite.com/2018/05/02/jottings-一/</id>
-    <published>2018-05-02T00:36:33.000Z</published>
-    <updated>2018-05-18T00:55:29.384Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/2018/05/02/jottings-一/jottings-1.jpg" alt="jottings"><br><a id="more"></a><br><strong>或许世界不是你预期的模样<br>柴米油盐包裹着大胆的梦想<br>学会了成熟，一直保持善良<br>勇敢哭、用力笑、别逞强<br>不勉强追寻飞到多高的地方<br>只要你快乐才是唯一的真相<br>当你扮大人，扮到疲惫了<br>有个家让你做回孩子。</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/2018/05/02/jottings-一/jottings-1.jpg&quot; alt=&quot;jottings&quot;&gt;&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="thoughts" scheme="http://yoursite.com/categories/thoughts/"/>
-    
-    
-      <category term="jottings" scheme="http://yoursite.com/tags/jottings/"/>
     
   </entry>
   
