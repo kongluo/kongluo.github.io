@@ -425,34 +425,6 @@ width: 80%;
 <td style="text-align:center">countByKey</td>
 <td style="text-align:center">针对(K,V)类型的RDD，返回一个(K,Int)的map，表示每一个key对应的元素个数。</td>
 </tr>
-<tr>
-<td style="text-align:center">foreach</td>
-<td style="text-align:center">在数据集的每一个元素上，运行函数func进行更新。</td>
-</tr>
-<tr>
-<td style="text-align:center">takeSample</td>
-<td style="text-align:center">抽样但是返回一个scala集合。</td>
-</tr>
-<tr>
-<td style="text-align:center">first</td>
-<td style="text-align:center">返回RDD中的第一个元素</td>
-</tr>
-<tr>
-<td style="text-align:center">takeOrdered</td>
-<td style="text-align:center">返回前几个的排序</td>
-</tr>
-<tr>
-<td style="text-align:center">aggregate</td>
-<td style="text-align:center">将每个分区里面的元素通过seqOp和初始值进行聚合，然后用combine函数将每个分区的结果和初始值(zeroValue)进行combine操作。</td>
-</tr>
-<tr>
-<td style="text-align:center">fold</td>
-<td style="text-align:center">折叠操作，aggregate的简化操作，seqop和combop一样。</td>
-</tr>
-<tr>
-<td style="text-align:center">saveAsObjectFile</td>
-<td style="text-align:center">将RDD中的元素以序列化后对象形式保存到本地或者HDFS中。</td>
-</tr>
 </tbody>
 </table>
           <!--noindex-->
@@ -677,82 +649,6 @@ width: 80%;
 <tr>
 <td style="text-align:center">sortByKey</td>
 <td style="text-align:center">对每个key对应的value进行排序操作</td>
-</tr>
-<tr>
-<td style="text-align:center">join</td>
-<td style="text-align:center">对两个包含&lt;key,value&gt;对的RDD进行join操作，每个key join上的pair，都会传入自定义函数进行处理</td>
-</tr>
-<tr>
-<td style="text-align:center">cogroup</td>
-<td style="text-align:center">同join，但是是每个key对应的Iterable<value>都会传入自定义函数进行处理</value></td>
-</tr>
-<tr>
-<td style="text-align:center">mapPartitions</td>
-<td style="text-align:center">将函数应用于RDD的每一个分区，每一个分区运行一次，函数需要能够接受Iterator类型，然后返回Iterator。</td>
-</tr>
-<tr>
-<td style="text-align:center">sample</td>
-<td style="text-align:center">在RDD中移seed为种子返回大致上有fraction比例个数据样本RDD，withReplacement表示是否采用放回式抽样。</td>
-</tr>
-<tr>
-<td style="text-align:center">union</td>
-<td style="text-align:center">将两个RDD中的元素进行合并，返回一个新的RDD</td>
-</tr>
-<tr>
-<td style="text-align:center">intersection</td>
-<td style="text-align:center">将两个RDD做交集，返回一个新的RDD</td>
-</tr>
-<tr>
-<td style="text-align:center">distinct</td>
-<td style="text-align:center">将当前RDD进行去重后，返回一个新的RDD</td>
-</tr>
-<tr>
-<td style="text-align:center">partitionBy</td>
-<td style="text-align:center">根据设置的分区器重新将RDD进行分区，返回新的RDD。</td>
-</tr>
-<tr>
-<td style="text-align:center">combineByKey</td>
-<td style="text-align:center">根据key分别使用CreateCombiner和mergeValue进行相同key的数值聚集，通过mergeCombiners将各个分区最终的结果进行聚集。</td>
-</tr>
-<tr>
-<td style="text-align:center">aggregateByKey</td>
-<td style="text-align:center">通过seqOp函数将每一个分区里面的数据和初始值迭代带入函数返回最终值，comOp将每一个分区返回的最终值根据key进行合并操作。</td>
-</tr>
-<tr>
-<td style="text-align:center">foldByKey</td>
-<td style="text-align:center">aggregateByKey的简化操作，seqop和combop相同</td>
-</tr>
-<tr>
-<td style="text-align:center">sortBy</td>
-<td style="text-align:center">底层实现还是使用sortByKey，只不过使用fun生成的新key进行排序。</td>
-</tr>
-<tr>
-<td style="text-align:center">cartesian</td>
-<td style="text-align:center">做两个RDD的笛卡尔积，返回对偶的RDD</td>
-</tr>
-<tr>
-<td style="text-align:center">pipe</td>
-<td style="text-align:center">对于每个分区，都执行一个perl或者shell脚本，返回输出的RDD，注意，如果你是本地文件系统中，需要将脚本放置到每个节点上。</td>
-</tr>
-<tr>
-<td style="text-align:center">coalesce</td>
-<td style="text-align:center">缩减分区数，用于大数据集过滤后，提高小数据集的执行效率。</td>
-</tr>
-<tr>
-<td style="text-align:center">repartition</td>
-<td style="text-align:center">根据你传入的分区数重新通过网络分区所有数据，重型操作。</td>
-</tr>
-<tr>
-<td style="text-align:center">glom</td>
-<td style="text-align:center">将每一个分区形成一个数组，形成新的RDD类型时RDD[Array[T]]</td>
-</tr>
-<tr>
-<td style="text-align:center">mapValues</td>
-<td style="text-align:center">将函数应用于（k，v）结果中的v，返回新的RDD</td>
-</tr>
-<tr>
-<td style="text-align:center">subtract</td>
-<td style="text-align:center">计算差的一种函数去除两个RDD中相同的元素，不同的RDD将保留下来。</td>
 </tr>
 </tbody>
 </table>

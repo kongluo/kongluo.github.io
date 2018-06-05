@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="空落单行雨">
 <meta property="og:description" content="常用action介绍 table th:nth-of-type(1){ width: 20%; } table th:nth-of-type(2){ width: 80%; }      操作 介绍     reduce 通过func函数聚集RDD中的所有元素   collect 在驱动程序中，以数组的形式返回数据集的所有元素   count 返回RDD中的元素个数   take 返回RDD中的前">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-05T12:21:20.435Z">
+<meta property="og:updated_time" content="2018-06-05T12:45:50.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark生态圈之Spark(七) ----- 常用的Action">
 <meta name="twitter:description" content="常用action介绍 table th:nth-of-type(1){ width: 20%; } table th:nth-of-type(2){ width: 80%; }      操作 介绍     reduce 通过func函数聚集RDD中的所有元素   collect 在驱动程序中，以数组的形式返回数据集的所有元素   count 返回RDD中的元素个数   take 返回RDD中的前">
@@ -423,6 +423,26 @@ width: 80%;
 <td style="text-align:center">countByKey</td>
 <td style="text-align:center">针对(K,V)类型的RDD，返回一个(K,Int)的map，表示每一个key对应的元素个数。</td>
 </tr>
+</tbody>
+</table>
+<a id="more"></a>
+<style>
+table th:nth-of-type(1){
+width: 20%;
+}
+table th:nth-of-type(2){
+width: 80%;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">介绍</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td style="text-align:center">foreach</td>
 <td style="text-align:center">在数据集的每一个元素上，运行函数func进行更新。</td>
@@ -453,7 +473,7 @@ width: 80%;
 </tr>
 </tbody>
 </table>
-<a id="more"></a>
+<!-- more -->
 <h3 id="reduce案例实战"><a href="#reduce案例实战" class="headerlink" title="reduce案例实战"></a>reduce案例实战</h3><h3 id="collect案例实战"><a href="#collect案例实战" class="headerlink" title="collect案例实战"></a>collect案例实战</h3><h3 id="count案例实战"><a href="#count案例实战" class="headerlink" title="count案例实战"></a>count案例实战</h3><h3 id="take案例实战"><a href="#take案例实战" class="headerlink" title="take案例实战"></a>take案例实战</h3><h3 id="saveAsTextFile案例实战"><a href="#saveAsTextFile案例实战" class="headerlink" title="saveAsTextFile案例实战"></a>saveAsTextFile案例实战</h3><h3 id="countByKey案例实战"><a href="#countByKey案例实战" class="headerlink" title="countByKey案例实战"></a>countByKey案例实战</h3><h3 id="foreach案例实战"><a href="#foreach案例实战" class="headerlink" title="foreach案例实战"></a>foreach案例实战</h3><h3 id="takeSample案例实战"><a href="#takeSample案例实战" class="headerlink" title="takeSample案例实战"></a>takeSample案例实战</h3><h3 id="first案例实战"><a href="#first案例实战" class="headerlink" title="first案例实战"></a>first案例实战</h3><h3 id="takeOrdered案例实战"><a href="#takeOrdered案例实战" class="headerlink" title="takeOrdered案例实战"></a>takeOrdered案例实战</h3><h3 id="aggregate案例实战"><a href="#aggregate案例实战" class="headerlink" title="aggregate案例实战"></a>aggregate案例实战</h3><h3 id="fold案例实战"><a href="#fold案例实战" class="headerlink" title="fold案例实战"></a>fold案例实战</h3><h3 id="saveAsObjectFile案例实战"><a href="#saveAsObjectFile案例实战" class="headerlink" title="saveAsObjectFile案例实战"></a>saveAsObjectFile案例实战</h3>
       
     </div>
