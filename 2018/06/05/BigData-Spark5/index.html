@@ -67,7 +67,7 @@
 
 
 
-  <meta name="keywords" content="jottings," />
+  <meta name="keywords" content="Spark," />
 
 
 
@@ -78,17 +78,18 @@
 
 
 
-<meta name="keywords" content="jottings">
+<meta name="keywords" content="Spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="随笔(二)">
-<meta property="og:url" content="http://yoursite.com/2018/05/18/jottings-2/index.html">
+<meta property="og:title" content="Spark生态圈之Spark(五) ----- Transformation和Action介绍">
+<meta property="og:url" content="http://yoursite.com/2018/06/05/BigData-Spark5/index.html">
 <meta property="og:site_name" content="空落单行雨">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/05/18/jottings-2/jottings2.jpg">
-<meta property="og:updated_time" content="2018-05-18T01:06:13.535Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/05/BigData-Spark5/spark5.1.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/05/BigData-Spark5/spark5.1.png">
+<meta property="og:updated_time" content="2018-06-05T09:28:33.129Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="随笔(二)">
-<meta name="twitter:image" content="http://yoursite.com/2018/05/18/jottings-2/jottings2.jpg">
+<meta name="twitter:title" content="Spark生态圈之Spark(五) ----- Transformation和Action介绍">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/05/BigData-Spark5/spark5.1.png">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/18/jottings-2/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/05/BigData-Spark5/"/>
 
 
 
 
 
-  <title>随笔(二) | 空落单行雨</title>
+  <title>Spark生态圈之Spark(五) ----- Transformation和Action介绍 | 空落单行雨</title>
   
 
 
@@ -261,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/18/jottings-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/BigData-Spark5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kongluo">
@@ -278,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">随笔(二)</h1>
+          <h1 class="post-title" itemprop="name headline">Spark生态圈之Spark(五) ----- Transformation和Action介绍</h1>
         
 
         <div class="post-meta">
@@ -290,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-18T08:54:17+08:00">
-                2018-05-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T17:18:16+08:00">
+                2018-06-05
               </time>
             
 
@@ -313,8 +314,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/thoughts/" itemprop="url" rel="index">
-                    <span itemprop="name">thoughts</span>
+                  <a href="/categories/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -381,10 +382,19 @@
       
 
       
-        <p><img src="/2018/05/18/jottings-2/jottings2.jpg" alt="jottings"><br><a id="more"></a></p>
-<p>太好了，太好了。我也算卸下包袱，这下总算可以回去了。<br>你这人还真是的，<br>又冒失，<br>又愚蠢，<br>又厌学，<br>有懦弱，<br>又懒惰，<br>又迟钝，<br>运动又不行，<br>又胆小，<br>又糊涂，<br>又不可靠….<br>又讨厌麻烦….<br>又没出息….<br>记性又差….<br>是个老好人….<br>还总是得意忘形….<br>又爱撒娇….</p>
-<p>咦？</p>
-<p>该怎么办呢？还真是伤脑筋啊！！！</p>
+        <p><img src="/2018/06/05/BigData-Spark5/spark5.1.png" alt="Spark工作原理"><br><a id="more"></a></p>
+<h3 id="transformation和action介绍"><a href="#transformation和action介绍" class="headerlink" title="transformation和action介绍"></a>transformation和action介绍</h3><p>Spark支持两种RDD操作：transformation和action。transformation操作会针对已有的RDD创建一个新的RDD；而action则主要是对RDD进行最后的操作，比如遍历、reduce、保存到文件等，并可以返回结果给Driver程序。</p>
+<p>例如，map就是一种transformation操作，它用于将已有RDD的每个元素传入一个自定义的函数，并获取一个新的元素，然后将所有的新元素组成一个新的RDD。而reduce就是一种action操作，它用于对RDD中的所有元素进行聚合操作，并获取一个最终的结果，然后返回给Driver程序。</p>
+<p>transformation的特点就是lazy特性。lazy特性指的是，如果一个spark应用中只定义了transformation操作，那么即使你执行该应用，这些操作也不会执行。也就是说，transformation是不会触发spark程序的执行的，它们只是记录了对RDD所做的操作，但是不会自发的执行。只有当transformation之后，接着执行了一个action操作，那么所有的transformation才会执行。Spark通过这种lazy特性，来进行底层的spark应用执行的优化，避免产生过多中间结果</p>
+<p>action操作执行，会触发一个spark job的运行，从而触发这个action之前所有的transformation的执行。这是action的特性。</p>
+<p>整个这一块儿，都是在driver节点上执行的，也就是执行我们自己编写的Spark应用程序。但是呢，在action执行之前，所有的transformation都是lazy的，不会立即执行。只有执行了action之后，才会触发job，提交task到Spark集群上，进行实际的执行。<br><img src="/2018/06/05/BigData-Spark5/spark5.1.png" alt="Spark工作原理"></p>
+<h3 id="案例1：统计文件字数"><a href="#案例1：统计文件字数" class="headerlink" title="案例1：统计文件字数"></a>案例1：统计文件字数</h3><p>这里通过一个之前学习过的案例，统计文件字数，来讲解transformation和action。</p>
+<p>这里通过textFile()方法，针对外部文件创建了一个RDD，lines，但是实际上，程序执行到这里为止，spark.txt文件的数据是不会加载到内存中的。lines，只是代表了一个指向spark.txt文件的引用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val lines = sc.textFile(&quot;spark.txt&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>这里对lines RDD进行了map算子，获取了一个转换后的lineLengthsRDD。但是这里连数据都没有，当然也不会做任何操作。lineLengths RDD也只是一个概念上的东西而已。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val lineLengths  = lines.map( line=&gt; line.length)</span><br></pre></td></tr></table></figure></p>
+<p>之列，执行了一个action操作，reduce。此时就会触发之前所有transformation操作的执行，Spark会将操作拆分成多个task到多个机器上并行执行，每个task会在本地执行map操作，并且进行本地的reduce聚合。最后会进行一个全局的reduce聚合，然后将结果返回给Driver程序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val totalLength = lineLengths.reduce(_+_)</span><br></pre></td></tr></table></figure></p>
+<h3 id="案例2：统计文件每行出现的次数"><a href="#案例2：统计文件每行出现的次数" class="headerlink" title="案例2：统计文件每行出现的次数"></a>案例2：统计文件每行出现的次数</h3><p>Spark有些特殊的算子，也就是特殊的transformation操作。比如，groupByKey、sortByKey、reduceByKey等，其实只是针对特殊的RDD的。即包含key-value对的RDD。而这种RDD中的元素，实际上是scala中的一种类型，即Tuple2，也就是包含两个值的Tuple、</p>
+<p>在Scala中，需要手动导入Spark的相关隐式转换，import org.apache.spark.SparkContext._。然后，对应包含Tuple2的RDD，会自动隐式转换为PairRDDFunction，并提供reduceByKey等方法。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val lines = sc.textFile(&quot;hello.txt&quot;)</span><br><span class="line">val linePairs = lines.map( line =&gt; (line,1))</span><br><span class="line">val lineCounts = linePairs.reduceByKey(\_+\_)</span><br><span class="line">lineCounts.foreach(lineCount =&gt; println(lineCount._1+&quot; appears &quot;+lineCount._2+&quot; times.&quot;))</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -414,7 +424,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/jottings/" rel="tag"># jottings</a>
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
           
         </div>
       
@@ -427,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/17/Python-Numpy/" rel="next" title="Python科学计算库 ----- Numpy">
-                <i class="fa fa-chevron-left"></i> Python科学计算库 ----- Numpy
+              <a href="/2018/06/05/BigData-Spark4/" rel="next" title="Spark生态圈之Spark(四) ----- RDD的创建">
+                <i class="fa fa-chevron-left"></i> Spark生态圈之Spark(四) ----- RDD的创建
               </a>
             
           </div>
@@ -437,8 +447,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/25/BigData-Spark1/" rel="prev" title="Spark生态圈之Spark(一) ----- Spark工作原理与RDD">
-                Spark生态圈之Spark(一) ----- Spark工作原理与RDD <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/05/BigData-Spark6/" rel="prev" title="Spark生态圈之Spark(六) ----- 常用的Transformation">
+                Spark生态圈之Spark(六) ----- 常用的Transformation <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -491,8 +501,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -572,6 +591,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#transformation和action介绍"><span class="nav-number">1.</span> <span class="nav-text">transformation和action介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例1：统计文件字数"><span class="nav-number">2.</span> <span class="nav-text">案例1：统计文件字数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例2：统计文件每行出现的次数"><span class="nav-number">3.</span> <span class="nav-text">案例2：统计文件每行出现的次数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
