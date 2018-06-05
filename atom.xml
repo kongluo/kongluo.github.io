@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-05T12:09:53.728Z</updated>
+  <updated>2018-06-05T12:14:56.159Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Spark生态圈之Spark(六) ----- 常用的Action</title>
+    <title>Spark生态圈之Spark(七) ----- 常用的Action</title>
     <link href="http://yoursite.com/2018/06/05/BigData-Spark7/"/>
     <id>http://yoursite.com/2018/06/05/BigData-Spark7/</id>
     <published>2018-06-05T12:04:18.000Z</published>
-    <updated>2018-06-05T12:09:53.728Z</updated>
+    <updated>2018-06-05T12:14:56.159Z</updated>
     
     <content type="html"><![CDATA[<h3 id="常用action介绍"><a href="#常用action介绍" class="headerlink" title="常用action介绍"></a>常用action介绍</h3><style>table th:nth-of-type(1){width: 20%;}table th:nth-of-type(2){width: 80%;}</style><table><thead><tr><th style="text-align:center">操作</th><th style="text-align:center">介绍</th></tr></thead><tbody><tr><td style="text-align:center">reduce</td><td style="text-align:center">通过func函数聚集RDD中的所有元素</td></tr><tr><td style="text-align:center">collect</td><td style="text-align:center">在驱动程序中，以数组的形式返回数据集的所有元素</td></tr><tr><td style="text-align:center">count</td><td style="text-align:center">返回RDD中的元素个数</td></tr><tr><td style="text-align:center">take</td><td style="text-align:center">返回RDD中的前n个元素</td></tr><tr><td style="text-align:center">saveAsTextFile</td><td style="text-align:center">将RDD以文本文件的方式保存到本地或者HDFS中</td></tr><tr><td style="text-align:center">countByKey</td><td style="text-align:center">针对(K,V)类型的RDD，返回一个(K,Int)的map，表示每一个key对应的元素个数。</td></tr><tr><td style="text-align:center">foreach</td><td style="text-align:center">在数据集的每一个元素上，运行函数func进行更新。</td></tr><tr><td style="text-align:center">takeSample</td><td style="text-align:center">抽样但是返回一个scala集合。</td></tr><tr><td style="text-align:center">first</td><td style="text-align:center">返回RDD中的第一个元素</td></tr><tr><td style="text-align:center">takeOrdered</td><td style="text-align:center">返回前几个的排序</td></tr><tr><td style="text-align:center">aggregate</td><td style="text-align:center">将每个分区里面的元素通过seqOp和初始值进行聚合，然后用combine函数将每个分区的结果和初始值(zeroValue)进行combine操作。</td></tr><tr><td style="text-align:center">fold</td><td style="text-align:center">折叠操作，aggregate的简化操作，seqop和combop一样。</td></tr><tr><td style="text-align:center">saveAsObjectFile</td><td style="text-align:center">将RDD中的元素以序列化后对象形式保存到本地或者HDFS中。</td></tr></tbody></table><a id="more"></a>]]></content>
     
