@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-05T12:45:50.933Z</updated>
+  <updated>2018-06-21T11:47:59.651Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>随笔(四)</title>
+    <link href="http://yoursite.com/2018/06/21/jottings-4/"/>
+    <id>http://yoursite.com/2018/06/21/jottings-4/</id>
+    <published>2018-06-21T11:24:29.000Z</published>
+    <updated>2018-06-21T11:47:59.651Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2018/06/21/jottings-4/jottings-4.2.jpg" alt="jottings"><br><a id="more"></a></p><center><br>如果冬天有什么可以期待的话<br>糖炒栗子算一个<br>烤红薯算一个<br>还有毛线帽、围巾<br>当然这些都抵不上那个星星很亮的冬天的夜晚<br>我们一起坐在赭山公园的长凳上，聊天<br>你说你特别爱笑，而我在一直想办法逗你笑<br><br><font face="STLiti " size="32">我是华文隶书</font><br><font color="green">绿色字体</font><br><font color="red" size="8">8号红色字体</font><br><table><tr><td bgcolor="Chocolate">巧克力色背景</td></tr></table><br><br></center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2018/06/21/jottings-4/jottings-4.2.jpg&quot; alt=&quot;jottings&quot;&gt;&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="thoughts" scheme="http://yoursite.com/categories/thoughts/"/>
+    
+    
+      <category term="jottings" scheme="http://yoursite.com/tags/jottings/"/>
+    
+  </entry>
   
   <entry>
     <title>Spark生态圈之Spark(七) ----- 常用的Action</title>
@@ -501,30 +523,6 @@ width: 80%;
     <summary type="html">
     
       &lt;h3 id=&quot;定义类&quot;&gt;&lt;a href=&quot;#定义类&quot; class=&quot;headerlink&quot; title=&quot;定义类&quot;&gt;&lt;/a&gt;定义类&lt;/h3&gt;&lt;p&gt;定义类，包含field以及方法&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;class HelloWorld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   private var name = &amp;quot;leo&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   def sayHello() &amp;#123; print(&amp;quot;Hello , &amp;quot;+name)&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   def getName = name&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//创建类的对象，并调用其方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;val helloWorld = new HelloWorld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;helloWorld.sayHello()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//也可以不加括号，如果定义方法时不带括号，则调用方法时也不能带括号&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print(helloWorld.getName)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://yoursite.com/categories/Scala/"/>
-    
-    
-      <category term="Scala" scheme="http://yoursite.com/tags/Scala/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spark生态圈之Scala(五) ----- Scala中的Map和Tuple</title>
-    <link href="http://yoursite.com/2018/05/08/BigData-Scala3/"/>
-    <id>http://yoursite.com/2018/05/08/BigData-Scala3/</id>
-    <published>2018-05-08T01:53:48.000Z</published>
-    <updated>2018-05-17T08:39:20.191Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="创建Map"><a href="#创建Map" class="headerlink" title="创建Map"></a>创建Map</h3><p>创建一个不可变的Map<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val ages = Map(&quot;Leo&quot;-&gt;30,&quot;Jen&quot;-&gt;25,&quot;Jack&quot;-&gt;23)</span><br><span class="line">ages(&quot;Leo&quot;)=31</span><br></pre></td></tr></table></figure></p><p>创建一个可变的Map<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val ages = scala.collection.mutable.Map(&quot;Leo&quot;-&gt;30,&quot;Jen&quot;-&gt;25,&quot;Jack&quot;-&gt;23)</span><br><span class="line">ages(&quot;Leo&quot;)=31</span><br></pre></td></tr></table></figure></p><p>使用另外一种方式定义Map元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val ages = Map((&quot;Leo&quot;,30),(&quot;Jen&quot;,25),(&quot;Jack&quot;,23))</span><br></pre></td></tr></table></figure></p><a id="more"></a><p>创建一个空的HashMap<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val ages = new scala.collection.mutable.HashMap[String,Int]</span><br></pre></td></tr></table></figure></p><h3 id="访问Map的元素"><a href="#访问Map的元素" class="headerlink" title="访问Map的元素"></a>访问Map的元素</h3><p>获取指定key对应的value，如果key不存在，会报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val leoAge = ages(&quot;leo&quot;)</span><br><span class="line">val leoAge = ages(&quot;leo&quot;)</span><br></pre></td></tr></table></figure></p><p>使用contains函数检查key是否存在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val leoAge = if(ages.contains(&quot;leo&quot;)) ages(&quot;leo&quot;) else 0</span><br></pre></td></tr></table></figure></p><p>getOrElse函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val leoAge = ages.getOrElse(&quot;leo&quot;,0)</span><br></pre></td></tr></table></figure></p><h3 id="修改Map元素"><a href="#修改Map元素" class="headerlink" title="修改Map元素"></a>修改Map元素</h3><p>更新Map的元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ages(&quot;Leo&quot;) = 31</span><br></pre></td></tr></table></figure></p><p>增加多个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ages+=(&quot;Mike&quot;-&gt;35,&quot;Tom&quot;-&gt;40)</span><br></pre></td></tr></table></figure></p><p>移除元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ages -= &quot;Mike&quot;</span><br></pre></td></tr></table></figure></p><p>更新不可变的map<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val ages2 = ages+(&quot;Leo&quot;-&gt;30,&quot;Jen&quot;-&gt;25,&quot;Jack&quot;-&gt;23)</span><br></pre></td></tr></table></figure></p><p>移除不可变map的元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val ages3 = ages-&quot;Tom&quot;</span><br></pre></td></tr></table></figure></p><h3 id="遍历Map"><a href="#遍历Map" class="headerlink" title="遍历Map"></a>遍历Map</h3><p>遍历map的entrySet<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for((key,value)&lt;- ages) println(key+&quot; &quot;+value)</span><br></pre></td></tr></table></figure></p><p>遍历map的key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for(key &lt;- ages.keySet) println(key)</span><br></pre></td></tr></table></figure></p><p>遍历map的value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for(value &lt;- ages.values) println(value)</span><br></pre></td></tr></table></figure></p><p>生成新map，反转key和value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for((key,value) &lt;- ages) yield (value,key)</span><br></pre></td></tr></table></figure></p><h3 id="SortedMap和LinkedHashMap"><a href="#SortedMap和LinkedHashMap" class="headerlink" title="SortedMap和LinkedHashMap"></a>SortedMap和LinkedHashMap</h3><p>SortedMap可以自动对Map的key的排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val ages = scala.collection.immutable.SortedMap(&quot;leo&quot;-&gt;30 , &quot;alice&quot;-&gt;15 , &quot;jen&quot;-&gt;25)</span><br></pre></td></tr></table></figure></p><p>LinkedHashMap可以记住插入entry的顺序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val ages = new scala.collection.mutable.LinkedHashMap[String,Int]</span><br><span class="line">ages(&quot;leo&quot;) = 30</span><br><span class="line">ages(&quot;alice&quot;) = 15</span><br><span class="line">ages(&quot;jen&quot;) = 25</span><br></pre></td></tr></table></figure></p><h3 id="Map的元素类型-Tuple"><a href="#Map的元素类型-Tuple" class="headerlink" title="Map的元素类型-Tuple"></a>Map的元素类型-Tuple</h3><p>简单Tuple<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val t = (&quot;leo&quot;,30)</span><br></pre></td></tr></table></figure></p><p>访问Tuple</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t._1</span><br></pre></td></tr></table></figure><p>zip操作</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val names = Array(&quot;leo&quot;,&quot;jack&quot;,&quot;mike&quot;)</span><br><span class="line">val ages = Array(30,24,26)</span><br><span class="line">val nameAges = names.zip(ages)</span><br><span class="line">for((name,age) &lt;- nameAges) println(name+&quot;:&quot;+age)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;创建Map&quot;&gt;&lt;a href=&quot;#创建Map&quot; class=&quot;headerlink&quot; title=&quot;创建Map&quot;&gt;&lt;/a&gt;创建Map&lt;/h3&gt;&lt;p&gt;创建一个不可变的Map&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;val ages = Map(&amp;quot;Leo&amp;quot;-&amp;gt;30,&amp;quot;Jen&amp;quot;-&amp;gt;25,&amp;quot;Jack&amp;quot;-&amp;gt;23)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ages(&amp;quot;Leo&amp;quot;)=31&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;创建一个可变的Map&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;val ages = scala.collection.mutable.Map(&amp;quot;Leo&amp;quot;-&amp;gt;30,&amp;quot;Jen&amp;quot;-&amp;gt;25,&amp;quot;Jack&amp;quot;-&amp;gt;23)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ages(&amp;quot;Leo&amp;quot;)=31&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;使用另外一种方式定义Map元素&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;val ages = Map((&amp;quot;Leo&amp;quot;,30),(&amp;quot;Jen&amp;quot;,25),(&amp;quot;Jack&amp;quot;,23))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
     
