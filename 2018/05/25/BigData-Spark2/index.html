@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <meta name="keywords" content="Spark," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark生态圈之Spark(二) ----- WordCount程序原理">
+<meta property="og:url" content="http://yoursite.com/2018/05/25/BigData-Spark2/index.html">
+<meta property="og:site_name" content="空落单行雨">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/BigData-Spark2/spark1.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/BigData-Spark2/spark1.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/BigData-Spark2/spark2.png">
+<meta property="og:updated_time" content="2018-05-24T17:20:02.310Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark生态圈之Spark(二) ----- WordCount程序原理">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/25/BigData-Spark2/spark1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/25/BigData-Spark2/"/>
+
+
+
+
+
+  <title>Spark生态圈之Spark(二) ----- WordCount程序原理 | 空落单行雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/kongluo"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">空落单行雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/25/BigData-Spark2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kongluo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/upload/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="空落单行雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spark生态圈之Spark(二) ----- WordCount程序原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-25T00:45:46+08:00">
+                2018-05-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2018/05/25/BigData-Spark2/spark1.png" alt="Spark工作原理"><br><a id="more"></a></p>
+<h3 id="Java开发WordCount"><a href="#Java开发WordCount" class="headerlink" title="Java开发WordCount"></a>Java开发WordCount</h3><p>用Java开发wordcount程序：<br>1、配置Maven环境<br>2、如何进行本地测试<br>3、如何使用spark-submit提交到spark集群进行执行(spark-submit常用参数说明，spark-submit其实就类似于hadoop的hadoop jar命令)</p>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>创建SparkConf对象，设置spark应用的配置信息使用setMaster()可以设置Spark应用程序要连接的spark集群的master节点的url，但是如果设置为local则代表在本地运行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SparkConf conf</span> = new SparkConf().setAppName(<span class="string">"SparkJava"</span>).setMaster(<span class="string">"local"</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>创建JavaSparkContext对象</p>
+<p>在Spark中，SparkContext是spark所有功能的一个入口，你无论是用java，scala，甚至是python编写<br>都必须要有一个SparkContext，他的主要作用，包括初始化Spark应用程序所需的一些核心组件，包括<br>调度器(DAGSchedule、TaskScheduler),还会去到Spark Master节点上进行注册，等等<br>一句话，SparkContext，是Spark应用中，可以说是最最重要的一个对象<br>但是呢，在spark中，编写不同类型的spark应用程序，使用的SparkContext是不同的，如果使用scala，<br>使用的就是原生的SparkContext对象<br>但是如果使用Java，那么就是JavaSparkContext对象<br>如果是开发Spark SQL程序，那么就是SQLContext、HiveContext<br>如果是开发 Spark Streaming程序，那么就是它独有的SparkContext以此类推<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">JavaSparkContext sc</span> = new JavaSparkContext(conf);</span><br></pre></td></tr></table></figure></p>
+<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>要针对输入源(HDFS、本地文件、等等)，创建一个初始的RDD</p>
+<p>输入源中的数据会打散，分配到RDD的每个partition中，从而形成一个初始的分布式的数据集<br>我们这里呢，因为是本地测试，所以呢，就是针对本地文件<br>SparkContext中，用于根据文件类型的输入源创建RDD的方法，叫做textFile()方法<br>在Java中，创建的普通RDD，都叫做JavaRDD<br>在这里呢，RDD中，有元素这种概念，如果是HDFS或者本地文件呢，创建的RDD，每一个元素就相当于是文件里的一行<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JavaRDD&lt;String&gt; lines = sc.textFile(<span class="string">"C://MyWork-Study//Spark//课件//第29讲-Spark核心编程：使用Java、Scala和spark-shell开发wordcount程序//文档//spark.txt"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h4><p>对初始RDD进行transformation操作，也就是一些计算操作</p>
+<p>通常操作会通过创建function，并配合RDD的map、flatMap等算子来执行function<br>通常，如果比较简单，则创建指定Function的匿名内部类<br>但是如果function比较复杂，则会单独创建一个类，作为实现这个function接口的类<br>先将每一行拆分成单个的单词<br>FlatMapFunction，有两个泛型参数，分别代表了输入和输出<br>我们这里呢，输入肯定是String，因为是一行一行的文本，输出，其实也是String，因为是每一行的文本<br>这里先简要介绍flatMap算子的作用，其实就是，将RDD的一个元素，给拆分成一个或多个元素<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">JavaRDD&lt;<span class="keyword">String</span>&gt; words = lines.flatMap(<span class="keyword">new</span> FlatMapFunction&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;() &#123;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> servialVersionUID = <span class="number">1</span>L;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">public</span> Iterator&lt;<span class="keyword">String</span>&gt; call(<span class="keyword">String</span> <span class="built_in">line</span>) <span class="keyword">throws</span> Exception</span><br><span class="line">           &#123;</span><br><span class="line">               <span class="keyword">return</span> (Iterator&lt;<span class="keyword">String</span>&gt;) Arrays.asList(<span class="built_in">line</span>.<span class="built_in">split</span>(<span class="string">" "</span>));</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h4><p>接着，需要将每一个单词，映射为(单词，1))的这种格式<br>因为只有这样，后面才能根据单词作为key，来进行每个单词的出现次数的累加<br>mapToPair，其实就是将每个元素，映射为一个(v1,v2)这样的Tuple2类型的元素<br>如果大家还记得Scala里面讲的tuple，那么没错，这里的tuple2就是scala类型，包含了两个值<br>mapToPair这个算子，要求的是与PairFunction配合使用，第一个泛型参数代表了输入类型<br>第二个和第三个泛型参数，代表的输出的Tuple2的第一个值和第二个值的类型<br>JavaPairRDD的两个泛型参数，分别代表了Tuple元素的第一个值和第二个值的类型<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JavaPairRDD&lt;<span class="keyword">String</span>, Integer&gt; pairs = words.mapToPair(</span><br><span class="line">        <span class="keyword">new</span> PairFunction&lt;<span class="keyword">String</span>, <span class="keyword">String</span>, Integer&gt;() &#123;</span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">long</span> serialVersionUDI = <span class="number">1</span>L;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Tuple2&lt;<span class="keyword">String</span>, Integer&gt; call(<span class="keyword">String</span> <span class="keyword">word</span>) throws Exception &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="keyword">new</span> Tuple2&lt;<span class="keyword">String</span>, Integer&gt;(<span class="keyword">word</span>,<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h4><p>接着，需要以单词作为key，统计每个单词出现的次数<br>这里要使用reduceByKey这个算子，对每个key对应的value，都进行reduce操作<br>比如JavaPairRDD中有几个元素，分别为(hello，1) (hello,1) (world,1)<br>比如这里的hello，那么就相当于是，首先是1 + 1 = 2，然后再将2 + 1 = 3<br>最后返回的JavaPairRDD中的元素，也是tuple，但是第一个值就是每个key，第二个值就是key的value<br>reduce之后的结果，相当于就是每个单词出现的次数<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wordCounts.foreach(</span><br><span class="line">        <span class="keyword">new</span> VoidFunction&lt;Tuple2&lt;<span class="keyword">String</span>, Integer&gt;&gt;() &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> call(Tuple2&lt;<span class="keyword">String</span>, Integer&gt; wordcount) throws Exception &#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(wordcount._1+<span class="string">" appeared "</span>+wordcount._2+<span class="string">" times."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">sc.<span class="built_in">close</span>();</span><br></pre></td></tr></table></figure></p>
+<h3 id="程序提交"><a href="#程序提交" class="headerlink" title="程序提交"></a>程序提交</h3><p>一旦打包好,就可以使用bin/spark-submit脚本启动应用了. 这个脚本负责设置spark使用的classpath和依赖,支持不同类型的集群管理器和发布模式:<br>./bin/spark-submit \<br>  --class <main-class><br>  --master <master-url> \<br>      --deploy-mode <deploy-mode> \<br>  --conf <key>=<value> \<br>  … # other options<br>  <application-jar> \<br>  [application-arguments]<br>一些常用选项:<br>1)    --class: 你的应用的启动类 (如 org.apache.spark.examples.SparkPi)<br>2)    --master: 集群的master URL (如 spark://23.195.26.187:7077)<br>3)    --deploy-mode: 是否发布你的驱动到worker节点(cluster) 或者作为一个本地客户端 (client) (default: client)*<br>4)    --conf: 任意的Spark配置属性， 格式key=value. 如果值包含空格，可以加引号“key=value”. 缺省的Spark配置<br>5)    application-jar: 打包好的应用jar,包含依赖. 这个URL在集群中全局可见。 比如hdfs:// 共享存储系统， 如果是 file:// path， 那么所有的节点的path都包含同样的jar.<br>6)    application-arguments: 传给main()方法的参数</application-jar></value></key></deploy-mode></master-url></main-class></p>
+<p>local    本地以一个worker线程运行(例如非并行的情况).<br>local[K]    本地以K worker 线程 (理想情况下, K设置为你机器的CPU核数).<br>local[*]    本地以本机同样核数的线程运行.<br>spark://HOST:PORT    连接到指定的Spark standalone cluster master. 端口是你的master集群配置的端口，缺省值为7077.<br>mesos://HOST:PORT    连接到指定的Mesos 集群. Port是你配置的mesos端口， 缺省是5050. 或者如果Mesos使用ZOoKeeper,格式为 mesos://zk://….<br>yarn-client    以client模式连接到YARN cluster. 集群的位置基于HADOOP_CONF_DIR 变量找到.<br>yarn-cluster    以cluster模式连接到YARN cluster. 集群的位置基于HADOOP_CONF_DIR 变量找到.</p>
+<p>例如：</p>
+<blockquote>
+<p><strong>$</strong> spark2-submit \<br>--class com.scala.wordcount.WordCount<br>--num-executors 3 \<br>--driver-memory 1G \<br>--executor-memory 1G \<br>--executor-cores 3 \<br>/home/richard/wordcount-jar-with-dependencies.jar \<br>100</p>
+</blockquote>
+<h3 id="WordCount程序原理"><a href="#WordCount程序原理" class="headerlink" title="WordCount程序原理"></a>WordCount程序原理</h3><p><img src="/2018/05/25/BigData-Spark2/spark1.png" alt="Spark工作原理"></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">val conf = <span class="built_in">new</span> SparkConf().setAppName(<span class="string">"WordCount"</span>)</span><br><span class="line"></span><br><span class="line">val sc = <span class="built_in">new</span> SparkContext(conf)</span><br><span class="line"></span><br><span class="line">val <span class="keyword">lines</span> = sc.textFile(<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">val <span class="keyword">words</span> = <span class="keyword">lines</span>.flatMap(<span class="built_in">line</span> =&gt; <span class="built_in">line</span>.<span class="built_in">split</span>(<span class="string">" "</span>))</span><br><span class="line"></span><br><span class="line">val pairs = <span class="keyword">words</span>.map(<span class="built_in">word</span> =&gt; (<span class="built_in">word</span>,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">val wordCounts = pairs.reduceByKey(\_+\_)</span><br><span class="line"></span><br><span class="line">wordCount.foreach(wordCount =&gt; println(wordCount.<span class="title">_1</span> + <span class="string">" appears "</span>+wordCount.<span class="title">_2</span> + <span class="string">" times."</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/05/25/BigData-Spark2/spark2.png" alt="Spark工作原理"></p>
+<p>这个过程，所有的算子，都是在相同节点内进行的，这里就体现出了分布式、内存、迭代式计算，等几个spark最显著的计算模型和特点。也是Spark叫MapReduce这种计算模型速度更快的原因，MR的话，实现这个过程，必须要跨节点，走磁盘读写，没有内存式、迭代式计算的特点。<br>这就是所谓Spark的分布式、内存式、迭代式的计算模型，也是Spark之所以速度比MapReduce更快的原因。如果是MR，就必须走磁盘读写，速度必然降低。</p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+    
+
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------This article is ends <i class="fa fa-paw"></i> Thank you for reading-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/BigData-Spark1/" rel="next" title="Spark生态圈之Spark(一) ----- Spark工作原理与RDD">
+                <i class="fa fa-chevron-left"></i> Spark生态圈之Spark(一) ----- Spark工作原理与RDD
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/BigData-Spark3/" rel="prev" title="Spark生态圈之Spark(三) ----- Spark架构原理">
+                Spark生态圈之Spark(三) ----- Spark架构原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/upload/image/avatar.jpg"
+                alt="Kongluo" />
+            
+              <p class="site-author-name" itemprop="name">Kongluo</p>
+              <p class="site-description motion-element" itemprop="description">天生的面孔已经不见，真诚的心灵已经久违了！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kongluo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kongluodanxing@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java开发WordCount"><span class="nav-number">1.</span> <span class="nav-text">Java开发WordCount</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步"><span class="nav-number">1.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步"><span class="nav-number">1.2.</span> <span class="nav-text">第二步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步"><span class="nav-number">1.3.</span> <span class="nav-text">第三步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四步"><span class="nav-number">1.4.</span> <span class="nav-text">第四步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五步"><span class="nav-number">1.5.</span> <span class="nav-text">第五步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六步"><span class="nav-number">1.6.</span> <span class="nav-text">第六步</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序提交"><span class="nav-number">2.</span> <span class="nav-text">程序提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WordCount程序原理"><span class="nav-number">3.</span> <span class="nav-text">WordCount程序原理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kongluo</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://github.com/kongluo">kongluo</a> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;  v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <meta name="keywords" content="Spark," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="常用transformation介绍 table th:nth-of-type(1){ width: 20%; } table th:nth-of-type(2){ width: 80%; }      操作 介绍     map 将RDD中的每个元素传入自定义函数，获取一个新的元素，然后用新的元素组成新的RDD   filter 对RDD中每个元素进行判断，如果返回true则保留，返回false">
+<meta name="keywords" content="Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark生态圈之Spark(六) ----- 常用的Transformation">
+<meta property="og:url" content="http://yoursite.com/2018/06/05/BigData-Spark6/index.html">
+<meta property="og:site_name" content="空落单行雨">
+<meta property="og:description" content="常用transformation介绍 table th:nth-of-type(1){ width: 20%; } table th:nth-of-type(2){ width: 80%; }      操作 介绍     map 将RDD中的每个元素传入自定义函数，获取一个新的元素，然后用新的元素组成新的RDD   filter 对RDD中每个元素进行判断，如果返回true则保留，返回false">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-10T08:13:36.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark生态圈之Spark(六) ----- 常用的Transformation">
+<meta name="twitter:description" content="常用transformation介绍 table th:nth-of-type(1){ width: 20%; } table th:nth-of-type(2){ width: 80%; }      操作 介绍     map 将RDD中的每个元素传入自定义函数，获取一个新的元素，然后用新的元素组成新的RDD   filter 对RDD中每个元素进行判断，如果返回true则保留，返回false">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/05/BigData-Spark6/"/>
+
+
+
+
+
+  <title>Spark生态圈之Spark(六) ----- 常用的Transformation | 空落单行雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/kongluo"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">空落单行雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/BigData-Spark6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kongluo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/upload/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="空落单行雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spark生态圈之Spark(六) ----- 常用的Transformation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T17:28:13+08:00">
+                2018-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="常用transformation介绍"><a href="#常用transformation介绍" class="headerlink" title="常用transformation介绍"></a>常用transformation介绍</h3><style>
+table th:nth-of-type(1){
+width: 20%;
+}
+table th:nth-of-type(2){
+width: 80%;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">map</td>
+<td style="text-align:center">将RDD中的每个元素传入自定义函数，获取一个新的元素，然后用新的元素组成新的RDD</td>
+</tr>
+<tr>
+<td style="text-align:center">filter</td>
+<td style="text-align:center">对RDD中每个元素进行判断，如果返回true则保留，返回false则剔除</td>
+</tr>
+<tr>
+<td style="text-align:center">flatMap</td>
+<td style="text-align:center">与map类似，但是对每个元素都可以返回一个或多个新元素。</td>
+</tr>
+<tr>
+<td style="text-align:center">groupByKey</td>
+<td style="text-align:center">根据key进行分组，每个key对应一个Iterable<value></value></td>
+</tr>
+<tr>
+<td style="text-align:center">reduceByKey</td>
+<td style="text-align:center">对每个key对应的value进行reduce操作</td>
+</tr>
+<tr>
+<td style="text-align:center">sortByKey</td>
+<td style="text-align:center">对每个key对应的value进行排序操作</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<style>
+table th:nth-of-type(1){
+width: 20%;
+}
+table th:nth-of-type(2){
+width: 80%;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">join</td>
+<td style="text-align:center">对两个包含&lt;key,value&gt;对的RDD进行join操作，每个key join上的pair，都会传入自定义函数进行处理</td>
+</tr>
+<tr>
+<td style="text-align:center">cogroup</td>
+<td style="text-align:center">同join，但是是每个key对应的Iterable<value>都会传入自定义函数进行处理</value></td>
+</tr>
+<tr>
+<td style="text-align:center">mapPartitions</td>
+<td style="text-align:center">将函数应用于RDD的每一个分区，每一个分区运行一次，函数需要能够接受Iterator类型，然后返回Iterator。</td>
+</tr>
+<tr>
+<td style="text-align:center">sample</td>
+<td style="text-align:center">在RDD中移seed为种子返回大致上有fraction比例个数据样本RDD，withReplacement表示是否采用放回式抽样。</td>
+</tr>
+<tr>
+<td style="text-align:center">union</td>
+<td style="text-align:center">将两个RDD中的元素进行合并，返回一个新的RDD</td>
+</tr>
+<tr>
+<td style="text-align:center">intersection</td>
+<td style="text-align:center">将两个RDD做交集，返回一个新的RDD</td>
+</tr>
+<tr>
+<td style="text-align:center">distinct</td>
+<td style="text-align:center">将当前RDD进行去重后，返回一个新的RDD</td>
+</tr>
+<tr>
+<td style="text-align:center">partitionBy</td>
+<td style="text-align:center">根据设置的分区器重新将RDD进行分区，返回新的RDD。</td>
+</tr>
+<tr>
+<td style="text-align:center">combineByKey</td>
+<td style="text-align:center">根据key分别使用CreateCombiner和mergeValue进行相同key的数值聚集，通过mergeCombiners将各个分区最终的结果进行聚集。</td>
+</tr>
+<tr>
+<td style="text-align:center">aggregateByKey</td>
+<td style="text-align:center">通过seqOp函数将每一个分区里面的数据和初始值迭代带入函数返回最终值，comOp将每一个分区返回的最终值根据key进行合并操作。</td>
+</tr>
+<tr>
+<td style="text-align:center">foldByKey</td>
+<td style="text-align:center">aggregateByKey的简化操作，seqop和combop相同</td>
+</tr>
+<tr>
+<td style="text-align:center">sortBy</td>
+<td style="text-align:center">底层实现还是使用sortByKey，只不过使用fun生成的新key进行排序。</td>
+</tr>
+<tr>
+<td style="text-align:center">cartesian</td>
+<td style="text-align:center">做两个RDD的笛卡尔积，返回对偶的RDD</td>
+</tr>
+<tr>
+<td style="text-align:center">pipe</td>
+<td style="text-align:center">对于每个分区，都执行一个perl或者shell脚本，返回输出的RDD，注意，如果你是本地文件系统中，需要将脚本放置到每个节点上。</td>
+</tr>
+<tr>
+<td style="text-align:center">coalesce</td>
+<td style="text-align:center">缩减分区数，用于大数据集过滤后，提高小数据集的执行效率。</td>
+</tr>
+<tr>
+<td style="text-align:center">repartition</td>
+<td style="text-align:center">根据你传入的分区数重新通过网络分区所有数据，重型操作。</td>
+</tr>
+<tr>
+<td style="text-align:center">glom</td>
+<td style="text-align:center">将每一个分区形成一个数组，形成新的RDD类型时RDD[Array[T]]</td>
+</tr>
+<tr>
+<td style="text-align:center">mapValues</td>
+<td style="text-align:center">将函数应用于（k，v）结果中的v，返回新的RDD</td>
+</tr>
+<tr>
+<td style="text-align:center">subtract</td>
+<td style="text-align:center">计算差的一种函数去除两个RDD中相同的元素，不同的RDD将保留下来。</td>
+</tr>
+</tbody>
+</table>
+<!-- more -->
+<h3 id="map案例实战"><a href="#map案例实战" class="headerlink" title="map案例实战"></a>map案例实战</h3><p>将集合中每个元素乘以2</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">  <span class="keyword">val</span> conf  = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"map"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">  <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> numbers = <span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">  <span class="keyword">val</span> numberRDD = sc.parallelize(numbers,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> multiRDD = numberRDD.map(_*<span class="number">2</span>)</span><br><span class="line">  multiRDD.foreach(println)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="filter案例实战"><a href="#filter案例实战" class="headerlink" title="filter案例实战"></a>filter案例实战</h3><p>过滤出集合中的偶数</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">  <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"filter"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">  <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> numbers = <span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> numberRDD = sc.parallelize(numbers,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> filterRDD = numberRDD.filter(num=&gt;(num%<span class="number">2</span>==<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">  filterRDD.foreach(println)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="flatMap案例实战"><a href="#flatMap案例实战" class="headerlink" title="flatMap案例实战"></a>flatMap案例实战</h3><p>将行拆分为单词<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>(): <span class="type">Unit</span> =</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"flatMap"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> lineArray = <span class="type">Array</span>(<span class="string">"hello you"</span>,<span class="string">"hello me"</span>,<span class="string">"hello world"</span>)</span><br><span class="line">    <span class="keyword">val</span> lines = sc.parallelize(lineArray,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">val</span> words = lines.flatMap(line =&gt; line.split(<span class="string">" "</span>))</span><br><span class="line"></span><br><span class="line">    words.foreach(word =&gt; println(word))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="groupByKey案例实战"><a href="#groupByKey案例实战" class="headerlink" title="groupByKey案例实战"></a>groupByKey案例实战</h3><p>根据key进行分组，每个key对应一个Iterable<value><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(): <span class="type">Unit</span> =</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"groupByKey"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">  <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> scoreList = <span class="type">Array</span>((<span class="string">"class1"</span>,<span class="number">80</span>),(<span class="string">"class2"</span>,<span class="number">75</span>),(<span class="string">"class1"</span>,<span class="number">90</span>),(<span class="string">"class2"</span>,<span class="number">60</span>))</span><br><span class="line">  <span class="keyword">val</span> scores = sc.parallelize(scoreList)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> groupedScores = scores.groupByKey()</span><br><span class="line"></span><br><span class="line">  groupedScores.foreach(score =&gt; &#123;</span><br><span class="line">    println(score._1)</span><br><span class="line">    score._2.foreach(println)</span><br><span class="line">    println(<span class="string">"========================================="</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></value></p>
+<h3 id="reduceByKey案例实战"><a href="#reduceByKey案例实战" class="headerlink" title="reduceByKey案例实战"></a>reduceByKey案例实战</h3><p>对每个key对应的value进行reduce操作<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(): <span class="type">Unit</span> =</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"reduceByKey"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> scoreList = <span class="type">Array</span>((<span class="string">"class1"</span>,<span class="number">80</span>),(<span class="string">"class2"</span>,<span class="number">75</span>),(<span class="string">"class1"</span>,<span class="number">90</span>),(<span class="string">"class2"</span>,<span class="number">60</span>))</span><br><span class="line">    <span class="keyword">val</span> scores = sc.parallelize(scoreList)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> totalScores = scores.reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">    totalScores.foreach(classScore=&gt;println(classScore._1+<span class="string">" : "</span>+classScore._2))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="sortByKey案例实战"><a href="#sortByKey案例实战" class="headerlink" title="sortByKey案例实战"></a>sortByKey案例实战</h3><p>对每个key对应的value进行排序操作<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sortByKey</span></span>(): <span class="type">Unit</span> =</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"sortByKey"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> scoreArray = <span class="type">Array</span>((<span class="number">65</span>, <span class="string">"leo"</span>),(<span class="number">50</span>, <span class="string">"tom"</span>),(<span class="number">100</span>, <span class="string">"marry"</span>),(<span class="number">80</span>, <span class="string">"jack"</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> scores = sc.parallelize(scoreArray,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> scoresSort = scores.sortByKey()</span><br><span class="line"></span><br><span class="line">    scoresSort.foreach(score=&gt;&#123;</span><br><span class="line">      println(score._1+<span class="string">":"</span>+score._2)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="join案例实战"><a href="#join案例实战" class="headerlink" title="join案例实战"></a>join案例实战</h3><p>对两个包含&lt;key,value&gt;对的RDD进行join操作，每个key join上的pair，都会传入自定义函数进行处理</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">join</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">  <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"join"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">  <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> studentList = <span class="type">Array</span>((<span class="number">1</span>,<span class="string">"leo"</span>),(<span class="number">2</span>,<span class="string">"jack"</span>),(<span class="number">3</span>,<span class="string">"tom"</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> scoreList = <span class="type">Array</span>((<span class="number">1</span>,<span class="number">100</span>),(<span class="number">2</span>,<span class="number">90</span>),(<span class="number">3</span>,<span class="number">60</span>))</span><br><span class="line">  <span class="comment">//并行化两个RDD</span></span><br><span class="line">  <span class="keyword">val</span> students = sc.parallelize(studentList)</span><br><span class="line">  <span class="keyword">val</span> scores = sc.parallelize(scoreList)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> studentScores = students.join(scores).sortByKey()</span><br><span class="line"></span><br><span class="line">  studentScores.collect().foreach(studentScore =&gt; &#123;</span><br><span class="line">    println(<span class="string">"student id:"</span>+studentScore._1)</span><br><span class="line">    println(<span class="string">"student score:"</span> + studentScore._2)</span><br><span class="line">    println(<span class="string">"==========================="</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="cogroup案例实战"><a href="#cogroup案例实战" class="headerlink" title="cogroup案例实战"></a>cogroup案例实战</h3><p>同join，但是是每个key对应的Iterable<value>都会传入自定义函数进行处理<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cogroup</span></span>: <span class="type">Unit</span> =</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"join"</span>).setMaster(<span class="string">"local[*]"</span>)</span><br><span class="line">  <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> studentList = <span class="type">Array</span>((<span class="number">1</span>,<span class="string">"leo"</span>),(<span class="number">2</span>,<span class="string">"jack"</span>),(<span class="number">3</span>,<span class="string">"tom"</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> scoreList = <span class="type">Array</span>((<span class="number">1</span>,<span class="number">100</span>),(<span class="number">2</span>,<span class="number">90</span>),(<span class="number">3</span>,<span class="number">60</span>))</span><br><span class="line">  <span class="comment">//并行化两个RDD</span></span><br><span class="line">  <span class="keyword">val</span> students = sc.parallelize(studentList)</span><br><span class="line">  <span class="keyword">val</span> scores = sc.parallelize(scoreList)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> studentCogroups = students.cogroup(scores)</span><br><span class="line">  studentCogroups.collect().foreach(studentCogroup =&gt; &#123;</span><br><span class="line">    println(studentCogroup._1 + <span class="string">" : "</span> + studentCogroup._2)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></value></p>
+<h3 id="mapPartitions案例实战"><a href="#mapPartitions案例实战" class="headerlink" title="mapPartitions案例实战"></a>mapPartitions案例实战</h3><h3 id="sample案例实战"><a href="#sample案例实战" class="headerlink" title="sample案例实战"></a>sample案例实战</h3><h3 id="union案例实战"><a href="#union案例实战" class="headerlink" title="union案例实战"></a>union案例实战</h3><h3 id="intersection案例实战"><a href="#intersection案例实战" class="headerlink" title="intersection案例实战"></a>intersection案例实战</h3><h3 id="distinct案例实战"><a href="#distinct案例实战" class="headerlink" title="distinct案例实战"></a>distinct案例实战</h3><h3 id="partitionBy案例实战"><a href="#partitionBy案例实战" class="headerlink" title="partitionBy案例实战"></a>partitionBy案例实战</h3><h3 id="combineByKey案例实战"><a href="#combineByKey案例实战" class="headerlink" title="combineByKey案例实战"></a>combineByKey案例实战</h3><h3 id="aggregateByKey案例实战"><a href="#aggregateByKey案例实战" class="headerlink" title="aggregateByKey案例实战"></a>aggregateByKey案例实战</h3><h3 id="foldByKey案例实战"><a href="#foldByKey案例实战" class="headerlink" title="foldByKey案例实战"></a>foldByKey案例实战</h3><h3 id="sortBy案例实战"><a href="#sortBy案例实战" class="headerlink" title="sortBy案例实战"></a>sortBy案例实战</h3><h3 id="cartesian案例实战"><a href="#cartesian案例实战" class="headerlink" title="cartesian案例实战"></a>cartesian案例实战</h3><h3 id="pipe案例实战"><a href="#pipe案例实战" class="headerlink" title="pipe案例实战"></a>pipe案例实战</h3><h3 id="coalesce案例实战"><a href="#coalesce案例实战" class="headerlink" title="coalesce案例实战"></a>coalesce案例实战</h3><h3 id="repartition案例实战"><a href="#repartition案例实战" class="headerlink" title="repartition案例实战"></a>repartition案例实战</h3><h3 id="glom案例实战"><a href="#glom案例实战" class="headerlink" title="glom案例实战"></a>glom案例实战</h3><h3 id="mapValues案例实战"><a href="#mapValues案例实战" class="headerlink" title="mapValues案例实战"></a>mapValues案例实战</h3><h3 id="subtract案例实战"><a href="#subtract案例实战" class="headerlink" title="subtract案例实战"></a>subtract案例实战</h3>
+      
+    </div>
+    
+    
+    
+
+	
+	
+    
+
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------This article is ends <i class="fa fa-paw"></i> Thank you for reading-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/05/BigData-Spark5/" rel="next" title="Spark生态圈之Spark(五) ----- Transformation和Action介绍">
+                <i class="fa fa-chevron-left"></i> Spark生态圈之Spark(五) ----- Transformation和Action介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/05/BigData-Spark7/" rel="prev" title="Spark生态圈之Spark(七) ----- 常用的Action">
+                Spark生态圈之Spark(七) ----- 常用的Action <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/upload/image/avatar.jpg"
+                alt="Kongluo" />
+            
+              <p class="site-author-name" itemprop="name">Kongluo</p>
+              <p class="site-description motion-element" itemprop="description">天生的面孔已经不见，真诚的心灵已经久违了！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kongluo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kongluodanxing@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用transformation介绍"><span class="nav-number">1.</span> <span class="nav-text">常用transformation介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map案例实战"><span class="nav-number">2.</span> <span class="nav-text">map案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter案例实战"><span class="nav-number">3.</span> <span class="nav-text">filter案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flatMap案例实战"><span class="nav-number">4.</span> <span class="nav-text">flatMap案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupByKey案例实战"><span class="nav-number">5.</span> <span class="nav-text">groupByKey案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduceByKey案例实战"><span class="nav-number">6.</span> <span class="nav-text">reduceByKey案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sortByKey案例实战"><span class="nav-number">7.</span> <span class="nav-text">sortByKey案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join案例实战"><span class="nav-number">8.</span> <span class="nav-text">join案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cogroup案例实战"><span class="nav-number">9.</span> <span class="nav-text">cogroup案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapPartitions案例实战"><span class="nav-number">10.</span> <span class="nav-text">mapPartitions案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sample案例实战"><span class="nav-number">11.</span> <span class="nav-text">sample案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#union案例实战"><span class="nav-number">12.</span> <span class="nav-text">union案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intersection案例实战"><span class="nav-number">13.</span> <span class="nav-text">intersection案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distinct案例实战"><span class="nav-number">14.</span> <span class="nav-text">distinct案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partitionBy案例实战"><span class="nav-number">15.</span> <span class="nav-text">partitionBy案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#combineByKey案例实战"><span class="nav-number">16.</span> <span class="nav-text">combineByKey案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aggregateByKey案例实战"><span class="nav-number">17.</span> <span class="nav-text">aggregateByKey案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foldByKey案例实战"><span class="nav-number">18.</span> <span class="nav-text">foldByKey案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sortBy案例实战"><span class="nav-number">19.</span> <span class="nav-text">sortBy案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cartesian案例实战"><span class="nav-number">20.</span> <span class="nav-text">cartesian案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe案例实战"><span class="nav-number">21.</span> <span class="nav-text">pipe案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#coalesce案例实战"><span class="nav-number">22.</span> <span class="nav-text">coalesce案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repartition案例实战"><span class="nav-number">23.</span> <span class="nav-text">repartition案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#glom案例实战"><span class="nav-number">24.</span> <span class="nav-text">glom案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapValues案例实战"><span class="nav-number">25.</span> <span class="nav-text">mapValues案例实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subtract案例实战"><span class="nav-number">26.</span> <span class="nav-text">subtract案例实战</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kongluo</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://github.com/kongluo">kongluo</a> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;  v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

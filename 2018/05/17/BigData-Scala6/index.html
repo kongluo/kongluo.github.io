@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <meta name="keywords" content="Scala," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="模式匹配scala是没有Java中的switch case语法的，相对应的，Scala提供了更加强大的match case语法，即模式匹配，类代替switch case，match case也被称为模式匹配Scala的match case与Java的switch case最大的不同点在于，Java的switch case仅能匹配变量的值，比如1、2、3等；而Scala的match case可以匹配">
+<meta name="keywords" content="Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark生态圈之Scala(十二) ----- Scala中的函数式编程之模式匹配">
+<meta property="og:url" content="http://yoursite.com/2018/05/17/BigData-Scala6/index.html">
+<meta property="og:site_name" content="空落单行雨">
+<meta property="og:description" content="模式匹配scala是没有Java中的switch case语法的，相对应的，Scala提供了更加强大的match case语法，即模式匹配，类代替switch case，match case也被称为模式匹配Scala的match case与Java的switch case最大的不同点在于，Java的switch case仅能匹配变量的值，比如1、2、3等；而Scala的match case可以匹配">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-17T10:02:04.394Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark生态圈之Scala(十二) ----- Scala中的函数式编程之模式匹配">
+<meta name="twitter:description" content="模式匹配scala是没有Java中的switch case语法的，相对应的，Scala提供了更加强大的match case语法，即模式匹配，类代替switch case，match case也被称为模式匹配Scala的match case与Java的switch case最大的不同点在于，Java的switch case仅能匹配变量的值，比如1、2、3等；而Scala的match case可以匹配">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/17/BigData-Scala6/"/>
+
+
+
+
+
+  <title>Spark生态圈之Scala(十二) ----- Scala中的函数式编程之模式匹配 | 空落单行雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/kongluo"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">空落单行雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/17/BigData-Scala6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kongluo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/upload/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="空落单行雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spark生态圈之Scala(十二) ----- Scala中的函数式编程之模式匹配</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-17T16:29:36+08:00">
+                2018-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h3><p>scala是没有Java中的switch case语法的，相对应的，Scala提供了更加强大的match case语法，即模式匹配，类代替switch case，match case也被称为模式匹配<br>Scala的match case与Java的switch case最大的不同点在于，Java的switch case仅能匹配变量的值，比如1、2、3等；而Scala的match case可以匹配各种情况，比如变量的类型、集合的元素、有值或无值<br>match case的语法如下 : 变量match{case 值=&gt; 语法}。如果值为下划线，则代表了不满足以上所有情况下的默认情况如何处理。此外，match case中，主要一个case分支满足并处理了，就不会继续判断下一个case分支了。（与Java不同，java的switch case需要用break阻止）<br>match case语法最基本的应用，就是对变量的值进行模式匹配</p>
+<p>案例：成绩评价<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def judgeGrade(grade:String)&#123;</span><br><span class="line"> grade <span class="keyword">match</span>&#123;</span><br><span class="line">      <span class="built_in">case</span> <span class="string">"A"</span> =&gt; println(<span class="string">"Excellent"</span>)</span><br><span class="line">      <span class="built_in">case</span> <span class="string">"B"</span>=&gt; println(<span class="string">"Good"</span>)</span><br><span class="line">      <span class="built_in">case</span> <span class="string">"C"</span>=&gt; println(<span class="string">"Just so so"</span>)</span><br><span class="line">      <span class="built_in">case</span> <span class="keyword">_</span> =&gt; println(<span class="string">"you need work harder"</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="在模式匹配中使用if守卫"><a href="#在模式匹配中使用if守卫" class="headerlink" title="在模式匹配中使用if守卫"></a>在模式匹配中使用if守卫</h3><p>Scala的模式匹配语法，有一个特点在于，可以在case后的条件判断中，不仅仅只是提供一个值，而是可以在值后面再加一个if守卫，进行双重过滤</p>
+<p>案例：成绩评价（升级版）<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def judgeGrade(name:<span class="keyword">String</span>,grade:<span class="keyword">String</span>)&#123;</span><br><span class="line">  grade <span class="built_in">match</span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"A"</span>=&gt;<span class="built_in">println</span>(name+<span class="string">",you are excellent"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"B"</span>=&gt;<span class="built_in">println</span>(name+<span class="string">",you are good"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"C"</span>=&gt;<span class="built_in">println</span>(name+<span class="string">",you are just so so"</span>)</span><br><span class="line">    <span class="keyword">case</span> \_if name==<span class="string">"leo"</span> =&gt;<span class="built_in">println</span>(name+<span class="string">",you are a good boy,come on"</span>)</span><br><span class="line">    <span class="keyword">case</span> \_ =&gt;<span class="built_in">println</span>(<span class="string">"you need to work harder"</span>)  </span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="在模式匹配中进行变量赋值"><a href="#在模式匹配中进行变量赋值" class="headerlink" title="在模式匹配中进行变量赋值"></a>在模式匹配中进行变量赋值</h3><p>Scala的模式匹配语法，有一个特点在于，可以将模式匹配的默认情况，下划线，替换为一个变量名，此时模式匹配语法就会将要匹配的值赋值给这个变量，从而可以在后面的处理语句中使用要匹配的值</p>
+<p>为什么有这种语法？？思考一下。因为只要使用用case匹配到的值，是不是我们就知道这个值啦！在这个case的处理语句中，是不是就直接可以使用写程序时就已知的值！<br>但是对于下划线<em>这种情况，所有不满足前面的case的值，都会进行</em>这种默认情况进行处理，此时如果我们在处理语句中需要拿到具体的值进行处理呢？那就需要使用这种在模式匹配中进行变量赋值的语法！！</p>
+<p>案例：成绩评价（升级版）<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def juegeGrade(<span class="built_in">name</span>:String,grade:String)&#123;</span><br><span class="line">  grade match&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"A"</span> =&gt; println(<span class="built_in">name</span>+<span class="string">",you are excellent"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"B"</span>=&gt; println(<span class="built_in">name</span>+<span class="string">", you are good"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"C"</span> =&gt; println(<span class="built_in">name</span>+<span class="string">",you are just so so"</span>)</span><br><span class="line">    <span class="keyword">case</span> \<span class="variable">_grade</span> <span class="keyword">if</span> <span class="built_in">name</span> == <span class="string">"leo"</span> =&gt; println(<span class="built_in">name</span>+<span class="string">",you are a good boy,come on,your grade is"</span>+\<span class="variable">_grade</span>)</span><br><span class="line">    <span class="keyword">case</span> \<span class="variable">_grade</span> =&gt; println(<span class="string">"you need to work harder,your grade is "</span>+\<span class="variable">_grade</span>)</span><br><span class="line">  &#125;  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="对类型进行模式匹配"><a href="#对类型进行模式匹配" class="headerlink" title="对类型进行模式匹配"></a>对类型进行模式匹配</h3><p>Scala的模式匹配一个强大之处就在于，可以直接匹配类型，而不是值！！！这点是java的switch case绝对做不到的。</p>
+<p> 理论知识：对类型如何进行匹配？其他语法与匹配值其实是一样的，但是匹配类型的话，就是要用“case变量：类型=&gt;代码”这种语法，而不是匹配值的“case值=&gt; 代码”这种语法</p>
+<p>案例：异常处理<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io._</span><br><span class="line"></span><br><span class="line">def processException(e:Exception)</span><br><span class="line">&#123;</span><br><span class="line">  e match&#123;</span><br><span class="line">    <span class="keyword">case</span> e1 : <span class="function"><span class="params">lllegalArgumentException</span> =&gt;</span> println(<span class="string">"you have illegal arguments! exception is :"</span>+e1)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> e2 : <span class="function"><span class="params">FileNotFoundException</span> =&gt;</span> println(<span class="string">"cannot find the file you need read or write!, exception is :"</span>+e2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> e3 : <span class="function"><span class="params">IOException</span> =&gt;</span> println(<span class="string">"you got an error while you were doing IO operation! exception is:"</span>+e3)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> _ : <span class="function"><span class="params">Exception</span> =&gt;</span> println(<span class="string">"cannot know which exception you have!"</span>)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">processException(<span class="keyword">new</span> IllegalArgumentException(<span class="string">"except two arguments,but found one argument."</span>))</span><br><span class="line"></span><br><span class="line">processException(<span class="keyword">new</span> FileNotFoundException(<span class="string">"text.txt not found"</span>))</span><br><span class="line"></span><br><span class="line">processException(<span class="keyword">new</span> IOException(<span class="string">"get data from socket fail."</span>))</span><br><span class="line"></span><br><span class="line">processException(<span class="keyword">new</span> ArrayIndexOutOfBoundsException(<span class="string">"array is null"</span>))</span><br></pre></td></tr></table></figure></p>
+<h3 id="对Array和List进行模式匹配"><a href="#对Array和List进行模式匹配" class="headerlink" title="对Array和List进行模式匹配"></a>对Array和List进行模式匹配</h3><p>对Array进行模式匹配，分别可以匹配带有指定元素的数组、带有指定个数元素的数组、以某元素打头的数组<br>对List进行模式匹配，与Array类似，但是需要使用List特有的::操作符</p>
+<p>案例：对朋友打招呼<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">def greeting(arr:<span class="keyword">Array</span>[String])&#123;</span><br><span class="line">  arr match&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">Array</span>(<span class="string">"Leo"</span>) =&gt; println(<span class="string">"Hi,Leo!"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">Array</span>(girl1,girl2,girl3) =&gt; println(<span class="string">"Hi,girls,nice to meet you."</span>+girl1+<span class="string">"and"</span>+girl2+<span class="string">"and"</span>+girl3)</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">Array</span>(<span class="string">"Leo"</span>,\_*) =&gt; println(<span class="string">"Hi,Leo,please introduce you friends to me"</span>)</span><br><span class="line">    <span class="keyword">case</span> \_ =&gt; println(<span class="string">"hey,who are you?"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def greeting(<span class="keyword">list</span>:<span class="keyword">List</span>[String])&#123;</span><br><span class="line">  <span class="keyword">list</span> match&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"Leo"</span>::Nil =&gt; println(<span class="string">"Hi,Leo!"</span>)</span><br><span class="line">    <span class="keyword">case</span> girl1::girl2::girl3::Nil =&gt; println(<span class="string">"Hi,girls,nice to meet you."</span>+girl1+<span class="string">"and"</span>+girl2+<span class="string">"and"</span>+girl3)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"Leo"</span>::tail =&gt; println(<span class="string">"Hi,Leo,please introduce your friends to me"</span>)</span><br><span class="line">    <span class="keyword">case</span> \_=&gt; println(<span class="string">"hey,who are you?"</span>)</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="case-class与模式匹配"><a href="#case-class与模式匹配" class="headerlink" title="case class与模式匹配"></a>case class与模式匹配</h3><p>Scala中提供了一种特殊的类，用case class进行声明，中文也可以称作样例类。case class其实有点类似于Java中的JavaBean的概念。即只定义field，并且由Scala编译时自动提供getter和setter方法，但是没有method</p>
+<p>case class的主构造函数接收的参数通常不需要使用var或val修饰，Scala自动就会使用val修饰（但是如果你自己使用var修饰，那么还是会按照var来）</p>
+<p>Scala自动为case class定义了伴生对象，也就是object，并且定义了apply()方法，该方法接收主构造函数中相同的参数，并返回case class对象</p>
+<p>//案例:学校门禁<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Teacher</span>(<span class="params">name:<span class="type">String</span>,subject:<span class="type">String</span></span>) <span class="keyword">extends</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Studnet</span>(<span class="params">name:<span class="type">String</span>,classroom:<span class="type">String</span></span>) <span class="keyword">extends</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">def</span> <span class="title">judgeIdentify</span>(<span class="params">p:<span class="type">Person</span></span>)</span>&#123;</span><br><span class="line">  p <span class="keyword">match</span>&#123;</span><br><span class="line">     <span class="keyword">case</span> <span class="type">Teacher</span>(name,subject)=&gt; println(<span class="string">"Teacher,name is "</span>+name+<span class="string">",subject is "</span>+subject)</span><br><span class="line">     <span class="keyword">case</span> <span class="type">Student</span>(name,classroom)=&gt; println(<span class="string">"Student,name is "</span>+name+<span class="string">",classroom is"</span>+classroom)</span><br><span class="line">     <span class="keyword">case</span> \_=&gt; println(<span class="string">"illegal access,please go out of the school!"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> leo:<span class="type">Person</span> = <span class="type">Student</span>(<span class="string">"leo"</span>,<span class="string">"class1"</span>)</span><br><span class="line"><span class="keyword">val</span> tom:<span class="type">Person</span> =<span class="type">Teacher</span>(<span class="string">"tom"</span>,<span class="string">"Math"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span>(<span class="params">name:<span class="type">String</span></span>) <span class="keyword">extends</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">val</span> <span class="title">jack</span></span>:<span class="type">Person</span> = <span class="type">Worker</span>(<span class="string">"jack"</span>)</span><br><span class="line"></span><br><span class="line">judgeIdentify(leo)</span><br><span class="line">judgeIdentify(tom)</span><br><span class="line">judgeIdentify(jack)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Option与模式匹配"><a href="#Option与模式匹配" class="headerlink" title="Option与模式匹配"></a>Option与模式匹配</h3><p>Scala有一种特殊的类型，叫做Option。Option有两种值，一种是Some，表示有值，一种是None，表示没有值</p>
+<p>Option通常会用于模式匹配中，用于判断某个变量是有值还是没有值，这比null来的更加简洁明了<br>Option的用法必须掌握，因为Spark源码中大量地使用了Option，比如Some(a),None这种语法，因此必须看得懂Option模式匹配，才能够读懂Spark源码</p>
+<p>//案例：成绩查询<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> grades = <span class="type">Map</span>(<span class="string">"Leo"</span>-&gt;<span class="string">"A"</span>,<span class="string">"Jack"</span>-&gt;<span class="string">"B"</span>,<span class="string">"Jen"</span>-&gt;<span class="string">"C"</span>)</span><br><span class="line"></span><br><span class="line">def getGrade(name:<span class="type">String</span>)&#123;</span><br><span class="line">    <span class="keyword">val</span> grade = grades.get(name)</span><br><span class="line">    grade match&#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Some</span>(grade) =&gt; println(<span class="string">"your grade is "</span>+grade)</span><br><span class="line">      <span class="keyword">case</span> <span class="type">None</span> =&gt; println(<span class="string">"Sorry , your grade information is not in the system"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+    
+
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------This article is ends <i class="fa fa-paw"></i> Thank you for reading-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala/" rel="tag"># Scala</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/17/BigData-Scala5-2/" rel="next" title="Spark生态圈之Scala(十一) ----- Scala中的函数式编程之集合操作">
+                <i class="fa fa-chevron-left"></i> Spark生态圈之Scala(十一) ----- Scala中的函数式编程之集合操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/17/BigData-Scala7/" rel="prev" title="Spark生态圈之Scala(十三) ----- Scala中的函数式编程之类型参数">
+                Spark生态圈之Scala(十三) ----- Scala中的函数式编程之类型参数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/upload/image/avatar.jpg"
+                alt="Kongluo" />
+            
+              <p class="site-author-name" itemprop="name">Kongluo</p>
+              <p class="site-description motion-element" itemprop="description">天生的面孔已经不见，真诚的心灵已经久违了！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kongluo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kongluodanxing@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模式匹配"><span class="nav-number">1.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在模式匹配中使用if守卫"><span class="nav-number">2.</span> <span class="nav-text">在模式匹配中使用if守卫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在模式匹配中进行变量赋值"><span class="nav-number">3.</span> <span class="nav-text">在模式匹配中进行变量赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对类型进行模式匹配"><span class="nav-number">4.</span> <span class="nav-text">对类型进行模式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对Array和List进行模式匹配"><span class="nav-number">5.</span> <span class="nav-text">对Array和List进行模式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-class与模式匹配"><span class="nav-number">6.</span> <span class="nav-text">case class与模式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Option与模式匹配"><span class="nav-number">7.</span> <span class="nav-text">Option与模式匹配</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kongluo</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://github.com/kongluo">kongluo</a> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;  v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
