@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2018-12-17T07:11:34.764Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/12/14/BigData-Scala9-1/</loc>
     
     <lastmod>2018-12-14T09:45:11.199Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://yoursite.com/2018/06/05/BigData-Spark6/</loc>
     
     <lastmod>2018-09-10T08:13:36.782Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2018-07-30T07:54:51.980Z</lastmod>
     
   </url>
   
