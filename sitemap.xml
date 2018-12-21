@@ -2,16 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/about/index.html</loc>
+    <loc>http://yoursite.com/2018/12/21/BigData-Scala9-3/</loc>
     
-    <lastmod>2018-12-17T07:11:34.764Z</lastmod>
+    <lastmod>2018-12-21T03:59:34.500Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/12/21/BigData-Scala9-2/</loc>
+    
+    <lastmod>2018-12-21T03:42:47.415Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2018/12/14/BigData-Scala9-1/</loc>
     
-    <lastmod>2018-12-14T09:45:11.199Z</lastmod>
+    <lastmod>2018-12-21T03:41:57.332Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/12/21/BigData-Scala9-5/</loc>
+    
+    <lastmod>2018-12-21T03:41:46.121Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/12/21/BigData-Scala9-4/</loc>
+    
+    <lastmod>2018-12-21T03:41:38.670Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2018-12-17T07:11:34.764Z</lastmod>
     
   </url>
   

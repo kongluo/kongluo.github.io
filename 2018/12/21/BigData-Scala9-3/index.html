@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <meta name="keywords" content="Scala," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala集合操作手册(三) - Seq">
+<meta property="og:url" content="http://yoursite.com/2018/12/21/BigData-Scala9-3/index.html">
+<meta property="og:site_name" content="空落单行雨">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/21/BigData-Scala9-3/Seq.png">
+<meta property="og:updated_time" content="2018-12-21T03:59:34.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala集合操作手册(三) - Seq">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/21/BigData-Scala9-3/Seq.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/21/BigData-Scala9-3/"/>
+
+
+
+
+
+  <title>Scala集合操作手册(三) - Seq | 空落单行雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/kongluo"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">空落单行雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/BigData-Scala9-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kongluo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/upload/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="空落单行雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Scala集合操作手册(三) - Seq</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T11:27:56+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2018/12/21/BigData-Scala9-3/Seq.png" alt="Scala集合库简介"><br><a id="more"></a></p>
+<h1 id="Seq"><a href="#Seq" class="headerlink" title="Seq"></a>Seq</h1><hr>
+<p>Seq特质代表按照一定顺序排序的元素序列。序列是一种特别的可迭代集合，它包含可重复的元素，并且元素的顺序关系是确定的，每个元素对应一个索引值。你可以说第一个元素、第二个元素、第n个元素等，这样，除了首尾两个元素外，每个元素不是在其他元素之前，就是在其他元素之后。</p>
+<h4 id="indices-返回序列的索引值集合"><a href="#indices-返回序列的索引值集合" class="headerlink" title="indices 返回序列的索引值集合"></a>indices 返回序列的索引值集合</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)      </span><br><span class="line">println(t.indices)</span><br></pre></td></tr></table></figure>
+<h4 id="size、length、lengthCompare-序列的长度"><a href="#size、length、lengthCompare-序列的长度" class="headerlink" title="size、length、lengthCompare  序列的长度"></a>size、length、lengthCompare  序列的长度</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t2 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t2.size)</span><br><span class="line">println(t2.length)</span><br><span class="line"></span><br><span class="line">println(t2.lengthCompare(<span class="number">-10</span>))</span><br><span class="line">println(t2.lengthCompare(<span class="number">5</span>))</span><br><span class="line">println(t2.lengthCompare(<span class="number">3</span>))</span><br><span class="line">println(t2.lengthCompare(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="apply-得到指定索引的元素值"><a href="#apply-得到指定索引的元素值" class="headerlink" title="apply 得到指定索引的元素值"></a>apply 得到指定索引的元素值</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t3 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t3(<span class="number">2</span>))</span><br><span class="line">println(t3.apply(<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="indexOf-lastIndexOf"><a href="#indexOf-lastIndexOf" class="headerlink" title="indexOf lastIndexOf"></a>indexOf lastIndexOf</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t4 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*) ++ <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t4.indexOf(<span class="number">3</span>))</span><br><span class="line">println(t4.indexOf(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">println(t4.lastIndexOf(<span class="number">3</span>))</span><br><span class="line">println(t4.lastIndexOf(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">println(t4.lastIndexOf(<span class="number">4</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="indexWhere-lastIndexWhere-寻找满足条件的元素索引"><a href="#indexWhere-lastIndexWhere-寻找满足条件的元素索引" class="headerlink" title="indexWhere  lastIndexWhere  寻找满足条件的元素索引"></a>indexWhere  lastIndexWhere  寻找满足条件的元素索引</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t5 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">10</span>:_*)</span><br><span class="line">println(t5.indexWhere(x=&gt;(x%<span class="number">2</span>==<span class="number">0</span>) &amp;&amp; x&lt;<span class="number">5</span>))</span><br><span class="line">println(t5.indexWhere(x=&gt;(x%<span class="number">2</span>==<span class="number">0</span>) &amp;&amp; x&lt;<span class="number">5</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="indexOfSlice-lastIndexOfSlice-寻找指定的子序列"><a href="#indexOfSlice-lastIndexOfSlice-寻找指定的子序列" class="headerlink" title="indexOfSlice  lastIndexOfSlice  寻找指定的子序列"></a>indexOfSlice  lastIndexOfSlice  寻找指定的子序列</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t6 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">10</span>:_*)</span><br><span class="line">println(t6.indexOfSlice(<span class="type">Seq</span>(<span class="number">7</span>,<span class="number">8</span>)))</span><br><span class="line">println(t6.indexOfSlice(<span class="type">Seq</span>(<span class="number">7</span>,<span class="number">8</span>),<span class="number">7</span>))</span><br><span class="line">println(t6.indexOfSlice(<span class="type">Seq</span>(<span class="number">7</span>,<span class="number">9</span>)))</span><br><span class="line"></span><br><span class="line">println(t6.lastIndexOfSlice(<span class="type">Seq</span>(<span class="number">7</span>,<span class="number">8</span>)))</span><br><span class="line">println(t6.lastIndexOfSlice(<span class="type">Seq</span>(<span class="number">7</span>,<span class="number">8</span>),<span class="number">7</span>))</span><br></pre></td></tr></table></figure>
+<font color="red">indexOfSlice和lastIndexOfSlice搜索的不是单个元素，而是一个集合。如果序列中包含这个集合，则返回子序列中的第一个元素的索引。</font>
+
+<h4 id="padTo"><a href="#padTo" class="headerlink" title="+:   +:    padTo"></a>+:   +:    padTo</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">padTo</span></span>(len:<span class="type">Int</span>,elem:<span class="type">A</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> t8 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t8:+<span class="number">3</span>)</span><br><span class="line">println(<span class="number">3</span>+:t8)</span><br><span class="line">println(t8.padTo(<span class="number">8</span>,<span class="number">6</span>))</span><br></pre></td></tr></table></figure>
+<p>+:  将元素放到序列的头部<br>:+  将元素放到序列的尾部<br>padTp  Seq[A]基于当前序列可以生成长度为len的序列，如果原有的序列长度小于len，除了复制前N个元素到新元素的头部外，还要用elem填满这个新序列。如果原有序列的长度已经超过了len，则将原序列中所有的元素复制前len个到新的序列中</p>
+<h4 id="immutable-Seq-updated-mutable-Seq-update-更新指定位置的索引"><a href="#immutable-Seq-updated-mutable-Seq-update-更新指定位置的索引" class="headerlink" title="immutable.Seq.updated  mutable.Seq.update 更新指定位置的索引"></a>immutable.Seq.updated  mutable.Seq.update 更新指定位置的索引</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">importscala.collection.mutable</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> t = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t.updated(<span class="number">1</span>,<span class="number">8</span>))</span><br><span class="line"></span><br><span class="line">valt2=mutable.<span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">t2(<span class="number">1</span>)=<span class="number">100</span></span><br><span class="line">println(t2)</span><br><span class="line">t2.update(<span class="number">2</span>,<span class="number">100</span>)</span><br><span class="line">println(t2)</span><br></pre></td></tr></table></figure>
+<p>updated生成的是一个新的序列。对于可变序列，可以使用update方法以及它的简便写法，它实现了原地更改，而不是创建一个新的序列</p>
+<h4 id="sorted、sortWith、sortBy"><a href="#sorted、sortWith、sortBy" class="headerlink" title="sorted、sortWith、sortBy"></a>sorted、sortWith、sortBy</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> util.<span class="type">Random</span>.nextInt</span><br><span class="line"><span class="keyword">val</span> t3=<span class="type">Seq</span>.fill(<span class="number">5</span>)(nextInt(<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">println(t3.sorted)</span><br><span class="line">println(t3.sortBy(x=&gt;(x.toString.length,x)))</span><br><span class="line">println(t3.sortWith(_-_&lt;<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<p>sorted：使用一个隐式的math.Ordering进行排序。它保证是稳定排序的，相等的元素排序后的顺序不变。首先它将元素复制到一个数组中，然后调用java.util.Arrays.sort进行排序，最后将数组复制到新的集合中<br>sortBy：这个方法可以将集合中的元素转换成一个可排序的对象，sortBy将根据这个对象进行排序<br>sortWith：需要一个能够比较两个元素的函数，Scala根据这个函数进行排序</p>
+<h4 id="reverse、reverseIterator、reverseMap"><a href="#reverse、reverseIterator、reverseMap" class="headerlink" title="reverse、reverseIterator、reverseMap"></a>reverse、reverseIterator、reverseMap</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t4=<span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t4.reverse)</span><br><span class="line">println(t4.reverseIterator.next())</span><br><span class="line">println(t4.reverseMap(_+<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<p>reverse：是将一个集合进行反转<br>reverseIterator：返回一个反转的迭代器，默认实现的是先反转序列，再得到序列的迭代器<br>reverseMap：它除了反转的功能外，还包含映射的功能，但是它比seq.reverse.map方式个更加有效，因为它是在一次遍历中实现反转和映射这两个功能的</p>
+<h4 id="startWith、endWith"><a href="#startWith、endWith" class="headerlink" title="startWith、endWith"></a>startWith、endWith</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t5 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t5.startsWith(<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>)))</span><br><span class="line">println(t5.startsWith(<span class="type">Seq</span>(<span class="number">4</span>,<span class="number">5</span>)))</span><br><span class="line">println(t5.endsWith(<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>)))</span><br><span class="line">println(t5.endsWith(<span class="type">Seq</span>(<span class="number">4</span>,<span class="number">5</span>)))</span><br></pre></td></tr></table></figure>
+<font color="green"><br>startWith：前缀检查方法<br>endWith：后缀检查方法<br></font>
+
+<h4 id="contains、containsSlice"><a href="#contains、containsSlice" class="headerlink" title="contains、containsSlice"></a>contains、containsSlice</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t6 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line">println(t6.contains(<span class="number">3</span>))</span><br><span class="line">println(t6.containsSlice(<span class="type">Seq</span>(<span class="number">3</span>,<span class="number">4</span>)))</span><br></pre></td></tr></table></figure>
+<p>contains：检查序列是否包含某个元素<br>containsSlice：检查序列是否包含某个子序列</p>
+<h4 id="corresponds"><a href="#corresponds" class="headerlink" title="corresponds"></a>corresponds</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t1 = <span class="type">Seq</span>('<span class="type">A</span>','<span class="type">B</span>','<span class="type">C</span>','<span class="type">D</span>','<span class="type">E</span>')</span><br><span class="line"><span class="keyword">val</span> t2 = t1.map(_.toInt)</span><br><span class="line">println(t1)</span><br><span class="line">println(t2)</span><br><span class="line">println(t1.corresponds(t2)(_==_.toChar)) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h4 id="interset、diff、union-交集、并集、差集"><a href="#interset、diff、union-交集、并集、差集" class="headerlink" title="interset、diff、union (交集、并集、差集)"></a>interset、diff、union (交集、并集、差集)</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t1 = <span class="type">Seq</span>(<span class="number">1</span> to <span class="number">5</span>:_*)</span><br><span class="line"><span class="keyword">val</span> t2 = <span class="type">Seq</span>(<span class="number">3</span> to <span class="number">7</span>:_*)</span><br><span class="line">println(t1.intersect(t2))</span><br><span class="line">println(t1.diff(t2))</span><br><span class="line">println(t1.union(t2))</span><br></pre></td></tr></table></figure>
+<h4 id="distinct-去重"><a href="#distinct-去重" class="headerlink" title="distinct 去重"></a>distinct 去重</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t3 = <span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">println(t3.distinct)</span><br></pre></td></tr></table></figure>
+<h4 id="permutations-得到元素的各种排列"><a href="#permutations-得到元素的各种排列" class="headerlink" title="permutations 得到元素的各种排列"></a>permutations 得到元素的各种排列</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t4 = <span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">valp=t4.permutations</span><br><span class="line">p.foreach(println)</span><br></pre></td></tr></table></figure>
+<h4 id="combinations-得到序列的指定长度的元素的组合"><a href="#combinations-得到序列的指定长度的元素的组合" class="headerlink" title="combinations 得到序列的指定长度的元素的组合"></a>combinations 得到序列的指定长度的元素的组合</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> s = <span class="type">Seq</span>(<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">val</span> c=s.combinations(<span class="number">3</span>)</span><br><span class="line">c.foreach(println)</span><br></pre></td></tr></table></figure>
+<h4 id="mutable-Seq-transform"><a href="#mutable-Seq-transform" class="headerlink" title="mutable.Seq.transform"></a>mutable.Seq.transform</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> s1=mutable.<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> p1=s1.transform(_*<span class="number">10</span>)</span><br><span class="line">println(p1)</span><br><span class="line">println(p1eqs1)</span><br><span class="line">valm=s1.map(_*<span class="number">10</span>)</span><br><span class="line">println(m)</span><br><span class="line">println(meqs1)</span><br></pre></td></tr></table></figure>
+<p>transform和map的区别：</p>
+<ul>
+<li>transform是原地转换，所返回的还是原来的序列，而map则返回新的序列</li>
+<li>transform后的元素类型必须和原来的类型相同，而map则可能生成不同类型的序列</li>
+</ul>
+<h4 id="Range、NumericRange"><a href="#Range、NumericRange" class="headerlink" title="Range、NumericRange"></a>Range、NumericRange</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> r1 = <span class="type">Range</span>(<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> r2 = <span class="type">Range</span>.apply(<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> r3 = <span class="keyword">new</span> <span class="type">Range</span>(<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> r4 = <span class="number">1</span> to <span class="number">10</span></span><br><span class="line"><span class="keyword">val</span> r5 = <span class="number">1</span> to (<span class="number">10</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> r6 = <span class="number">1</span> to <span class="number">10</span> by <span class="number">2</span></span><br><span class="line"><span class="keyword">val</span> r7 = <span class="number">1</span> until <span class="number">11</span></span><br><span class="line"><span class="keyword">val</span> r8 = <span class="number">1</span> until (<span class="number">11</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> r9 = <span class="number">1</span> until <span class="number">11</span> by <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//返回</span></span><br><span class="line">r1: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">r2: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">r3: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">r4: scala.collection.immutable.<span class="type">Range</span>.<span class="type">Inclusive</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>)</span><br><span class="line">r5: scala.collection.immutable.<span class="type">Range</span>.<span class="type">Inclusive</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">r6: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">r7: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>)</span><br><span class="line">r8: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">r9: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>to:闭区间    start&lt;= v &lt;= end</li>
+<li>until:左闭右开区间</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+    
+
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------This article is ends <i class="fa fa-paw"></i> Thank you for reading-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala/" rel="tag"># Scala</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/21/BigData-Scala9-2/" rel="next" title="Scala集合操作手册(二) - Iterable">
+                <i class="fa fa-chevron-left"></i> Scala集合操作手册(二) - Iterable
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/21/BigData-Scala9-4/" rel="prev" title="Scala集合操作手册(四) - Set">
+                Scala集合操作手册(四) - Set <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/upload/image/avatar.jpg"
+                alt="Kongluo" />
+            
+              <p class="site-author-name" itemprop="name">Kongluo</p>
+              <p class="site-description motion-element" itemprop="description">天生的面孔已经不见，真诚的心灵已经久违了！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kongluo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kongluodanxing@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Seq"><span class="nav-number">1.</span> <span class="nav-text">Seq</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#indices-返回序列的索引值集合"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">indices 返回序列的索引值集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#size、length、lengthCompare-序列的长度"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">size、length、lengthCompare  序列的长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#apply-得到指定索引的元素值"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">apply 得到指定索引的元素值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf-lastIndexOf"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">indexOf lastIndexOf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexWhere-lastIndexWhere-寻找满足条件的元素索引"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">indexWhere  lastIndexWhere  寻找满足条件的元素索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOfSlice-lastIndexOfSlice-寻找指定的子序列"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">indexOfSlice  lastIndexOfSlice  寻找指定的子序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#padTo"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">+:   +:    padTo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#immutable-Seq-updated-mutable-Seq-update-更新指定位置的索引"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">immutable.Seq.updated  mutable.Seq.update 更新指定位置的索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sorted、sortWith、sortBy"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">sorted、sortWith、sortBy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse、reverseIterator、reverseMap"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">reverse、reverseIterator、reverseMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#startWith、endWith"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">startWith、endWith</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#contains、containsSlice"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">contains、containsSlice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#corresponds"><span class="nav-number">1.0.0.13.</span> <span class="nav-text">corresponds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#interset、diff、union-交集、并集、差集"><span class="nav-number">1.0.0.14.</span> <span class="nav-text">interset、diff、union (交集、并集、差集)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#distinct-去重"><span class="nav-number">1.0.0.15.</span> <span class="nav-text">distinct 去重</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#permutations-得到元素的各种排列"><span class="nav-number">1.0.0.16.</span> <span class="nav-text">permutations 得到元素的各种排列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#combinations-得到序列的指定长度的元素的组合"><span class="nav-number">1.0.0.17.</span> <span class="nav-text">combinations 得到序列的指定长度的元素的组合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mutable-Seq-transform"><span class="nav-number">1.0.0.18.</span> <span class="nav-text">mutable.Seq.transform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Range、NumericRange"><span class="nav-number">1.0.0.19.</span> <span class="nav-text">Range、NumericRange</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kongluo</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://github.com/kongluo">kongluo</a> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;  v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
